@@ -3,6 +3,8 @@ import { SxProps } from "@mui/joy/styles/types";
 import { FC, ReactNode } from "react";
 
 interface Props {
+  children?: ReactNode;
+  sx?: SxProps;
   x?: boolean;
   y?: boolean;
   xs?: boolean;
@@ -19,17 +21,16 @@ interface Props {
   gap1?: boolean;
   gap2?: boolean;
   gap3?: boolean;
-  sx?: SxProps;
   wrap?: boolean;
   grow?: boolean;
   loading?: boolean;
   fullwidth?: boolean;
   pointer?: boolean;
-  children?: ReactNode;
 }
 
 export const Flex: FC<Props> = ({
   children,
+  sx,
   x,
   y,
   xs,
@@ -44,7 +45,6 @@ export const Flex: FC<Props> = ({
   gap1,
   gap2,
   gap3,
-  sx,
   xsa,
   ysa,
   fullwidth,

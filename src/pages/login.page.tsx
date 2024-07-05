@@ -1,33 +1,26 @@
-import { Button, Input, Link, Typography } from "@mui/joy";
-import { Link as ReactLink } from "react-router-dom";
+import { FormEvent, useState } from "react";
 import { PageContainer } from "../components/layout/containers";
-import { Flex } from "../components/layout/flex";
+import { FormAuth } from "../components/layout/form-auth";
 
 export const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    console.log({ email, password });
+  };
+
+  const form = {
+    email,
+    password,
+    setEmail,
+    setPassword
+  };
+
   return (
     <PageContainer>
-      <Flex y gap2 sx={{ width: { xs: "90%", sm: 400 } }}>
-        <Typography level="h4">Welcome back</Typography>
-        <Flex y gap2>
-          <Input placeholder="Email" />
-          <Input placeholder="Password" />
-        </Flex>
-        <Button disabled>Log In</Button>
-        <Flex y>
-          <Typography>
-            Don't have an account?{" "}
-            <Link component={ReactLink} to="/signup">
-              Sign up here
-            </Link>
-          </Typography>
-          <Typography>
-            Go back to{" "}
-            <Link component={ReactLink} to="/">
-              Home
-            </Link>
-          </Typography>
-        </Flex>
-      </Flex>
+      <FormAuth login form={form} handleSubmit={handleSubmit} />
     </PageContainer>
   );
 };
