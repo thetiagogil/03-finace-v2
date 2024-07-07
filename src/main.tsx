@@ -3,6 +3,7 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { AuthContextProvider } from "./contexts/auth.context.js";
 import "./main.css";
 import { App } from "./router/app.jsx";
 import { theme } from "./theme.js";
@@ -12,7 +13,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <CssVarsProvider theme={theme} defaultMode="light">
       <CssBaseline />
       <BrowserRouter>
-        <App />
+        <AuthContextProvider>
+          <App />
+        </AuthContextProvider>
       </BrowserRouter>
     </CssVarsProvider>
   </React.StrictMode>

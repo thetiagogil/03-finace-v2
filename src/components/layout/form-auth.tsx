@@ -5,13 +5,13 @@ import { Link as ReactLink } from "react-router-dom";
 import { Flex } from "./flex";
 
 interface Form {
-  firstName?: string;
-  lastName?: string;
+  firstname?: string;
+  lastname?: string;
   email: string;
   password: string;
   passwordConfirmation?: string;
-  setFirstName?: (value: string) => void;
-  setLastName?: (value: string) => void;
+  setFirstname?: (value: string) => void;
+  setLastname?: (value: string) => void;
   setEmail: (value: string) => void;
   setPassword: (value: string) => void;
   setPasswordConfirmation?: (value: string) => void;
@@ -26,13 +26,13 @@ interface Props {
 
 export const FormAuth: FC<Props> = ({ signup, login, form, handleSubmit }) => {
   const {
-    firstName,
-    lastName,
+    firstname,
+    lastname,
     email,
     password,
     passwordConfirmation,
-    setFirstName,
-    setLastName,
+    setFirstname,
+    setLastname,
     setEmail,
     setPassword,
     setPasswordConfirmation
@@ -42,13 +42,12 @@ export const FormAuth: FC<Props> = ({ signup, login, form, handleSubmit }) => {
 
   useEffect(() => {
     const isValid =
-      (signup ? firstName && lastName && passwordConfirmation : true) &&
+      (signup ? firstname && lastname && passwordConfirmation && password === passwordConfirmation : true) &&
       email &&
-      password &&
-      password === passwordConfirmation;
+      password;
 
     setIsFormValid(!!isValid);
-  }, [signup, firstName, lastName, email, password, passwordConfirmation]);
+  }, [signup, firstname, lastname, email, password, passwordConfirmation]);
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ width: { xs: "90%", sm: 400 } }}>
@@ -66,14 +65,14 @@ export const FormAuth: FC<Props> = ({ signup, login, form, handleSubmit }) => {
             <Input
               placeholder="First Name"
               sx={{ width: "100%" }}
-              value={firstName}
-              onChange={e => setFirstName?.(e.target.value)}
+              value={firstname}
+              onChange={e => setFirstname?.(e.target.value)}
             />
             <Input
               placeholder="Last Name"
               sx={{ width: "100%" }}
-              value={lastName}
-              onChange={e => setLastName?.(e.target.value)}
+              value={lastname}
+              onChange={e => setLastname?.(e.target.value)}
             />
           </Flex>
         )}
