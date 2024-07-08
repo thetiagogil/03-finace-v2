@@ -5,7 +5,6 @@ import { DataService } from "../services/data-service";
 
 type AuthContextProps = {
   isAuthenticated: boolean;
-  isAdmin: boolean;
   userId: string | null;
   token: string | null;
   handleSignup: (payload: SignupPayloadProps) => Promise<void>;
@@ -41,7 +40,6 @@ export const AuthContext = createContext({} as AuthContextProps);
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
@@ -52,6 +50,18 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       userData(storedToken, decodedStoreToken);
     }
   }, []);
+
+  const userData: UserDataProps = (token, decodedToken) => {
+    if (token) {
+      setToken(token);
+    }
+    if (decodedToken.aud === "authenticated") {
+      setIsAuthenticated(true);
+    }
+    if (decodedToken.sub) {
+      setUserId(decodedToken.sub);
+    }
+  };
 
   const handleSignup = async (payload: SignupPayloadProps) => {
     try {
@@ -91,42 +101,13 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     setUserId(null);
     setToken(null);
     setIsAuthenticated(false);
-    setIsAdmin(false);
     window.localStorage.removeItem("authToken");
-  };
-
-  const fetchUserData = async (userId: string) => {
-    try {
-      const responseUserPublic = await DataService.getData(`/api/users/${userId}`);
-      if (responseUserPublic) {
-        const userRole = responseUserPublic.user.role;
-        if (userRole === "admin") {
-          setIsAdmin(true);
-        }
-      }
-    } catch (error: any) {
-      console.error("Error fetching user data:", error.message);
-    }
-  };
-
-  const userData: UserDataProps = (token, decodedToken) => {
-    if (token) {
-      setToken(token);
-    }
-    if (decodedToken.aud === "authenticated") {
-      setIsAuthenticated(true);
-    }
-    if (decodedToken.sub) {
-      setUserId(decodedToken.sub);
-      fetchUserData(decodedToken.sub);
-    }
   };
 
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated,
-        isAdmin,
         userId,
         token,
         handleSignup,
