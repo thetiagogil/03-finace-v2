@@ -1,39 +1,41 @@
 import { SxProps } from "@mui/joy/styles/types";
 import { FC, ReactNode } from "react";
 import { MAIN_WIDTH } from "../../utils/constants";
+import { Navbar } from "../navigation/navbar";
+import { SidebarDesktop } from "../navigation/sidebar-desktop";
 import { Flex } from "./flex";
 
-interface PageContainerProps {
+interface Props {
   children?: ReactNode;
   sx?: SxProps;
-  auth?: boolean;
 }
 
-interface MainContainerProps {
-  children?: ReactNode;
-  sx?: SxProps;
-  auth?: boolean;
-}
-
-export const PageContainer: FC<PageContainerProps> = ({ children, sx, auth }) => {
-  const styles = {
-    mt: auth ? 2 : 4,
-    mb: auth ? 0 : 4,
-    ...sx
-  };
-
+export const HomePageContainer: FC<Props> = ({ children }) => {
   return (
-    <Flex y={auth ? false : true} x={auth ? true : false} xc sx={styles}>
+    <Flex y xc yc sx={{ height: "80vh" }}>
       {children}
     </Flex>
   );
 };
 
-export const MainContainer: FC<MainContainerProps> = ({ children, sx, auth }) => {
-  const styles = {
-    bgcolor: "neutral.100",
-    width: MAIN_WIDTH,
-    ...sx
-  };
-  return <Flex sx={styles}>{children}</Flex>;
+export const FormPageContainer: FC<Props> = ({ children }) => {
+  return (
+    <Flex y xc sx={{ mt: 4 }}>
+      {children}
+    </Flex>
+  );
+};
+
+export const AuthPageContainer: FC<Props> = ({ children }) => {
+  return (
+    <Flex x xc sx={{ p: 2 }}>
+      <SidebarDesktop />
+      <Flex y sx={{ width: { xs: "100%", lg: MAIN_WIDTH } }}>
+        <Navbar />
+        <Flex y sx={{ bgcolor: "neutral.100", p: { xs: 0, lg: 2 } }}>
+          {children}
+        </Flex>
+      </Flex>
+    </Flex>
+  );
 };

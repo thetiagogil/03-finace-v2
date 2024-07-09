@@ -1,5 +1,5 @@
 import { FormEvent, useContext, useState } from "react";
-import { PageContainer } from "../components/layout/containers";
+import { FormPageContainer } from "../components/layout/containers.js";
 import { FormAuth } from "../components/layout/form-auth";
 import { AuthContext } from "../contexts/auth.context.js";
 
@@ -35,8 +35,8 @@ export const SignupPage = () => {
   };
 
   return (
-    <PageContainer>
+    <FormPageContainer>
       <FormAuth signup form={form} handleSubmit={handleSubmit} />
-    </PageContainer>
+    </FormPageContainer>
   );
 };

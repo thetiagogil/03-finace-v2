@@ -1,12 +1,12 @@
 import { Button, Typography } from "@mui/joy";
 import { Link } from "react-router-dom";
-import { PageContainer } from "../components/layout/containers";
+import { HomePageContainer } from "../components/layout/containers";
 import { Flex } from "../components/layout/flex";
 
 export const HomePage = () => {
   const buttonStyle = { width: { xs: "90%", lg: 400 } };
   return (
-    <PageContainer>
+    <HomePageContainer>
       <Flex y xc gap={6} fullwidth>
         <Flex y xc>
           <Typography level="h2">FIN/ACE</Typography>
@@ -21,6 +21,6 @@ export const HomePage = () => {
           </Button>
         </Flex>
       </Flex>
-    </PageContainer>
+    </HomePageContainer>
   );
 };

@@ -1,5 +1,5 @@
 import { FormEvent, useContext, useState } from "react";
-import { PageContainer } from "../components/layout/containers";
+import { FormPageContainer } from "../components/layout/containers";
 import { FormAuth } from "../components/layout/form-auth";
 import { AuthContext } from "../contexts/auth.context";
 
@@ -26,8 +26,8 @@ export const LoginPage = () => {
   };
 
   return (
-    <PageContainer>
+    <FormPageContainer>
       <FormAuth login form={form} handleSubmit={handleSubmit} />
-    </PageContainer>
+    </FormPageContainer>
   );
 };
