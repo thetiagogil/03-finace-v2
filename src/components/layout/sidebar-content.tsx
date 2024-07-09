@@ -1,10 +1,15 @@
 import { Link, List, ListItem } from "@mui/joy";
+import { FC } from "react";
 import { IoIosGitCompare, IoMdGitCompare } from "react-icons/io";
 import { MdOutlineSpaceDashboard, MdSpaceDashboard } from "react-icons/md";
 import { PiSquaresFour, PiSquaresFourFill } from "react-icons/pi";
 import { Link as ReactLink, useLocation } from "react-router-dom";
 
-export const SidebarContent = () => {
+interface Props {
+  textColor?: string;
+}
+
+export const SidebarContent: FC<Props> = ({ textColor }) => {
   const { pathname } = useLocation();
   const iconSize = 25;
   const content = {
@@ -42,7 +47,7 @@ export const SidebarContent = () => {
               component={ReactLink}
               to={item.path}
               startDecorator={selected ? item.iconSelected : item.icon}
-              sx={{ color: "neutral.100" }}
+              sx={{ color: textColor }}
             >
               {item.title}
             </Link>
