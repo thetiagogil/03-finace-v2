@@ -32,7 +32,7 @@ export const AuthPageContainer: FC<Props> = ({ children }) => {
       <SidebarDesktop />
       <Flex y sx={{ width: { xs: "100%", lg: MAIN_WIDTH } }}>
         <Navbar />
-        <Flex y sx={{ bgcolor: "neutral.100", p: { xs: 0, lg: 2 } }}>
+        <Flex y sx={{ bgcolor: "neutral.100", p: { xs: 0, lg: 2 }, height: "100%" }}>
           {children}
         </Flex>
       </Flex>
