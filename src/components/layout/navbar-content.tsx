@@ -18,6 +18,10 @@ export const NavbarContent = () => {
     Transactions: {
       title: "Transactions",
       path: "/transactions"
+    },
+    Profile: {
+      title: "Profile",
+      path: "/profile"
     }
   };
 

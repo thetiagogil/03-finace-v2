@@ -1,7 +1,10 @@
-import { Dropdown, Menu, MenuButton, MenuItem } from "@mui/joy";
-import { useCallback, useState } from "react";
+import { Dropdown, Menu, MenuButton, MenuItem, Typography } from "@mui/joy";
+import { useCallback, useContext, useState } from "react";
+import { FaSignOutAlt } from "react-icons/fa";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { IoPersonCircle } from "react-icons/io5";
+import { IoPersonCircle, IoPersonSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/auth.context";
 import { Flex } from "./flex";
 
 interface CallbackProps {
@@ -9,6 +12,7 @@ interface CallbackProps {
 }
 
 export const NavbarDropdown = () => {
+  const { handleLogout } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
 
   const handleOpenChange = useCallback(({ isOpen }: CallbackProps) => {
@@ -24,8 +28,14 @@ export const NavbarDropdown = () => {
         </Flex>
       </MenuButton>
       <Menu placement="bottom-end">
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>Sign Out</MenuItem>
+        <MenuItem component={Link} to="/profile">
+          <Typography startDecorator={<IoPersonSharp />}>Profile</Typography>
+        </MenuItem>
+        <MenuItem onClick={handleLogout}>
+          <Typography color="danger" startDecorator={<FaSignOutAlt />}>
+            Log Out
+          </Typography>
+        </MenuItem>
       </Menu>
     </Dropdown>
   );
