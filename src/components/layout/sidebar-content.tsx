@@ -1,15 +1,14 @@
 import { Link, List, ListItem } from "@mui/joy";
-import { FC } from "react";
 import { Link as ReactLink, useLocation } from "react-router-dom";
-import Favicon from "../../../public/favicon.png";
 import { linksArray } from "../arrays/links-array";
 import { Flex } from "./flex";
+import Favicon from "/favicon.png";
 
-interface Props {
+type Props = {
   textColor?: string;
-}
+};
 
-export const SidebarContent: FC<Props> = ({ textColor }) => {
+export const SidebarContent = ({ textColor }: Props) => {
   const { pathname } = useLocation();
 
   return (

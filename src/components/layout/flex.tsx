@@ -1,8 +1,8 @@
 import { Box, Skeleton } from "@mui/joy";
 import { SxProps } from "@mui/joy/styles/types";
-import { FC, ReactNode } from "react";
+import { ReactNode } from "react";
 
-interface Props {
+type Props = {
   children?: ReactNode;
   sx?: SxProps;
   x?: boolean;
@@ -25,10 +25,11 @@ interface Props {
   grow?: boolean;
   loading?: boolean;
   fullwidth?: boolean;
+  fullheight?: boolean;
   pointer?: boolean;
-}
+};
 
-export const Flex: FC<Props> = ({
+export const Flex = ({
   children,
   sx,
   x,
@@ -48,11 +49,12 @@ export const Flex: FC<Props> = ({
   xsa,
   ysa,
   fullwidth,
+  fullheight,
   wrap,
   grow,
   loading,
   pointer
-}) => {
+}: Props) => {
   const style: SxProps = { display: "flex" };
 
   if (x) style.flexDirection = "row";
@@ -91,6 +93,10 @@ export const Flex: FC<Props> = ({
 
   if (fullwidth) {
     style.width = "100%";
+  }
+
+  if (fullheight) {
+    style.height = "100%";
   }
 
   if (wrap) {

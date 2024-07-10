@@ -1,10 +1,10 @@
-import { Typography } from "@mui/joy";
+import { Tabs } from "@mui/joy";
 import { AuthPageContainer } from "../components/layout/containers";
 
 export const TransactionsPage = () => {
   return (
     <AuthPageContainer>
-      <Typography>Transactions Page</Typography>
+      <Tabs></Tabs>
     </AuthPageContainer>
   );
 };

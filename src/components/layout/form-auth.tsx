@@ -1,10 +1,10 @@
 import { Box, Button, IconButton, Input, Link, Typography } from "@mui/joy";
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { Link as ReactLink } from "react-router-dom";
 import { Flex } from "./flex";
 
-interface Form {
+type Form = {
   firstname?: string;
   lastname?: string;
   email: string;
@@ -15,16 +15,16 @@ interface Form {
   setEmail: (value: string) => void;
   setPassword: (value: string) => void;
   setPasswordConfirmation?: (value: string) => void;
-}
+};
 
-interface Props {
+type FormAuthProps = {
   signup?: boolean;
   login?: boolean;
   form: Form;
   handleSubmit: (e: React.FormEvent) => void;
-}
+};
 
-export const FormAuth: FC<Props> = ({ signup, login, form, handleSubmit }) => {
+export const FormAuth = ({ signup, login, form, handleSubmit }: FormAuthProps) => {
   const {
     firstname,
     lastname,

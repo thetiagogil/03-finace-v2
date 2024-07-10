@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/auth.context";
 import { Flex } from "./flex";
 
-interface CallbackProps {
+type CallbackProps = {
   isOpen: boolean | ((prevState: boolean) => boolean);
-}
+};
 
 export const NavbarDropdown = () => {
   const { handleLogout } = useContext(AuthContext);
