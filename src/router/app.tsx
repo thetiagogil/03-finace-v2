@@ -6,6 +6,8 @@ import { HomePage } from "../pages/home.page";
 import { LoginPage } from "../pages/login.page";
 import { OverviewPage } from "../pages/overview.page";
 import { ProfilePage } from "../pages/profile.page";
+import { ReportsPage } from "../pages/reports.page";
+import { SettingsPage } from "../pages/settings.page";
 import { SignupPage } from "../pages/signup.page";
 import { TransactionsPage } from "../pages/transactions.page";
 
@@ -29,6 +31,8 @@ export const App = () => {
             <Route path="/overview" element={<OverviewPage />} />
             <Route path="/transactions" element={<TransactionsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/reports" element={<ReportsPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={<Navigate to={"/dashboard"} />} />
           </Routes>
         </>

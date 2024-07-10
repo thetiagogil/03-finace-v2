@@ -22,6 +22,14 @@ export const NavbarContent = () => {
     Profile: {
       title: "Profile",
       path: "/profile"
+    },
+    Reports: {
+      title: "Reports",
+      path: "/reports"
+    },
+    Settings: {
+      title: "Settings",
+      path: "/settings"
     }
   };
 
