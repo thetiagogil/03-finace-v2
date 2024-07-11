@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AuthContext } from "../contexts/auth.context";
-import { ActivityPage } from "../pages/activity";
+import { ActivityPage } from "../pages/activity.page";
 import { DashboardPage } from "../pages/dashboard.page";
 import { HomePage } from "../pages/home.page";
 import { LoginPage } from "../pages/login.page";

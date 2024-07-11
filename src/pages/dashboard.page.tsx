@@ -7,29 +7,29 @@ export const DashboardPage = () => {
     <AuthPageContainer>
       <Flex>
         <DataCard bgcolor="primary.300" width={"50%"} height={100}>
-          Total money
+          Mock Box
         </DataCard>
         <DataCard bgcolor="success.300" width={"50%"}>
-          Active money
+          Mock Box
         </DataCard>
       </Flex>
       <Flex>
         <DataCard bgcolor="danger.300" width={"50%"} height={100}>
-          Inactive money
+          Mock Box
         </DataCard>
         <DataCard bgcolor="neutral.300" width={"50%"}>
-          Planned money
+          Mock Box
         </DataCard>
       </Flex>
       <Flex>
         <DataCard width={"50%"} height={50}>
-          Filter 1
+          Mock Filter
         </DataCard>
-        <DataCard width={"50%"}>Filter 2</DataCard>
+        <DataCard width={"50%"}>Mock Filter</DataCard>
       </Flex>
       <Flex>
         <DataCard width={"100%"} height={400}>
-          Data
+          Mock Textarea
         </DataCard>
       </Flex>
     </AuthPageContainer>

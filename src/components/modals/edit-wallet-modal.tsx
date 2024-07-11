@@ -15,7 +15,7 @@ export const EditWalletModal = ({ open, onClose, userId, walletType, walletValue
   const [value, setValue] = useState<number>(walletValue);
   const { editUserWallet, loading } = useEditUserWallet({
     userId,
-    updatedUserData: walletType === "initial" ? { wallet_initial_value: value } : { wallet_current_value: value }
+    payload: walletType === "initial" ? { wallet_initial_value: value } : { wallet_current_value: value }
   });
 
   useEffect(() => {

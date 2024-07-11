@@ -1,9 +1,10 @@
 export interface TxModel {
   id?: string;
-  userId?: string;
+  user_id?: string;
   type?: string;
   status?: string;
   category?: string;
-  value?: number;
+  date?: string;
+  value?: number | null;
   description?: string;
 }

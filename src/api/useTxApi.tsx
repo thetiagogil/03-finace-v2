@@ -2,14 +2,10 @@ import { useState } from "react";
 import { TxModel } from "../models/tx.model";
 import { DataService } from "../services/data-service";
 
-type UseCreateTxProps = {
-  payload: TxModel;
-};
-
-export const useCreateTx = ({ payload }: UseCreateTxProps) => {
+export const useCreateTx = () => {
   const [loading, setLoading] = useState(false);
 
-  const createTx = async () => {
+  const createTx = async (payload: TxModel) => {
     setLoading(true);
     try {
       await DataService.postData(`/api/tx`, payload);
