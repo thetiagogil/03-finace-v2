@@ -1,6 +1,6 @@
-import { AuthPageContainer } from "../components/layout/containers";
-import { DataCard } from "../components/layout/data-card";
-import { Flex } from "../components/layout/flex";
+import { AuthPageContainer } from "../components/shared/containers";
+import { DataCard } from "../components/shared/data-card";
+import { Flex } from "../components/shared/flex";
 
 export const DashboardPage = () => {
   return (

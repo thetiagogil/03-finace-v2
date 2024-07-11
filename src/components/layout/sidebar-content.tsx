@@ -1,7 +1,7 @@
 import { Link, List, ListItem } from "@mui/joy";
 import { Link as ReactLink, useLocation } from "react-router-dom";
 import { linksArray } from "../arrays/links-array";
-import { Flex } from "./flex";
+import { Flex } from "../shared/flex";
 import Favicon from "/favicon.png";
 
 type Props = {

@@ -5,7 +5,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { IoPersonCircle, IoPersonSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/auth.context";
-import { Flex } from "./flex";
+import { Flex } from "../shared/flex";
 
 type CallbackProps = {
   isOpen: boolean | ((prevState: boolean) => boolean);

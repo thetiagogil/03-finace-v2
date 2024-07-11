@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import { MAIN_WIDTH } from "../../utils/constants";
 import { Navbar } from "../navigation/navbar";
 import { SidebarDesktop } from "../navigation/sidebar-desktop";
-import { Flex } from "./flex";
+import { Flex } from "../shared/flex";
 
 type Props = {
   children?: ReactNode;
@@ -28,7 +28,7 @@ export const FormPageContainer = ({ children }: Props) => {
 
 export const AuthPageContainer = ({ children }: Props) => {
   return (
-    <Flex x xc sx={{ p: 2 }}>
+    <Flex x xc sx={{ p: { xs: 0, lg: 2 } }}>
       <SidebarDesktop />
       <Flex y sx={{ width: { xs: "100%", lg: MAIN_WIDTH } }}>
         <Navbar />

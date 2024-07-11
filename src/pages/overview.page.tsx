@@ -1,10 +1,11 @@
-import { Typography } from "@mui/joy";
-import { AuthPageContainer } from "../components/layout/containers";
+import { OverviewTabs } from "../components/layout/overview-tabs";
+import { AuthPageContainer } from "../components/shared/containers";
+import { TabsStatus } from "../components/shared/tabs-status";
 
 export const OverviewPage = () => {
   return (
     <AuthPageContainer>
-      <Typography>Overview Page</Typography>
+      <TabsStatus trackedTab={<OverviewTabs status="tracked" />} plannedTab={<OverviewTabs status="planned" />} />
     </AuthPageContainer>
   );
 };

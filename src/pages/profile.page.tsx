@@ -1,5 +1,5 @@
 import { Typography } from "@mui/joy";
-import { AuthPageContainer } from "../components/layout/containers";
+import { AuthPageContainer } from "../components/shared/containers";
 
 export const ProfilePage = () => {
   return (

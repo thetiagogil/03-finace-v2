@@ -1,7 +1,7 @@
 import { Button, Typography } from "@mui/joy";
 import { Link } from "react-router-dom";
-import { HomePageContainer } from "../components/layout/containers";
-import { Flex } from "../components/layout/flex";
+import { HomePageContainer } from "../components/shared/containers";
+import { Flex } from "../components/shared/flex";
 
 export const HomePage = () => {
   const buttonStyle = { width: { xs: "90%", lg: 400 } };

@@ -1,8 +1,8 @@
 import { Drawer, IconButton } from "@mui/joy";
 import { useState } from "react";
 import { IoIosMenu } from "react-icons/io";
-import { Flex } from "../layout/flex";
 import { SidebarContent } from "../layout/sidebar-content";
+import { Flex } from "../shared/flex";
 
 export const SidebarMobile = () => {
   const [open, setOpen] = useState(false);

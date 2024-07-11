@@ -1,6 +1,6 @@
 import { FormEvent, useContext, useState } from "react";
-import { FormPageContainer } from "../components/layout/containers.js";
 import { FormAuth } from "../components/layout/form-auth";
+import { FormPageContainer } from "../components/shared/containers.js";
 import { AuthContext } from "../contexts/auth.context.js";
 
 export const SignupPage = () => {

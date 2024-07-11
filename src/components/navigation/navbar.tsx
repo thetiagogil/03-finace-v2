@@ -1,9 +1,9 @@
-import { Flex } from "../layout/flex";
 import { NavbarContent } from "../layout/navbar-content";
+import { Flex } from "../shared/flex";
 
 export const Navbar = () => {
   return (
-    <Flex x fullwidth sx={{ bgcolor: "white", pl: { lg: 2 }, pt: { lg: 2 }, pb: 2 }}>
+    <Flex x fullwidth sx={{ bgcolor: "white", pl: { xs: 1, lg: 2 }, pr: { xs: 1, lg: 0 }, py: 2 }}>
       <NavbarContent />
     </Flex>
   );

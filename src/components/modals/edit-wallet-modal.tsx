@@ -1,7 +1,7 @@
 import { Button, Input, Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
 import { useEffect, useState } from "react";
 import { useEditUserWallet } from "../../api/useEditUser";
-import { Flex } from "../layout/flex";
+import { Flex } from "../shared/flex";
 
 type EditWalletModalProps = {
   open: boolean;

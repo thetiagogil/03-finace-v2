@@ -2,7 +2,7 @@ import { Typography } from "@mui/joy";
 import { useLocation } from "react-router-dom";
 import { linksArray } from "../arrays/links-array";
 import { SidebarMobile } from "../navigation/sidebar-mobile";
-import { Flex } from "./flex";
+import { Flex } from "../shared/flex";
 import { NavbarDropdown } from "./navbar-dropdown";
 
 export const NavbarContent = () => {
