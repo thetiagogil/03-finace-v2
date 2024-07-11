@@ -1,14 +1,11 @@
-import { TransactionsTabs } from "../components/layout/transactions-tabs";
+import { TxTabs } from "../components/layout/tx-tabs";
 import { AuthPageContainer } from "../components/shared/containers";
 import { TabsStatus } from "../components/shared/tabs-status";
 
 export const TransactionsPage = () => {
   return (
     <AuthPageContainer>
-      <TabsStatus
-        trackedTab={<TransactionsTabs status="tracked" />}
-        plannedTab={<TransactionsTabs status="planned" />}
-      />
+      <TabsStatus trackedTab={<TxTabs status="tracked" />} plannedTab={<TxTabs status="planned" />} />
     </AuthPageContainer>
   );
 };
