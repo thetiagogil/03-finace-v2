@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserModel } from "../models/user.model";
 import { DataService } from "../services/data-service";
 
@@ -23,19 +23,23 @@ export const useGetUser = ({ userId }: UseGetUserProps) => {
   const [data, setData] = useState<DataProps>({} as DataProps);
   const [loading, setLoading] = useState(false);
 
-  const getUser = async () => {
-    setLoading(true);
-    try {
-      const response = await DataService.getData(`/api/users/${userId}`);
-      setData(response);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const getUser = async () => {
+      setLoading(true);
+      try {
+        const response = await DataService.getData(`/api/users/${userId}`);
+        setData(response);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  getUser();
+    if (userId) {
+      getUser();
+    }
+  }, [userId]);
 
   return { data, loading };
 };
