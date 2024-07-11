@@ -24,8 +24,8 @@ export const linksArray = [
     }
   },
   {
-    title: "Transactions",
-    path: "/transactions",
+    title: "Activity",
+    path: "/activity",
     icons: {
       icon: <TbTransform size={iconSize} />,
       iconSelected: <TbTransformFilled size={iconSize} />

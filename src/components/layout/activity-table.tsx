@@ -2,11 +2,11 @@ import { Table } from "@mui/joy";
 import { txHeadersArray } from "../arrays/tx-headers-array";
 import { DataCard } from "../shared/data-card";
 
-type TxTableProps = {
+type ActivityableProps = {
   status: "tracked" | "planned" | undefined;
 };
 
-const mockTransactions = [
+const mockTx = [
   { date: "2023-01-01", type: "Expense", category: "Food", value: 50, description: "Groceries", status: "tracked" },
   {
     date: "2023-01-02",
@@ -42,8 +42,8 @@ const mockTransactions = [
   }
 ];
 
-export const TxTable = ({ status }: TxTableProps) => {
-  const filteredTransactions = mockTransactions.filter(transaction => transaction.status === status);
+export const ActivityTable = ({ status }: ActivityableProps) => {
+  const filteredTx = mockTx.filter(transaction => transaction.status === status);
 
   return (
     <DataCard>
@@ -56,13 +56,13 @@ export const TxTable = ({ status }: TxTableProps) => {
           </tr>
         </thead>
         <tbody>
-          {filteredTransactions.map((transaction, index) => (
+          {filteredTx.map((tx, index) => (
             <tr key={index}>
-              <td>{transaction.date}</td>
-              <td>{transaction.type}</td>
-              <td>{transaction.category}</td>
-              <td>{transaction.value}€</td>
-              <td>{transaction.description}</td>
+              <td>{tx.date}</td>
+              <td>{tx.type}</td>
+              <td>{tx.category}</td>
+              <td>{tx.value}€</td>
+              <td>{tx.description}</td>
             </tr>
           ))}
         </tbody>
