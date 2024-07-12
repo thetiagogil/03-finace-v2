@@ -26,7 +26,7 @@ export const AddTxModal = ({ open, onClose, userId, status, editMode = false, in
   const [isFormValid, setIsFormValid] = useState(false);
 
   const { createTx, loading: creating } = useCreateTx();
-  const { editTxById, loading: editing } = useEditTxById();
+  const { editTx, loading: editing } = useEditTxById();
 
   useEffect(() => {
     if (initialData) {
@@ -55,7 +55,7 @@ export const AddTxModal = ({ open, onClose, userId, status, editMode = false, in
 
   const handleSubmit = async () => {
     if (editMode && initialData?.id) {
-      await editTxById(initialData.id, { ...formData, user_id: userId, status });
+      await editTx(initialData.id, { ...formData, user_id: userId, status });
     } else {
       await createTx({ ...formData, user_id: userId, status });
     }
