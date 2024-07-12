@@ -4,7 +4,7 @@ import { DataService } from "../services/data-service";
 
 type UseGetTxByStatusProps = {
   userId: string;
-  status: string;
+  status: "tracked" | "planned";
 };
 
 export const useCreateTx = () => {
@@ -18,6 +18,7 @@ export const useCreateTx = () => {
       console.error(error);
     } finally {
       setLoading(false);
+      location.reload();
     }
   };
 
@@ -31,7 +32,8 @@ export const useGetTxByStatus = ({ userId, status }: UseGetTxByStatusProps) => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await DataService.getData(`/api/tx`, { user_id: userId, status: status });
+      const response = await DataService.getData(`/api/tx/${userId}/${status}`);
+      response.sort((a: { date: Date }, b: { date: Date }) => new Date(b.date).getTime() - new Date(a.date).getTime());
       setData(response);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -47,4 +49,40 @@ export const useGetTxByStatus = ({ userId, status }: UseGetTxByStatusProps) => {
   }, [userId, status]);
 
   return { data, loading };
+};
+
+export const useEditTxById = () => {
+  const [loading, setLoading] = useState(false);
+
+  const editTxById = async (txId: string, payload: TxModel) => {
+    setLoading(true);
+    try {
+      await DataService.putData(`/api/tx/${txId}`, payload);
+    } catch (error) {
+      console.error("Error editing transaction:", error);
+    } finally {
+      setLoading(false);
+      location.reload();
+    }
+  };
+
+  return { editTxById, loading };
+};
+
+export const useDeleteTx = () => {
+  const [loading, setLoading] = useState(false);
+
+  const deleteTx = async (txId: string | undefined) => {
+    setLoading(true);
+    try {
+      await DataService.deleteData(`/api/tx/${txId}`);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+      location.reload();
+    }
+  };
+
+  return { deleteTx, loading };
 };

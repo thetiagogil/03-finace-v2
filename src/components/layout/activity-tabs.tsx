@@ -1,6 +1,6 @@
 import { Button, CircularProgress, Select, Stack, Typography } from "@mui/joy";
 import { useContext, useState } from "react";
-import { useGetTxByStatus } from "../../api/useTxApi";
+import { useDeleteTx, useGetTxByStatus } from "../../api/useTxApi";
 import { AuthContext } from "../../contexts/auth.context";
 import { AddTxModal } from "../modals/add-tx-modal";
 import { DataCard } from "../shared/data-card";
@@ -14,6 +14,7 @@ type ActivityTabsProps = {
 export const ActivityTabs = ({ status }: ActivityTabsProps) => {
   const { userId } = useContext(AuthContext);
   const { data, loading } = useGetTxByStatus({ userId, status });
+  const { deleteTx } = useDeleteTx();
   const [addTxModal, setAddTxModal] = useState(false);
   const stylesSelect = { width: { xs: "100%", sm: 200 } };
   return (
@@ -44,7 +45,7 @@ export const ActivityTabs = ({ status }: ActivityTabsProps) => {
               <CircularProgress />
             </Flex>
           ) : data.length > 0 ? (
-            <ActivityTable data={data} />
+            <ActivityTable data={data} deleteTx={deleteTx} />
           ) : (
             <Flex x xc>
               <Typography level="body-sm">

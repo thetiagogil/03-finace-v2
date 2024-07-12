@@ -1,6 +1,7 @@
 import { Button, Input, Modal, ModalClose, ModalDialog, Option, Select, Textarea, Typography } from "@mui/joy";
-import { useState } from "react";
-import { useCreateTx } from "../../api/useTxApi";
+import { useEffect, useState } from "react";
+import { useCreateTx, useEditTxById } from "../../api/useTxApi"; // Import useEditTxById hook
+import { TxModel } from "../../models/tx.model";
 import { capFirstLetter } from "../../utils/typo";
 import { txCategoriesArray, txTypesArray } from "../arrays/tx-array";
 import { Flex } from "../shared/flex";
@@ -10,9 +11,11 @@ type AddTxModalProps = {
   onClose: () => void;
   userId: string;
   status: "tracked" | "planned";
+  editMode?: boolean; // Optional prop for edit mode
+  initialData?: TxModel; // Optional prop for initial data in edit mode
 };
 
-export const AddTxModal = ({ open, onClose, userId, status }: AddTxModalProps) => {
+export const AddTxModal = ({ open, onClose, userId, status, editMode = false, initialData }: AddTxModalProps) => {
   const [formData, setFormData] = useState({
     type: "",
     category: "",
@@ -20,8 +23,27 @@ export const AddTxModal = ({ open, onClose, userId, status }: AddTxModalProps) =
     value: 0,
     description: ""
   });
+  const [isFormValid, setIsFormValid] = useState(false);
 
-  const { createTx, loading } = useCreateTx();
+  const { createTx, loading: creating } = useCreateTx();
+  const { editTxById, loading: editing } = useEditTxById();
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData({
+        type: initialData.type || "",
+        category: initialData.category || "",
+        date: initialData.date || "",
+        value: initialData.value || 0,
+        description: initialData.description || ""
+      });
+    }
+  }, [initialData]);
+
+  useEffect(() => {
+    const isValid = formData.type && formData.category && formData.date && formData.value;
+    setIsFormValid(!!isValid);
+  }, [formData]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -31,8 +53,12 @@ export const AddTxModal = ({ open, onClose, userId, status }: AddTxModalProps) =
     }));
   };
 
-  const handleSaveChanges = async () => {
-    await createTx({ ...formData, user_id: userId, status });
+  const handleSubmit = async () => {
+    if (editMode && initialData?.id) {
+      await editTxById(initialData.id, { ...formData, user_id: userId, status });
+    } else {
+      await createTx({ ...formData, user_id: userId, status });
+    }
     onClose();
   };
 
@@ -41,7 +67,7 @@ export const AddTxModal = ({ open, onClose, userId, status }: AddTxModalProps) =
       <ModalDialog sx={{ width: 500 }}>
         <ModalClose />
         <Flex x>
-          <Typography>Create an activity</Typography>
+          <Typography>{editMode ? "Edit Activity" : "Create an Activity"}</Typography>
         </Flex>
         <Flex y gap={2} fullwidth>
           <Flex gap={2}>
@@ -64,7 +90,7 @@ export const AddTxModal = ({ open, onClose, userId, status }: AddTxModalProps) =
               ))}
             </Select>
             <Select
-              name="type"
+              name="category"
               placeholder="Category"
               value={formData.category}
               onChange={(_e: any, newValue: any) =>
@@ -112,7 +138,7 @@ export const AddTxModal = ({ open, onClose, userId, status }: AddTxModalProps) =
           </Flex>
         </Flex>
         <Flex x gap={1}>
-          <Button onClick={handleSaveChanges} loading={loading}>
+          <Button onClick={handleSubmit} loading={creating || editing} disabled={!isFormValid}>
             Save
           </Button>
         </Flex>
