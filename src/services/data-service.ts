@@ -1,5 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
+type Params = { [key: string]: string };
+
 const getAuthHeaders = () => {
   const token = window.localStorage.getItem("authToken");
   return {
@@ -9,9 +11,14 @@ const getAuthHeaders = () => {
 };
 
 export const DataService = {
-  async getData(endpoint: string) {
+  async getData(endpoint: string, params?: Params) {
     try {
-      const response = await fetch(`${API_URL}${endpoint}`, {
+      const url = new URL(`${API_URL}${endpoint}`);
+      if (params) {
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+      }
+
+      const response = await fetch(url.toString(), {
         method: "GET",
         headers: getAuthHeaders()
       });
@@ -23,7 +30,8 @@ export const DataService = {
 
   async postData(endpoint: string, data: object) {
     try {
-      const response = await fetch(`${API_URL}${endpoint}`, {
+      const url = new URL(`${API_URL}${endpoint}`);
+      const response = await fetch(url, {
         method: "POST",
         headers: getAuthHeaders(),
         body: JSON.stringify(data)
@@ -36,7 +44,8 @@ export const DataService = {
 
   async putData(endpoint: string, data: object) {
     try {
-      const response = await fetch(`${API_URL}${endpoint}`, {
+      const url = new URL(`${API_URL}${endpoint}`);
+      const response = await fetch(url, {
         method: "PUT",
         headers: getAuthHeaders(),
         body: JSON.stringify(data)
@@ -49,7 +58,8 @@ export const DataService = {
 
   async deleteData(endpoint: string) {
     try {
-      const response = await fetch(`${API_URL}${endpoint}`, {
+      const url = new URL(`${API_URL}${endpoint}`);
+      const response = await fetch(url, {
         method: "DELETE",
         headers: getAuthHeaders()
       });

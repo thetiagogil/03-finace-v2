@@ -1,72 +1,92 @@
-import { Table } from "@mui/joy";
-import { txHeadersArray } from "../arrays/tx-headers-array";
+import { CircularProgress, IconButton, Table, Typography } from "@mui/joy";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { useGetTxByStatus } from "../../api/useTxApi";
+import { capFirstLetter } from "../../utils/typo";
+import { txColumnssArray } from "../arrays/tx-array";
 import { DataCard } from "../shared/data-card";
+import { Flex } from "../shared/flex";
 
 type ActivityableProps = {
-  status: "tracked" | "planned" | undefined;
+  userId: string;
+  status: "tracked" | "planned";
 };
 
-const mockTx = [
-  { date: "2023-01-01", type: "Expense", category: "Food", value: 50, description: "Groceries", status: "tracked" },
-  {
-    date: "2023-01-02",
-    type: "Income",
-    category: "Salary",
-    value: 1500,
-    description: "Monthly Salary",
-    status: "tracked"
-  },
-  {
-    date: "2023-01-03",
-    type: "Expense",
-    category: "Entertainment",
-    value: 200,
-    description: "Concert Tickets",
-    status: "planned"
-  },
-  {
-    date: "2023-01-04",
-    type: "Expense",
-    category: "Utilities",
-    value: 100,
-    description: "Electric Bill",
-    status: "tracked"
-  },
-  {
-    date: "2023-01-05",
-    type: "Income",
-    category: "Freelance",
-    value: 300,
-    description: "Project Payment",
-    status: "planned"
-  }
-];
-
-export const ActivityTable = ({ status }: ActivityableProps) => {
-  const filteredTx = mockTx.filter(transaction => transaction.status === status);
-
+export const ActivityTable = ({ userId, status }: ActivityableProps) => {
+  const { data, loading } = useGetTxByStatus({ userId, status });
   return (
-    <DataCard>
-      <Table>
-        <thead>
-          <tr>
-            {txHeadersArray.map((header, index) => (
-              <th key={index}>{header}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {filteredTx.map((tx, index) => (
-            <tr key={index}>
-              <td>{tx.date}</td>
-              <td>{tx.type}</td>
-              <td>{tx.category}</td>
-              <td>{tx.value}€</td>
-              <td>{tx.description}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </DataCard>
+    <>
+      <DataCard>
+        {loading ? (
+          <Flex x xc fullwidth>
+            <CircularProgress />
+          </Flex>
+        ) : (
+          <>
+            {data.length > 0 ? (
+              <Table
+                borderAxis="none"
+                variant="plain"
+                hoverRow
+                stripe="even"
+                sx={{
+                  width: "100%",
+                  borderCollapse: "collapse",
+                  "& th": {
+                    textAlign: "center",
+                    bgcolor: "primary.500",
+                    color: "neutral.50"
+                  },
+                  "& td:nth-of-type(4)": {
+                    textAlign: "right"
+                  },
+                  "& th:nth-of-type(6), & td:nth-of-type(6),& th:nth-of-type(7), & td:nth-of-type(7)": {
+                    width: 48,
+                    textAlign: "center",
+                    p: 0
+                  }
+                }}
+              >
+                <thead>
+                  <tr>
+                    {txColumnssArray.map((header, index) => (
+                      <th key={index}>{header}</th>
+                    ))}
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((tx, index: number) => (
+                    <tr key={index}>
+                      <td>{tx.date}</td>
+                      <td>{capFirstLetter(tx.type)}</td>
+                      <td>{capFirstLetter(tx.category)}</td>
+                      <td>{tx.value}€</td>
+                      <td>{tx.description}</td>
+                      <td>
+                        <IconButton>
+                          <AiOutlineEdit />
+                        </IconButton>
+                      </td>
+                      <td>
+                        <IconButton>
+                          <AiOutlineDelete />
+                        </IconButton>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            ) : (
+              <Flex x xc>
+                <Typography level="body-sm">
+                  <i>No data</i>
+                </Typography>
+              </Flex>
+            )}
+          </>
+        )}
+      </DataCard>
+    </>
   );
 };

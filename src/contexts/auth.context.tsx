@@ -5,7 +5,7 @@ import { DataService } from "../services/data-service";
 
 type AuthContextProps = {
   isAuthenticated: boolean;
-  userId: string | undefined;
+  userId: string;
   token: string | null;
   handleSignup: (payload: SignupPayloadProps) => Promise<void>;
   handleLogin: (payload: LoginPayloadProps) => Promise<void>;
@@ -40,7 +40,7 @@ export const AuthContext = createContext({} as AuthContextProps);
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userId, setUserId] = useState<string | undefined>(undefined);
+  const [userId, setUserId] = useState<string>("");
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
@@ -98,7 +98,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   };
 
   const handleLogout = async () => {
-    setUserId(undefined);
+    setUserId("");
     setToken(null);
     setIsAuthenticated(false);
     window.localStorage.removeItem("authToken");

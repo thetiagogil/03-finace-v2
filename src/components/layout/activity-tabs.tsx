@@ -28,7 +28,7 @@ export const ActivityTabs = ({ status }: ActivityTabsProps) => {
           <AddTxModal open={addTxModal} onClose={() => setAddTxModal(false)} userId={userId} status={status} />
         </Flex>
       </DataCard>
-      <ActivityTable status={status} />
+      <ActivityTable userId={userId} status={status} />
     </Flex>
   );
 };

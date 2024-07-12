@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { UserModel } from "../models/user.model";
 import { DataService } from "../services/data-service";
 
-type UseGetUserProps = {
-  userId?: string;
+type UserIdProps = {
+  userId: string;
 };
 
 type UseEditUserWalletProps = {
@@ -11,15 +11,11 @@ type UseEditUserWalletProps = {
   payload: UserModel;
 };
 
-type UseDeleteUserProps = {
-  userId?: string;
-};
-
 type DataProps = {
   user?: UserModel;
 };
 
-export const useGetUser = ({ userId }: UseGetUserProps) => {
+export const useGetUser = ({ userId }: UserIdProps) => {
   const [data, setData] = useState<DataProps>({} as DataProps);
   const [loading, setLoading] = useState(false);
 
@@ -61,7 +57,7 @@ export const useEditUserWallet = ({ userId, payload }: UseEditUserWalletProps) =
   return { editUserWallet, loading };
 };
 
-export const useDeleteUser = ({ userId }: UseDeleteUserProps) => {
+export const useDeleteUser = ({ userId }: UserIdProps) => {
   const [loading, setLoading] = useState(false);
 
   const deleteUser = async () => {

@@ -13,7 +13,7 @@ export const SidebarDesktop = () => {
         borderBottomLeftRadius: 16
       }}
     >
-      <SidebarContent textColor="white" />
+      <SidebarContent textColor="neutral.50" />
     </Box>
   );
 };

@@ -1,14 +1,15 @@
 import { Button, Input, Modal, ModalClose, ModalDialog, Option, Select, Textarea, Typography } from "@mui/joy";
 import { useState } from "react";
 import { useCreateTx } from "../../api/useTxApi";
-import { typesArray } from "../arrays/types-array";
+import { capFirstLetter } from "../../utils/typo";
+import { txCategoriesArray, txTypesArray } from "../arrays/tx-array";
 import { Flex } from "../shared/flex";
 
 type AddTxModalProps = {
   open: boolean;
   onClose: () => void;
-  userId?: string;
-  status?: "tracked" | "planned";
+  userId: string;
+  status: "tracked" | "planned";
 };
 
 export const AddTxModal = ({ open, onClose, userId, status }: AddTxModalProps) => {
@@ -26,7 +27,7 @@ export const AddTxModal = ({ open, onClose, userId, status }: AddTxModalProps) =
     const { name, value } = e.target;
     setFormData(prevFormData => ({
       ...prevFormData,
-      [name]: name === "value" ? Number(value) : value
+      [name]: value
     }));
   };
 
@@ -40,7 +41,7 @@ export const AddTxModal = ({ open, onClose, userId, status }: AddTxModalProps) =
       <ModalDialog sx={{ width: 500 }}>
         <ModalClose />
         <Flex x>
-          <Typography>hello</Typography>
+          <Typography>Create an activity</Typography>
         </Flex>
         <Flex y gap={2} fullwidth>
           <Flex gap={2}>
@@ -54,18 +55,42 @@ export const AddTxModal = ({ open, onClose, userId, status }: AddTxModalProps) =
                   type: newValue
                 }))
               }
-              sx={{ width: 200 }}
+              sx={{ width: 250 }}
             >
-              {typesArray.map((type, index) => (
+              {txTypesArray.map((type, index) => (
                 <Option key={index} value={type}>
-                  {type}
+                  {capFirstLetter(type)}
                 </Option>
               ))}
             </Select>
-            <Input name="category" placeholder="Category" value={formData.category} onChange={handleChange} fullWidth />
+            <Select
+              name="type"
+              placeholder="Category"
+              value={formData.category}
+              onChange={(_e: any, newValue: any) =>
+                setFormData(prevFormData => ({
+                  ...prevFormData,
+                  category: newValue
+                }))
+              }
+              sx={{ width: "100%" }}
+            >
+              {txCategoriesArray.sort().map((cat, index) => (
+                <Option key={index} value={cat}>
+                  {capFirstLetter(cat)}
+                </Option>
+              ))}
+            </Select>
           </Flex>
           <Flex gap={2}>
-            <Input name="date" placeholder="Date" value={formData.date} onChange={handleChange} sx={{ width: 200 }} />
+            <Input
+              name="date"
+              type="date"
+              placeholder="YYYY-MM-DD"
+              value={formData.date}
+              onChange={handleChange}
+              sx={{ width: 250 }}
+            />
             <Input
               name="value"
               type="number"
