@@ -8,6 +8,7 @@ import { Flex } from "../shared/flex";
 type Props = {
   children?: ReactNode;
   sx?: SxProps;
+  hasTabs?: boolean;
 };
 
 export const HomePageContainer = ({ children }: Props) => {
@@ -26,13 +27,13 @@ export const FormPageContainer = ({ children }: Props) => {
   );
 };
 
-export const AuthPageContainer = ({ children }: Props) => {
+export const AuthPageContainer = ({ children, hasTabs }: Props) => {
   return (
     <Flex x xc sx={{ p: { xs: 0, lg: 2 } }}>
       <SidebarDesktop />
       <Flex y sx={{ width: { xs: "100%", lg: MAIN_WIDTH } }}>
         <Navbar />
-        <Flex y sx={{ bgcolor: "neutral.100", p: 1, height: "100%" }}>
+        <Flex y sx={{ bgcolor: "neutral.100", p: hasTabs ? 0 : 1, height: "100%" }}>
           {children}
         </Flex>
       </Flex>

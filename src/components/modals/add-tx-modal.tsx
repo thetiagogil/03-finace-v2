@@ -1,6 +1,6 @@
 import { Button, Input, Modal, ModalClose, ModalDialog, Option, Select, Textarea, Typography } from "@mui/joy";
 import { useEffect, useState } from "react";
-import { useCreateTx, useEditTxById } from "../../api/useTxApi"; // Import useEditTxById hook
+import { useCreateTx, useEditTxById } from "../../api/useTxApi";
 import { TxModel } from "../../models/tx.model";
 import { capFirstLetter } from "../../utils/typo";
 import { txCategoriesArray, txTypesArray } from "../arrays/tx-array";
@@ -11,11 +11,22 @@ type AddTxModalProps = {
   onClose: () => void;
   userId: string;
   status: "tracked" | "planned";
-  editMode?: boolean; // Optional prop for edit mode
-  initialData?: TxModel; // Optional prop for initial data in edit mode
+  editMode?: boolean;
+  initialData?: TxModel;
+  handleDelete?: () => void;
+  deleting?: boolean;
 };
 
-export const AddTxModal = ({ open, onClose, userId, status, editMode = false, initialData }: AddTxModalProps) => {
+export const AddTxModal = ({
+  open,
+  onClose,
+  userId,
+  status,
+  editMode = false,
+  initialData,
+  handleDelete,
+  deleting
+}: AddTxModalProps) => {
   const [formData, setFormData] = useState({
     type: "",
     category: "",
@@ -137,7 +148,12 @@ export const AddTxModal = ({ open, onClose, userId, status, editMode = false, in
             />
           </Flex>
         </Flex>
-        <Flex x gap={1}>
+        <Flex x xe gap={1}>
+          {editMode && (
+            <Button onClick={handleDelete} loading={deleting} color="danger">
+              Delete
+            </Button>
+          )}
           <Button onClick={handleSubmit} loading={creating || editing} disabled={!isFormValid}>
             Save
           </Button>

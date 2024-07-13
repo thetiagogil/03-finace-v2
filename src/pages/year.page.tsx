@@ -1,5 +1,5 @@
-import { Flex } from "../components/shared/flex";
+import { AuthPageContainer } from "../components/shared/containers";
 
 export const YearPage = () => {
-  return <Flex>hey</Flex>;
+  return <AuthPageContainer></AuthPageContainer>;
 };

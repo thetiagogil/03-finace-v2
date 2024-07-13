@@ -35,20 +35,20 @@ export const OverviewTabs = ({ status }: OverviewTabsProps) => {
                   hoverContent={
                     <Link
                       component={ReactLink}
-                      to={`/overview/${year}`}
+                      to={`/overview/${year.year}`}
                       underline="none"
                       sx={{ width: "100%", justifyContent: "center" }}
                     >
-                      <Flex x gap2>
-                        <Flex y gap={0.5}>
+                      <Flex y gap1 sx={{ width: "90%" }}>
+                        <Flex x xsb gap={0.5} fullwidth>
                           <Typography level="body-sm">Income: {year.totalIncome}</Typography>
-                          <Typography level="body-sm">Expense: {year.totalExpense}</Typography>
-                          <Typography level="body-sm">Transactions: {year.trackedCount}</Typography>
-                        </Flex>
-                        <Flex y gap={0.5}>
                           <CircularProgress color="success" size="sm" determinate value={progress("totalIncome")} />
+                        </Flex>
+                        <Flex x xsb gap={0.5} fullwidth>
+                          <Typography level="body-sm">Expense: {year.totalExpense}</Typography>
                           <CircularProgress color="danger" size="sm" determinate value={progress("totalExpense")} />
                         </Flex>
+                        <Typography level="body-sm">Transactions: {year.trackedCount}</Typography>
                       </Flex>
                     </Link>
                   }

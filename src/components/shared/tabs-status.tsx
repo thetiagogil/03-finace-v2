@@ -6,15 +6,17 @@ type TabsStatusProps = {
 };
 
 export const TabsStatus = ({ trackedTab, plannedTab }: TabsStatusProps) => {
-  const stylesTabPanel = { m: 0, p: 0 };
+  const stylesTabPanel = { m: 0, p: 1 };
   return (
     <Tabs defaultValue={0} sx={{ bgcolor: "transparent", height: "100%", width: "100%" }}>
       <TabList
         disableUnderline
         sx={{
+          bgcolor: "neutral.50",
+          borderTop: "1px solid",
+          borderTopColor: "neutral.200",
           p: 1,
           gap: 1,
-          borderRadius: 16,
           display: "flex",
           justifyContent: "center"
         }}

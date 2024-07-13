@@ -4,7 +4,7 @@ import { TabsStatus } from "../components/shared/tabs-status";
 
 export const ActivityPage = () => {
   return (
-    <AuthPageContainer>
+    <AuthPageContainer hasTabs>
       <TabsStatus trackedTab={<ActivityTabs status="tracked" />} plannedTab={<ActivityTabs status="planned" />} />
     </AuthPageContainer>
   );

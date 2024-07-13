@@ -14,7 +14,7 @@ type ActivityTabsProps = {
 export const ActivityTabs = ({ status }: ActivityTabsProps) => {
   const { userId } = useContext(AuthContext);
   const { data, loading } = useGetTxByStatus({ userId, status });
-  const { deleteTx } = useDeleteTx();
+  const { deleteTx, loading: deleting } = useDeleteTx();
   const [addTxModal, setAddTxModal] = useState(false);
   const stylesSelect = { width: { xs: "100%", sm: 200 } };
   return (
@@ -45,7 +45,7 @@ export const ActivityTabs = ({ status }: ActivityTabsProps) => {
               <CircularProgress />
             </Flex>
           ) : data.length > 0 ? (
-            <ActivityTable data={data} deleteTx={deleteTx} />
+            <ActivityTable data={data} deleteTx={deleteTx} deleting={deleting} />
           ) : (
             <Flex x xc>
               <Typography level="body-sm">

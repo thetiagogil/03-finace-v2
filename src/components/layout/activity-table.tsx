@@ -1,6 +1,5 @@
-import { IconButton, Table } from "@mui/joy";
+import { Table } from "@mui/joy";
 import { useState } from "react";
-import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { TxModel } from "../../models/tx.model";
 import { capFirstLetter } from "../../utils/typo";
 import { txColumnssArray } from "../arrays/tx-array";
@@ -9,9 +8,10 @@ import { AddTxModal } from "../modals/add-tx-modal";
 type ActivityTableProps = {
   data: TxModel[];
   deleteTx: (txId: string | undefined) => void;
+  deleting: boolean;
 };
 
-export const ActivityTable = ({ data, deleteTx }: ActivityTableProps) => {
+export const ActivityTable = ({ data, deleteTx, deleting }: ActivityTableProps) => {
   const [editTxModal, setEditTxModal] = useState(false);
   const [currentTx, setCurrentTx] = useState<TxModel | null>(null);
 
@@ -60,28 +60,16 @@ export const ActivityTable = ({ data, deleteTx }: ActivityTableProps) => {
                 {header}
               </th>
             ))}
-            <th style={{ width: 48 }}></th>
-            <th style={{ width: 48 }}></th>
           </tr>
         </thead>
         <tbody>
           {data.map((tx: TxModel, index: number) => (
-            <tr key={index}>
+            <tr key={index} onClick={() => handleEdit(tx)} style={{ cursor: "pointer" }}>
               <td>{tx.date}</td>
               <td>{capFirstLetter(tx.type)}</td>
               <td>{capFirstLetter(tx.category)}</td>
               <td>{tx.value}€</td>
               <td>{tx.description}</td>
-              <td>
-                <IconButton onClick={() => handleEdit(tx)}>
-                  <AiOutlineEdit />
-                </IconButton>
-              </td>
-              <td>
-                <IconButton onClick={() => deleteTx(tx.id)}>
-                  <AiOutlineDelete />
-                </IconButton>
-              </td>
             </tr>
           ))}
         </tbody>
@@ -94,6 +82,8 @@ export const ActivityTable = ({ data, deleteTx }: ActivityTableProps) => {
           status={currentTx.status}
           editMode={true}
           initialData={currentTx}
+          handleDelete={() => deleteTx(currentTx.id)}
+          deleting={deleting}
         />
       )}
     </>
