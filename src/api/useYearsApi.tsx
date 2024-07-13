@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
+import { YearModel } from "../models/year.model";
 import { DataService } from "../services/data-service";
 
 type UseGetYearsByUserIdProps = {
   userId: string;
+  status: "tracked" | "planned";
 };
 
-export const useGetYearsByUserId = ({ userId }: UseGetYearsByUserIdProps) => {
-  const [data, setData] = useState<any>([]);
+export const useGetYearsByUserId = ({ userId, status }: UseGetYearsByUserIdProps) => {
+  const [data, setData] = useState<YearModel[]>([]);
   const [loading, setLoading] = useState(false);
 
   const getYears = async () => {
     setLoading(true);
     try {
-      const response = await DataService.getData(`/api/tx/years/${userId}`);
+      const response = await DataService.getData(`/api/tx/years/${userId}/${status}`);
       setData(response);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -22,10 +24,10 @@ export const useGetYearsByUserId = ({ userId }: UseGetYearsByUserIdProps) => {
   };
 
   useEffect(() => {
-    if (userId) {
+    if (userId && status) {
       getYears();
     }
-  }, [userId]);
+  }, [userId, status]);
 
   return { data, loading };
 };

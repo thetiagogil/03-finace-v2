@@ -10,6 +10,7 @@ import { ProfilePage } from "../pages/profile.page";
 import { ReportsPage } from "../pages/reports.page";
 import { SettingsPage } from "../pages/settings.page";
 import { SignupPage } from "../pages/signup.page";
+import { YearPage } from "../pages/year.page";
 
 export const App = () => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -29,6 +30,7 @@ export const App = () => {
           <Routes>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/overview" element={<OverviewPage />} />
+            <Route path="/overview/:year" element={<YearPage />} />
             <Route path="/activity" element={<ActivityPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/reports" element={<ReportsPage />} />

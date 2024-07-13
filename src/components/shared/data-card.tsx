@@ -1,6 +1,6 @@
 import { Box, Card } from "@mui/joy";
 import { SxProps } from "@mui/joy/styles/types";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 type DataCardProps = {
   children?: ReactNode;
@@ -8,10 +8,12 @@ type DataCardProps = {
   bgcolor?: string;
   width?: number | string;
   height?: number;
+  hoverContent?: ReactNode;
   sx?: SxProps;
 };
 
-export const DataCard = ({ children, onClick, bgcolor, width, height, sx }: DataCardProps) => {
+export const DataCard = ({ children, onClick, bgcolor, width, height, hoverContent, sx }: DataCardProps) => {
+  const [isHover, setIsHover] = useState(false);
   const styles = {
     bgcolor: bgcolor,
     width: width,
@@ -21,9 +23,20 @@ export const DataCard = ({ children, onClick, bgcolor, width, height, sx }: Data
     cursor: onClick ? "pointer" : "default",
     ...sx
   };
+  const handleMouse = (state: boolean) => {
+    if (hoverContent) {
+      setIsHover(state);
+    }
+  };
   return (
-    <Card component={onClick ? Box : Card} onClick={onClick} sx={styles}>
-      {children}
+    <Card
+      component={onClick ? Box : Card}
+      onClick={onClick}
+      onMouseEnter={() => handleMouse(true)}
+      onMouseLeave={() => handleMouse(false)}
+      sx={styles}
+    >
+      {isHover ? hoverContent : children}
     </Card>
   );
 };
