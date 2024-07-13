@@ -1,10 +1,11 @@
-import { Button, CircularProgress, Select, Stack, Typography } from "@mui/joy";
+import { Button, Select, Stack, Typography } from "@mui/joy";
 import { useContext, useState } from "react";
 import { useDeleteTx, useGetTxByStatus } from "../../api/useTxApi";
 import { AuthContext } from "../../contexts/auth.context";
 import { AddTxModal } from "../modals/add-tx-modal";
 import { DataCard } from "../shared/data-card";
 import { Flex } from "../shared/flex";
+import { Loading } from "../shared/loading";
 import { ActivityTable } from "./activity-table";
 
 type ActivityTabsProps = {
@@ -41,9 +42,7 @@ export const ActivityTabs = ({ status }: ActivityTabsProps) => {
           }}
         >
           {loading ? (
-            <Flex x xc fullwidth>
-              <CircularProgress />
-            </Flex>
+            <Loading />
           ) : data.length > 0 ? (
             <ActivityTable data={data} deleteTx={deleteTx} deleting={deleting} />
           ) : (

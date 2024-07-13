@@ -30,7 +30,7 @@ export const App = () => {
           <Routes>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/overview" element={<OverviewPage />} />
-            <Route path="/overview/:year" element={<YearPage />} />
+            <Route path="/overview/:status/:year" element={<YearPage />} />
             <Route path="/activity" element={<ActivityPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/reports" element={<ReportsPage />} />

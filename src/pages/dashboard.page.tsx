@@ -9,15 +9,15 @@ export const DashboardPage = () => {
         <DataCard bgcolor="primary.300" width={"50%"} height={100}>
           Mock Box
         </DataCard>
-        <DataCard bgcolor="success.300" width={"50%"}>
+        <DataCard bgcolor="primary.300" width={"50%"}>
           Mock Box
         </DataCard>
       </Flex>
       <Flex>
-        <DataCard bgcolor="danger.300" width={"50%"} height={100}>
+        <DataCard bgcolor="primary.300" width={"50%"} height={100}>
           Mock Box
         </DataCard>
-        <DataCard bgcolor="neutral.300" width={"50%"}>
+        <DataCard bgcolor="primary.300" width={"50%"}>
           Mock Box
         </DataCard>
       </Flex>

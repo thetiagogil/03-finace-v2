@@ -62,7 +62,6 @@ export const useEditTxById = () => {
       console.error("Error editing transaction:", error);
     } finally {
       setLoading(false);
-      location.reload();
     }
   };
 

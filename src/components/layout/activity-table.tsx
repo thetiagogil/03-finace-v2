@@ -32,6 +32,7 @@ export const ActivityTable = ({ data, deleteTx, deleting }: ActivityTableProps) 
           width: { xs: 900, md: "100%" },
           borderCollapse: "collapse",
           "& th": {
+            height: 16,
             textAlign: "center",
             bgcolor: "primary.500",
             color: "neutral.50"
