@@ -17,27 +17,23 @@ export const App = () => {
   return (
     <>
       {!isAuthenticated ? (
-        <>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="*" element={<Navigate to={"/"} />} />
-          </Routes>
-        </>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
       ) : (
-        <>
-          <Routes>
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/overview" element={<OverviewPage />} />
-            <Route path="/overview/:status/:year" element={<YearPage />} />
-            <Route path="/activity" element={<ActivityPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/reports" element={<ReportsPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="*" element={<Navigate to={"/dashboard"} />} />
-          </Routes>
-        </>
+        <Routes>
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/overview" element={<OverviewPage />} />
+          <Route path="/overview/:status/:year" element={<YearPage />} />
+          <Route path="/activity" element={<ActivityPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/reports" element={<ReportsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="*" element={<Navigate to="/dashboard" />} />
+        </Routes>
       )}
     </>
   );
