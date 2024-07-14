@@ -1,6 +1,6 @@
 import { Button, Input, Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
 import { useEffect, useState } from "react";
-import { useEditUserWallet } from "../../api/useUserApi";
+import { useUpdateUserWallet } from "../../api/users-api";
 import { Flex } from "../shared/flex";
 
 type EditWalletModalProps = {
@@ -13,7 +13,7 @@ type EditWalletModalProps = {
 
 export const EditWalletModal = ({ open, onClose, userId, walletType, walletValue }: EditWalletModalProps) => {
   const [value, setValue] = useState<number>(walletValue);
-  const { editUserWallet, loading } = useEditUserWallet({
+  const { updateUserWallet, loading } = useUpdateUserWallet({
     userId,
     payload: walletType === "initial" ? { wallet_initial_value: value } : { wallet_current_value: value }
   });
@@ -25,7 +25,7 @@ export const EditWalletModal = ({ open, onClose, userId, walletType, walletValue
   }, [open, walletValue]);
 
   const handleSaveChanges = async () => {
-    await editUserWallet();
+    await updateUserWallet();
     onClose();
     location.reload();
   };

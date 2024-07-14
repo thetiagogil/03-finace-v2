@@ -7,11 +7,11 @@ import { AddTxModal } from "../modals/add-tx-modal";
 
 type ActivityTableProps = {
   data: TxModel[];
-  deleteTx: (txId: string | undefined) => void;
+  deleteTxById: (txId: string | undefined) => void;
   deleting: boolean;
 };
 
-export const ActivityTable = ({ data, deleteTx, deleting }: ActivityTableProps) => {
+export const ActivityTable = ({ data, deleteTxById, deleting }: ActivityTableProps) => {
   const [editTxModal, setEditTxModal] = useState(false);
   const [currentTx, setCurrentTx] = useState<TxModel | null>(null);
 
@@ -83,7 +83,7 @@ export const ActivityTable = ({ data, deleteTx, deleting }: ActivityTableProps) 
           status={currentTx.status}
           editMode={true}
           initialData={currentTx}
-          handleDelete={() => deleteTx(currentTx.id)}
+          handleDelete={() => deleteTxById(currentTx.id)}
           deleting={deleting}
         />
       )}

@@ -29,7 +29,7 @@ export const useGetTxByStatus = ({ userId, status }: UseGetTxByStatusProps) => {
   const [data, setData] = useState<TxModel[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const getTx = async () => {
+  const getTxByStatus = async () => {
     setLoading(true);
     try {
       const response = await DataService.getData(`/api/tx/${userId}/${status}`);
@@ -44,17 +44,17 @@ export const useGetTxByStatus = ({ userId, status }: UseGetTxByStatusProps) => {
 
   useEffect(() => {
     if (userId && status) {
-      getTx();
+      getTxByStatus();
     }
   }, [userId, status]);
 
   return { data, loading };
 };
 
-export const useEditTxById = () => {
+export const useUpdateTxById = () => {
   const [loading, setLoading] = useState(false);
 
-  const editTx = async (txId: string, payload: TxModel) => {
+  const updateTxById = async (txId: string, payload: TxModel) => {
     setLoading(true);
     try {
       await DataService.putData(`/api/tx/${txId}`, payload);
@@ -65,13 +65,13 @@ export const useEditTxById = () => {
     }
   };
 
-  return { editTx, loading };
+  return { updateTxById, loading };
 };
 
-export const useDeleteTx = () => {
+export const useDeleteTxById = () => {
   const [loading, setLoading] = useState(false);
 
-  const deleteTx = async (txId: string | undefined) => {
+  const deleteTxById = async (txId: string | undefined) => {
     setLoading(true);
     try {
       await DataService.deleteData(`/api/tx/${txId}`);
@@ -83,5 +83,5 @@ export const useDeleteTx = () => {
     }
   };
 
-  return { deleteTx, loading };
+  return { deleteTxById, loading };
 };

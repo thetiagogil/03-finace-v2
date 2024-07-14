@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/joy";
 import { useContext } from "react";
-import { useGetYearInfo } from "../../api/useYearsApi";
+import { useGetYearByStatus } from "../../api/years-api";
 import { AuthContext } from "../../contexts/auth.context";
 import { DataCard } from "../shared/data-card";
 import { Flex } from "../shared/flex";
@@ -13,7 +13,7 @@ interface YearsInfoProps {
 
 export const YearsInfo = ({ year, status }: YearsInfoProps) => {
   const { userId } = useContext(AuthContext);
-  const { data, loading } = useGetYearInfo({ userId, status, year });
+  const { data, loading } = useGetYearByStatus({ userId, status, year });
   const total = data.totalIncome - data.totalExpense;
   const cardContent = [
     { title: "Total Income", value: data?.totalIncome },

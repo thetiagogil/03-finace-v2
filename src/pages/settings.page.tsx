@@ -1,6 +1,6 @@
 import { CircularProgress, Typography } from "@mui/joy";
 import { useContext, useState } from "react";
-import { useGetUser } from "../api/useUserApi";
+import { useGetUser } from "../api/users-api";
 import { EditWalletModal } from "../components/modals/edit-wallet-modal";
 import { AuthPageContainer } from "../components/shared/containers";
 import { DataCard } from "../components/shared/data-card";

@@ -7,26 +7,20 @@ type UseGetYearsByUserIdProps = {
   status: "tracked" | "planned";
 };
 
-type UseGetMonthlyCategorySummaryProps = {
+type UseGetYearByStatusProps = {
   userId: string;
   status: "tracked" | "planned";
   year: number;
 };
 
-type UseGetYearInfoProps = {
-  userId: string;
-  status: "tracked" | "planned";
-  year: number;
-};
-
-export const useGetYearsByUserId = ({ userId, status }: UseGetYearsByUserIdProps) => {
+export const useGetAllYearsByStatus = ({ userId, status }: UseGetYearsByUserIdProps) => {
   const [data, setData] = useState<YearModel[]>([]);
   const [loading, setLoading] = useState(false);
 
   const getYears = async () => {
     setLoading(true);
     try {
-      const response = await DataService.getData(`/api/tx/years/${userId}/${status}`);
+      const response = await DataService.getData(`/api/years/${userId}/${status}`);
       setData(response);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -44,17 +38,14 @@ export const useGetYearsByUserId = ({ userId, status }: UseGetYearsByUserIdProps
   return { data, loading };
 };
 
-export const useGetMonthlyCategorySummary = ({ userId, status, year }: UseGetMonthlyCategorySummaryProps) => {
-  const [data, setData] = useState<{
-    incomes: Record<string, Record<string, number>>;
-    expenses: Record<string, Record<string, number>>;
-  }>({ incomes: {}, expenses: {} });
+export const useGetYearByStatus = ({ userId, status, year }: UseGetYearByStatusProps) => {
+  const [data, setData] = useState<YearModel>({} as YearModel);
   const [loading, setLoading] = useState(false);
 
-  const getMonthlySummary = async () => {
+  const getYears = async () => {
     setLoading(true);
     try {
-      const response = await DataService.getData(`/api/tx/years/${userId}/${status}/${year}`);
+      const response = await DataService.getData(`/api/years/${userId}/${status}/${year}`);
       setData(response);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -65,23 +56,25 @@ export const useGetMonthlyCategorySummary = ({ userId, status, year }: UseGetMon
 
   useEffect(() => {
     if (userId && status) {
-      getMonthlySummary();
+      getYears();
     }
   }, [userId, status]);
 
   return { data, loading };
 };
 
-export const useGetYearInfo = ({ userId, status, year }: UseGetYearInfoProps) => {
-  const [data, setData] = useState<YearModel>({} as YearModel);
+export const useGetYearCategorySummaryByStatus = ({ userId, status, year }: UseGetYearByStatusProps) => {
+  const [data, setData] = useState<{
+    incomes: Record<string, Record<string, number>>;
+    expenses: Record<string, Record<string, number>>;
+  }>({ incomes: {}, expenses: {} });
   const [loading, setLoading] = useState(false);
 
-  const getYearInfo = async () => {
+  const getYearCategorySummary = async () => {
     setLoading(true);
     try {
-      const response = await DataService.getData(`/api/tx/years/${userId}/${status}`);
-      const filteredYear = response.find((item: YearModel) => Number(item.year) === Number(year));
-      setData(filteredYear);
+      const response = await DataService.getData(`/api/years/${userId}/${status}/${year}/month-summary`);
+      setData(response);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -91,9 +84,13 @@ export const useGetYearInfo = ({ userId, status, year }: UseGetYearInfoProps) =>
 
   useEffect(() => {
     if (userId && status) {
-      getYearInfo();
+      getYearCategorySummary();
     }
-  }, [userId, status, year]);
+  }, [userId, status]);
 
   return { data, loading };
 };
+
+// TODO: useGetYearTopMonthsByStatus
+// TODO: useGetYearTopCategoriesByStatus
+// TODO: useGetYearMonthTotalsByStatus

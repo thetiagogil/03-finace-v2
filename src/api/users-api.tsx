@@ -6,7 +6,7 @@ type UserIdProps = {
   userId: string;
 };
 
-type UseEditUserWalletProps = {
+type UseUpdateUserWalletProps = {
   userId?: string;
   payload: UserModel;
 };
@@ -40,10 +40,10 @@ export const useGetUser = ({ userId }: UserIdProps) => {
   return { data, loading };
 };
 
-export const useEditUserWallet = ({ userId, payload }: UseEditUserWalletProps) => {
+export const useUpdateUserWallet = ({ userId, payload }: UseUpdateUserWalletProps) => {
   const [loading, setLoading] = useState(false);
 
-  const editUserWallet = async () => {
+  const updateUserWallet = async () => {
     setLoading(true);
     try {
       await DataService.putData(`/api/users/${userId}`, payload);
@@ -54,7 +54,7 @@ export const useEditUserWallet = ({ userId, payload }: UseEditUserWalletProps) =
     }
   };
 
-  return { editUserWallet, loading };
+  return { updateUserWallet, loading };
 };
 
 export const useDeleteUser = ({ userId }: UserIdProps) => {

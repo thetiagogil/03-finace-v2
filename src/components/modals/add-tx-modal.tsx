@@ -1,6 +1,6 @@
 import { Button, Input, Modal, ModalClose, ModalDialog, Option, Select, Textarea, Typography } from "@mui/joy";
 import { useEffect, useState } from "react";
-import { useCreateTx, useEditTxById } from "../../api/useTxApi";
+import { useCreateTx, useUpdateTxById } from "../../api/tx-api";
 import { TxModel } from "../../models/tx.model";
 import { capFirstLetter } from "../../utils/typo";
 import { txCategoriesArray, txTypesArray } from "../arrays/tx-array";
@@ -37,7 +37,7 @@ export const AddTxModal = ({
   const [isFormValid, setIsFormValid] = useState(false);
 
   const { createTx, loading: creating } = useCreateTx();
-  const { editTx, loading: editing } = useEditTxById();
+  const { updateTxById, loading: editing } = useUpdateTxById();
 
   useEffect(() => {
     if (initialData) {
@@ -66,7 +66,7 @@ export const AddTxModal = ({
 
   const handleSubmit = async () => {
     if (editMode && initialData?.id) {
-      await editTx(initialData.id, { ...formData, user_id: userId, status });
+      await updateTxById(initialData.id, { ...formData, user_id: userId, status });
     } else {
       await createTx({ ...formData, user_id: userId, status });
     }
