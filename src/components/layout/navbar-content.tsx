@@ -12,7 +12,7 @@ export const NavbarContent = () => {
 
   return (
     <Flex x xsb fullwidth>
-      <Flex sx={{ display: { xs: "block", lg: "none" } }}>
+      <Flex sx={{ display: { xs: "block", lg: "none" }, pl: { xs: 1, lg: 0 } }}>
         <SidebarMobile />
       </Flex>
       {activeContent.map(item => (
@@ -20,7 +20,9 @@ export const NavbarContent = () => {
           {item.title}
         </Typography>
       ))}
-      <NavbarDropdown />
+      <Flex sx={{ pr: { xs: 1, lg: 0 } }}>
+        <NavbarDropdown />
+      </Flex>
     </Flex>
   );
 };
