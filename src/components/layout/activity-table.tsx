@@ -1,6 +1,7 @@
 import { Table } from "@mui/joy";
 import { useState } from "react";
 import { TxModel } from "../../models/tx.model";
+import { formatNumber } from "../../utils/formatNumber";
 import { capFirstLetter } from "../../utils/typo";
 import { txColumnssArray } from "../arrays/tx-array";
 import { AddTxModal } from "../modals/add-tx-modal";
@@ -34,8 +35,7 @@ export const ActivityTable = ({ data, deleteTxById, deleting }: ActivityTablePro
           "& th": {
             height: 16,
             textAlign: "center",
-            bgcolor: "primary.500",
-            color: "neutral.50"
+            bgcolor: "neutral.300"
           },
           "& td": {
             textAlign: "center"
@@ -69,7 +69,7 @@ export const ActivityTable = ({ data, deleteTxById, deleting }: ActivityTablePro
               <td>{tx.date}</td>
               <td>{capFirstLetter(tx.type)}</td>
               <td>{capFirstLetter(tx.category)}</td>
-              <td>{tx.value}€</td>
+              <td>{formatNumber(tx.value)}</td>
               <td>{tx.description}</td>
             </tr>
           ))}

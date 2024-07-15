@@ -7,6 +7,7 @@ export const SidebarDesktop = () => {
     <Box
       sx={{
         display: { xs: "none", lg: "block" },
+        minHeight: 800,
         bgcolor: "primary.800",
         width: SIDEBAR_WIDTH,
         borderTopLeftRadius: 16,

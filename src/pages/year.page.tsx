@@ -17,7 +17,9 @@ export const YearPage = () => {
   return (
     <AuthPageContainer>
       <Flex x fullwidth>
-        <YearsInfo year={year} status={status} />
+        <DataCard width="100%" height={200}>
+          <YearsInfo year={year} status={status} />
+        </DataCard>
         <DataCard width="100%"></DataCard>
       </Flex>
       <DataCard>

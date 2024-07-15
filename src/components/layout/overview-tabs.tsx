@@ -4,6 +4,7 @@ import { Link as ReactLink } from "react-router-dom";
 import { useGetAllYearsByStatus } from "../../api/years-api";
 import { AuthContext } from "../../contexts/auth.context";
 import { YearModel } from "../../models/year.model";
+import { formatNumber } from "../../utils/formatNumber";
 import { DataCard } from "../shared/data-card";
 import { Flex } from "../shared/flex";
 import { Loading } from "../shared/loading";
@@ -69,7 +70,7 @@ export const OverviewTabs = ({ status }: OverviewTabsProps) => {
                     <Typography level="title-lg">{year.year}</Typography>
                     <Typography level="body-sm" color={total > 0 ? "success" : "danger"}>
                       {total > 0 ? "+" : "-"}
-                      {Math.abs(total)}€
+                      {formatNumber(Math.abs(total))}
                     </Typography>
                   </Flex>
                 </DataCard>

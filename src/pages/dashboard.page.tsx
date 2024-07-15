@@ -6,18 +6,18 @@ export const DashboardPage = () => {
   return (
     <AuthPageContainer>
       <Flex>
-        <DataCard bgcolor="primary.300" width={"50%"} height={100}>
+        <DataCard bgcolor="neutral.300" width={"50%"} height={100}>
           Mock Box
         </DataCard>
-        <DataCard bgcolor="primary.300" width={"50%"}>
+        <DataCard bgcolor="neutral.300" width={"50%"}>
           Mock Box
         </DataCard>
       </Flex>
       <Flex>
-        <DataCard bgcolor="primary.300" width={"50%"} height={100}>
+        <DataCard bgcolor="neutral.300" width={"50%"} height={100}>
           Mock Box
         </DataCard>
-        <DataCard bgcolor="primary.300" width={"50%"}>
+        <DataCard bgcolor="neutral.300" width={"50%"}>
           Mock Box
         </DataCard>
       </Flex>

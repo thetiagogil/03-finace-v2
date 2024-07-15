@@ -45,13 +45,13 @@ export const SettingsPage = () => {
         >
           <Flex y yc xc gap2 fullheight>
             <Typography level="title-md">Initial value</Typography>
-            {loading ? <CircularProgress size="sm" /> : <Typography level="title-lg">{initialValue} €</Typography>}
+            {loading ? <CircularProgress size="sm" /> : <Typography level="title-lg">{initialValue}</Typography>}
           </Flex>
         </DataCard>
-        <DataCard onClick={() => handleOpenModal("current", currentValue)} bgcolor="primary.300" width={"100%"}>
+        <DataCard onClick={() => handleOpenModal("current", currentValue)} bgcolor="neutral.300" width={"100%"}>
           <Flex y yc xc gap2 fullheight>
             <Typography level="title-md">Current value</Typography>
-            {loading ? <CircularProgress size="sm" /> : <Typography level="title-lg">{currentValue} €</Typography>}
+            {loading ? <CircularProgress size="sm" /> : <Typography level="title-lg">{currentValue}</Typography>}
           </Flex>
         </DataCard>
       </Flex>

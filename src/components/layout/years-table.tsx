@@ -2,6 +2,7 @@ import { Table } from "@mui/joy";
 import { useContext } from "react";
 import { useGetYearCategorySummaryByStatus } from "../../api/years-api";
 import { AuthContext } from "../../contexts/auth.context";
+import { formatNumber } from "../../utils/formatNumber";
 import { capFirstLetter } from "../../utils/typo";
 import { months } from "../arrays/months-array";
 import { Loading } from "../shared/loading";
@@ -54,8 +55,7 @@ export const YearsTypesTable = ({ title, data }: YearsTypesTableProps) => {
         "& th": {
           height: 16,
           textAlign: "center",
-          bgcolor: title === "Incomes" ? "success.700" : "danger.700",
-          color: "neutral.50"
+          bgcolor: "neutral.300"
         },
         "& td": {
           textAlign: "center"
@@ -83,15 +83,15 @@ export const YearsTypesTable = ({ title, data }: YearsTypesTableProps) => {
           categories.sort().map(category => (
             <tr key={category}>
               <td>{capFirstLetter(category)}</td>
-              {months.map(month => (
-                <td key={`${category}-${month}`}>{data[month]?.[category] ? `${data[month][category]}€` : "-"}</td>
+              {months.map((month, index) => (
+                <td key={index}>{data[month]?.[category] ? `${formatNumber(data[month][category])}` : "-"}</td>
               ))}
             </tr>
           ))}
         <tr style={{ borderTop: "1px solid" }}>
           <td>Total</td>
-          {months.map(month => (
-            <td key={`total-${month}`}>{totalRow[month] ? `${totalRow[month]}€` : "-"}</td>
+          {months.map((month, index) => (
+            <td key={index}>{totalRow[month] ? `${formatNumber(totalRow[month])}` : "-"}</td>
           ))}
         </tr>
       </tbody>
