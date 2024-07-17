@@ -1,6 +1,6 @@
 import { Table } from "@mui/joy";
 import { useContext } from "react";
-import { useGetYearCategorySummaryByStatus } from "../../api/years-api";
+import { useGetYearCategoriesByMonths } from "../../api/years-api";
 import { AuthContext } from "../../contexts/auth.context";
 import { formatNumber } from "../../utils/formatNumber";
 import { capFirstLetter } from "../../utils/typo";
@@ -14,7 +14,7 @@ type ActivityTableProps = {
 
 export const YearsTable = ({ status, year }: ActivityTableProps) => {
   const { userId } = useContext(AuthContext);
-  const { data, loading } = useGetYearCategorySummaryByStatus({ userId, status, year });
+  const { data, loading } = useGetYearCategoriesByMonths({ userId, status, year });
 
   return (
     <>

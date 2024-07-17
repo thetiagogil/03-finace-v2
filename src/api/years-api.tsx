@@ -13,7 +13,7 @@ type UseGetYearByStatusProps = {
   year: number;
 };
 
-export const useGetAllYearsByStatus = ({ userId, status }: UseGetYearsByUserIdProps) => {
+export const useGetAllYears = ({ userId, status }: UseGetYearsByUserIdProps) => {
   const [data, setData] = useState<YearModel[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -38,7 +38,7 @@ export const useGetAllYearsByStatus = ({ userId, status }: UseGetYearsByUserIdPr
   return { data, loading };
 };
 
-export const useGetYearByStatus = ({ userId, status, year }: UseGetYearByStatusProps) => {
+export const useGetYear = ({ userId, status, year }: UseGetYearByStatusProps) => {
   const [data, setData] = useState<YearModel>({} as YearModel);
   const [loading, setLoading] = useState(false);
 
@@ -63,17 +63,17 @@ export const useGetYearByStatus = ({ userId, status, year }: UseGetYearByStatusP
   return { data, loading };
 };
 
-export const useGetYearCategorySummaryByStatus = ({ userId, status, year }: UseGetYearByStatusProps) => {
+export const useGetYearCategoriesByMonths = ({ userId, status, year }: UseGetYearByStatusProps) => {
   const [data, setData] = useState<{
     incomes: Record<string, Record<string, number>>;
     expenses: Record<string, Record<string, number>>;
   }>({ incomes: {}, expenses: {} });
   const [loading, setLoading] = useState(false);
 
-  const getYearCategorySummary = async () => {
+  const getYearCategories = async () => {
     setLoading(true);
     try {
-      const response = await DataService.getData(`/api/years/${userId}/${status}/${year}/month-summary`);
+      const response = await DataService.getData(`/api/years/category-by-month/${userId}/${status}/${year}`);
       setData(response);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -84,13 +84,14 @@ export const useGetYearCategorySummaryByStatus = ({ userId, status, year }: UseG
 
   useEffect(() => {
     if (userId && status) {
-      getYearCategorySummary();
+      getYearCategories();
     }
   }, [userId, status]);
 
   return { data, loading };
 };
 
-// TODO: useGetYearTopMonthsByStatus
-// TODO: useGetYearTopCategoriesByStatus
-// TODO: useGetYearMonthTotalsByStatus
+// TODO: useGetYearTopMonths
+// TODO: useGetYearTopCategories
+// TODO: useGetYearMonthTotals
+// TODO: useGetYearCategoriesByMonths
