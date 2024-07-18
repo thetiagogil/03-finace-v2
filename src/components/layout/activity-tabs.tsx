@@ -1,11 +1,9 @@
-import { Button, Select, Stack, Typography } from "@mui/joy";
+import { Button, Select, Stack } from "@mui/joy";
 import { useContext, useState } from "react";
-import { useDeleteTxById, useGetTxByStatus } from "../../api/tx-api";
 import { AuthContext } from "../../contexts/auth.context";
 import { AddTxModal } from "../modals/add-tx-modal";
 import { DataCard } from "../shared/data-card";
 import { Flex } from "../shared/flex";
-import { Loading } from "../shared/loading";
 import { ActivityTable } from "./activity-table";
 
 type ActivityTabsProps = {
@@ -14,8 +12,6 @@ type ActivityTabsProps = {
 
 export const ActivityTabs = ({ status }: ActivityTabsProps) => {
   const { userId } = useContext(AuthContext);
-  const { data, loading } = useGetTxByStatus({ userId, status });
-  const { deleteTxById, loading: deleting } = useDeleteTxById();
   const [addTxModal, setAddTxModal] = useState(false);
   const stylesSelect = { width: { xs: "100%", sm: 200 } };
   return (
@@ -41,17 +37,7 @@ export const ActivityTabs = ({ status }: ActivityTabsProps) => {
             width: "100%"
           }}
         >
-          {loading ? (
-            <Loading />
-          ) : data.length > 0 ? (
-            <ActivityTable data={data} deleteTxById={deleteTxById} deleting={deleting} />
-          ) : (
-            <Flex x xc>
-              <Typography level="body-sm">
-                <i>No data</i>
-              </Typography>
-            </Flex>
-          )}
+          <ActivityTable status={status} />
         </Stack>
       </DataCard>
     </Flex>
