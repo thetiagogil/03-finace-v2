@@ -28,6 +28,12 @@ type UseGetYearCategorySummaryProps = {
   month?: string;
 };
 
+type UseGetYearTopCategoriesProps = {
+  userId: string;
+  year: number | null;
+  month?: string;
+};
+
 export const useGetYears = ({ userId }: useGetYearsProps) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -129,10 +135,12 @@ export const useGetYearInfo = ({ userId, status, year }: UseGetYearByStatusProps
 };
 
 export const useGetYearCategoriesByMonths = ({ userId, status, year }: UseGetYearByStatusProps) => {
-  const [data, setData] = useState<{
+  type dataType = {
     incomes: Record<string, Record<string, number>>;
     expenses: Record<string, Record<string, number>>;
-  }>({ incomes: {}, expenses: {} });
+  };
+
+  const [data, setData] = useState<dataType>({ incomes: {}, expenses: {} });
   const [loading, setLoading] = useState(false);
 
   const getYearCategories = async () => {
@@ -187,6 +195,45 @@ export const useGetYearCategorySummary = ({ userId, year, month }: UseGetYearCat
   return { data, loading };
 };
 
+export const useGetYearTopCategories = ({ userId, year, month }: UseGetYearTopCategoriesProps) => {
+  type dataType = {
+    incomes: { [key: string]: number };
+    expenses: { [key: string]: number };
+  };
+  type dataStatus = {
+    tracked: dataType;
+    planned: dataType;
+  };
+
+  const [data, setData] = useState<dataStatus>({} as dataStatus);
+  const [loading, setLoading] = useState(false);
+
+  const getYearCategorySummary = async () => {
+    setLoading(true);
+    try {
+      let url = `/api/years/top-categories/${userId}/${year}`;
+
+      if (month !== "") {
+        url += `/${month}`;
+      }
+
+      const response = await DataService.getData(url);
+      setData(response);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (userId && year) {
+      getYearCategorySummary();
+    }
+  }, [userId, year, month]);
+
+  return { data, loading };
+};
+
 // TODO: useGetYearTopMonths
-// TODO: useGetYearTopCategories
 // TODO: useGetYearMonthTotals
