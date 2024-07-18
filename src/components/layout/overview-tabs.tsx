@@ -1,7 +1,7 @@
 import { CircularProgress, Grid, Link, Typography } from "@mui/joy";
 import { useContext } from "react";
 import { Link as ReactLink } from "react-router-dom";
-import { useGetAllYears } from "../../api/years-api";
+import { useGetYearsInfo } from "../../api/years-api";
 import { AuthContext } from "../../contexts/auth.context";
 import { YearModel } from "../../models/year.model";
 import { formatNumber } from "../../utils/formatNumber";
@@ -15,7 +15,7 @@ type OverviewTabsProps = {
 
 export const OverviewTabs = ({ status }: OverviewTabsProps) => {
   const { userId } = useContext(AuthContext);
-  const { data, loading } = useGetAllYears({ userId, status });
+  const { data, loading } = useGetYearsInfo({ userId, status });
   return (
     <>
       {loading ? (

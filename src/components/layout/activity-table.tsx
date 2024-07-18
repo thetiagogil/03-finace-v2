@@ -5,7 +5,6 @@ import { AuthContext } from "../../contexts/auth.context";
 import { TxModel } from "../../models/tx.model";
 import { formatNumber } from "../../utils/formatNumber";
 import { capFirstLetter } from "../../utils/typo";
-import { txColumnssArray } from "../arrays/tx-array";
 import { AddTxModal } from "../modals/add-tx-modal";
 import { Flex } from "../shared/flex";
 import { Loading } from "../shared/loading";
@@ -42,11 +41,11 @@ export const ActivityTable = ({ status }: ActivityTableProps) => {
           variant="plain"
           hoverRow
           stickyHeader
-          stripe="even"
           sx={{
             width: { xs: 900, md: "100%" },
             borderCollapse: "collapse",
             "& th": {
+              width: 96,
               height: 16,
               textAlign: "center",
               bgcolor: "neutral.300"
@@ -64,19 +63,11 @@ export const ActivityTable = ({ status }: ActivityTableProps) => {
         >
           <thead>
             <tr>
-              {txColumnssArray.map((header, index) => (
-                <th
-                  style={{
-                    width:
-                      header === "Date" || header === "Type" || header === "Category" || header === "Value"
-                        ? 96
-                        : "auto"
-                  }}
-                  key={index}
-                >
-                  {header}
-                </th>
-              ))}
+              <th style={{ borderRadius: 0 }}>Date</th>
+              <th>Type</th>
+              <th>Category</th>
+              <th>Value</th>
+              <th style={{ width: "auto", borderRadius: 0 }}>Description</th>
             </tr>
           </thead>
           <tbody>

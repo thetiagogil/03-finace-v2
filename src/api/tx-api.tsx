@@ -36,7 +36,7 @@ export const useGetTxByStatus = ({ userId, status }: UseGetTxByStatusProps) => {
       response.sort((a: { date: Date }, b: { date: Date }) => new Date(b.date).getTime() - new Date(a.date).getTime());
       setData(response);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -59,7 +59,7 @@ export const useUpdateTxById = () => {
     try {
       await DataService.putData(`/api/tx/${txId}`, payload);
     } catch (error) {
-      console.error("Error editing transaction:", error);
+      console.error(error);
     } finally {
       setLoading(false);
     }

@@ -4,12 +4,17 @@ import { useGetYearCategoriesByMonths } from "../../api/years-api";
 import { AuthContext } from "../../contexts/auth.context";
 import { formatNumber } from "../../utils/formatNumber";
 import { capFirstLetter } from "../../utils/typo";
-import { months } from "../arrays/months-array";
+import { shortMonths } from "../arrays/months-array";
 import { Loading } from "../shared/loading";
 
 type ActivityTableProps = {
   status: "tracked" | "planned";
   year: number;
+};
+
+type YearsTypesTableProps = {
+  title: string;
+  data: Record<string, Record<string, number>>;
 };
 
 export const YearsTable = ({ status, year }: ActivityTableProps) => {
@@ -30,15 +35,10 @@ export const YearsTable = ({ status, year }: ActivityTableProps) => {
   );
 };
 
-type YearsTypesTableProps = {
-  title: string;
-  data: Record<string, Record<string, number>>;
-};
-
 export const YearsTypesTable = ({ title, data }: YearsTypesTableProps) => {
   const categories = Array.from(new Set(Object.keys(data).flatMap(month => Object.keys(data[month]))));
   const totalRow: Record<string, number> = {};
-  months.forEach(month => {
+  shortMonths.forEach(month => {
     totalRow[month] = categories.reduce((acc, category) => acc + (data[month]?.[category] || 0), 0);
   });
 
@@ -58,20 +58,21 @@ export const YearsTypesTable = ({ title, data }: YearsTypesTableProps) => {
           bgcolor: "neutral.300"
         },
         "& td": {
-          textAlign: "center"
+          textAlign: "center",
+          fontWeight: "400"
         },
         "& th:first-of-type, & td:first-of-type": {
           textAlign: "left"
         },
         "& tr:last-child": {
-          fontWeight: "bold"
+          fontWeight: "700"
         }
       }}
     >
       <thead>
         <tr>
           <th style={{ width: 96, borderRadius: 0 }}>{title}</th>
-          {months.map(month => (
+          {shortMonths.map(month => (
             <th key={month} style={{ borderRadius: month === "dec" ? 0 : "" }}>
               {capFirstLetter(month)}
             </th>
@@ -83,14 +84,14 @@ export const YearsTypesTable = ({ title, data }: YearsTypesTableProps) => {
           categories.sort().map(category => (
             <tr key={category}>
               <td>{capFirstLetter(category)}</td>
-              {months.map((month, index) => (
+              {shortMonths.map((month, index) => (
                 <td key={index}>{data[month]?.[category] ? `${formatNumber(data[month][category])}` : "-"}</td>
               ))}
             </tr>
           ))}
         <tr style={{ borderTop: "1px solid" }}>
           <td>Total</td>
-          {months.map((month, index) => (
+          {shortMonths.map((month, index) => (
             <td key={index}>{totalRow[month] ? `${formatNumber(totalRow[month])}` : "-"}</td>
           ))}
         </tr>

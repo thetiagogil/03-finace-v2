@@ -1,4 +1,3 @@
-export const txColumnssArray = ["Date", "Type", "Category", "Value", "Description"];
 export const txTypesArray = ["income", "expense"];
 export const txCategoriesArray = [
   "salary",
