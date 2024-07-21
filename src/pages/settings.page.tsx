@@ -25,6 +25,7 @@ export const SettingsPage = () => {
     walletType: "initial",
     walletValue: 0
   });
+  const style = { bgcolor: "neutral.300", width: { xs: "auto", sm: "100%" }, height: 100 };
 
   const handleOpenModal = (walletType: WalletType, walletValue: number) => {
     setModalState({ open: true, walletType, walletValue });
@@ -37,18 +38,13 @@ export const SettingsPage = () => {
   return (
     <AuthPageContainer>
       <Flex fullwidth sx={{ flexDirection: { xs: "column", sm: "row" } }}>
-        <DataCard
-          onClick={() => handleOpenModal("initial", initialValue)}
-          bgcolor="neutral.300"
-          width={"100%"}
-          height={100}
-        >
+        <DataCard onClick={() => handleOpenModal("initial", initialValue)} sx={style}>
           <Flex y yc xc gap2 fullheight>
             <Typography level="title-md">Initial value</Typography>
             {loading ? <CircularProgress size="sm" /> : <Typography level="title-lg">{initialValue}</Typography>}
           </Flex>
         </DataCard>
-        <DataCard onClick={() => handleOpenModal("current", currentValue)} bgcolor="neutral.300" width={"100%"}>
+        <DataCard onClick={() => handleOpenModal("current", currentValue)} sx={style}>
           <Flex y yc xc gap2 fullheight>
             <Typography level="title-md">Current value</Typography>
             {loading ? <CircularProgress size="sm" /> : <Typography level="title-lg">{currentValue}</Typography>}
