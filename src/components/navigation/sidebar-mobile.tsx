@@ -7,7 +7,7 @@ import { Flex } from "../shared/flex";
 export const SidebarMobile = () => {
   const [open, setOpen] = useState(false);
   return (
-    <Flex x xe>
+    <Flex x>
       <IconButton variant="plain" color="neutral" onClick={() => setOpen(true)}>
         <IoIosMenu size={30} />
       </IconButton>

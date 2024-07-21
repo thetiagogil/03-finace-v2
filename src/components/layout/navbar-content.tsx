@@ -1,8 +1,7 @@
-import { Typography } from "@mui/joy";
+import { Grid, Stack, Typography } from "@mui/joy";
 import { useLocation } from "react-router-dom";
 import { linksArray } from "../arrays/links-array";
 import { SidebarMobile } from "../navigation/sidebar-mobile";
-import { Flex } from "../shared/flex";
 import { NavbarDropdown } from "./navbar-dropdown";
 
 export const NavbarContent = () => {
@@ -11,18 +10,19 @@ export const NavbarContent = () => {
   const activeContent = linksArray.filter(item => pathname.includes(item.path));
 
   return (
-    <Flex x xsb fullwidth>
-      <Flex sx={{ display: { xs: "block", lg: "none" }, pl: { xs: 1, lg: 0 } }}>
+    <Grid container sx={{ width: "100%" }}>
+      <Grid xs={4} sx={{ display: { xs: "block", lg: "none" } }}>
         <SidebarMobile />
-      </Flex>
+      </Grid>
+      <Grid xs={4} sx={{ display: { xs: "none", lg: "block" } }} />
       {activeContent.map(item => (
-        <Typography key={item.path} level="h3">
-          {item.title}
-        </Typography>
+        <Stack component={Grid} xs={4} sx={{ alignItems: "center" }} key={item.path}>
+          <Typography level="h3">{item.title}</Typography>
+        </Stack>
       ))}
-      <Flex sx={{ pr: { xs: 1, lg: 0 } }}>
+      <Stack component={Grid} xs={4} sx={{ alignItems: "end" }}>
         <NavbarDropdown />
-      </Flex>
-    </Flex>
+      </Stack>
+    </Grid>
   );
 };

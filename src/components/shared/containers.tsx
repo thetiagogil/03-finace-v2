@@ -27,13 +27,13 @@ export const FormPageContainer = ({ children }: Props) => {
   );
 };
 
-export const AuthPageContainer = ({ children, hasTabs }: Props) => {
+export const AuthPageContainer = ({ children }: Props) => {
   return (
-    <Flex x xc sx={{ p: { xs: 0, lg: 2 } }}>
+    <Flex x xc fullwidth sx={{ height: "100vh" }}>
       <SidebarDesktop />
-      <Flex y sx={{ width: { xs: "100%", lg: MAIN_WIDTH } }}>
+      <Flex y xc fullwidth sx={{ bgcolor: "neutral.100" }}>
         <Navbar />
-        <Flex y sx={{ bgcolor: "neutral.100", p: hasTabs ? 0 : 1, height: "100%" }}>
+        <Flex y sx={{ height: "100%", width: { xs: "100%", lg: MAIN_WIDTH }, p: 1 }}>
           {children}
         </Flex>
       </Flex>

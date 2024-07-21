@@ -1,6 +1,6 @@
 import { Box, Skeleton } from "@mui/joy";
 import { SxProps } from "@mui/joy/styles/types";
-import { ReactNode } from "react";
+import { ElementType, ReactNode } from "react";
 
 type Props = {
   children?: ReactNode;
@@ -27,6 +27,7 @@ type Props = {
   fullwidth?: boolean;
   fullheight?: boolean;
   pointer?: boolean;
+  component?: ElementType;
 };
 
 export const Flex = ({
@@ -53,7 +54,8 @@ export const Flex = ({
   wrap,
   grow,
   loading,
-  pointer
+  pointer,
+  component = "div"
 }: Props) => {
   const style: SxProps = { display: "flex" };
 
@@ -113,7 +115,9 @@ export const Flex = ({
 
   return (
     <Skeleton animation="wave" loading={loading || false}>
-      <Box sx={{ ...style, ...sx }}>{children}</Box>
+      <Box component={component} sx={{ ...style, ...sx }}>
+        {children}
+      </Box>
     </Skeleton>
   );
 };

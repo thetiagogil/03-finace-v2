@@ -5,13 +5,11 @@ import { SidebarContent } from "../layout/sidebar-content";
 export const SidebarDesktop = () => {
   return (
     <Box
+      component="nav"
       sx={{
         display: { xs: "none", lg: "block" },
-        minHeight: 800,
         bgcolor: "primary.800",
-        width: SIDEBAR_WIDTH,
-        borderTopLeftRadius: 16,
-        borderBottomLeftRadius: 16
+        width: SIDEBAR_WIDTH
       }}
     >
       <SidebarContent textColor="neutral.50" />

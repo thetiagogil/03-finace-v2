@@ -1,10 +1,10 @@
-import { Typography } from "@mui/joy";
 import { AuthPageContainer } from "../components/shared/containers";
+import { DataCard } from "../components/shared/data-card";
 
 export const ProfilePage = () => {
   return (
     <AuthPageContainer>
-      <Typography>Profile Page</Typography>
+      <DataCard>Profile Page</DataCard>
     </AuthPageContainer>
   );
 };
