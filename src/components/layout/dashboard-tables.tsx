@@ -1,13 +1,19 @@
-import { Table } from "@mui/joy";
+import { Stack, Table } from "@mui/joy";
 import { formatNumber } from "../../utils/formatNumber";
 import { capFirstLetter } from "../../utils/typo";
+import { DataCard } from "../shared/data-card";
 
-type DashboardTableProps = {
+type TypesTableProps = {
   type: "income" | "expense";
   data: object;
 };
 
-export const DashboardTable = ({ type, data }: DashboardTableProps) => {
+type DashboardTablesProps = {
+  dataIncomes: object;
+  dataExpenses: object;
+};
+
+const TypesTable = ({ type, data }: TypesTableProps) => {
   const notzero = (value: number) => {
     return value > 0 ? true : false;
   };
@@ -70,5 +76,24 @@ export const DashboardTable = ({ type, data }: DashboardTableProps) => {
         })}
       </tbody>
     </Table>
+  );
+};
+
+export const DashboardTables = ({ dataIncomes, dataExpenses }: DashboardTablesProps) => {
+  return (
+    <DataCard sx={{ gap: 4 }}>
+      <Stack
+        component="section"
+        sx={{
+          alignItems: { xs: "normal", md: "center" },
+          overflowX: { xs: "auto", md: "visible" },
+          width: "100%",
+          gap: 4
+        }}
+      >
+        {dataIncomes && Object.keys(dataIncomes).length > 0 && <TypesTable type="income" data={dataIncomes} />}
+        {dataExpenses && Object.keys(dataExpenses).length > 0 && <TypesTable type="expense" data={dataExpenses} />}
+      </Stack>
+    </DataCard>
   );
 };

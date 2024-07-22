@@ -29,7 +29,7 @@ export const FormPageContainer = ({ children }: Props) => {
 
 export const AuthPageContainer = ({ children }: Props) => {
   return (
-    <Flex x xc fullwidth sx={{ height: "100vh" }}>
+    <Flex x xc fullwidth sx={{ minHeight: "100vh" }}>
       <SidebarDesktop />
       <Flex y xc fullwidth sx={{ bgcolor: "neutral.100" }}>
         <Navbar />
