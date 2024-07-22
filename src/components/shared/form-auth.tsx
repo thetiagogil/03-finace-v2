@@ -2,7 +2,7 @@ import { Box, Button, IconButton, Input, Link, Typography } from "@mui/joy";
 import { useEffect, useState } from "react";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { Link as ReactLink } from "react-router-dom";
-import { Flex } from "../shared/flex";
+import { Flex } from "./flex";
 
 type Form = {
   firstname?: string;
