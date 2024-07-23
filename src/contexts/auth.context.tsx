@@ -33,8 +33,6 @@ type DecodedTokenProps = {
   sub: string;
 };
 
-type UserDataProps = (token: string, decodedToken: DecodedTokenProps) => void;
-
 export const AuthContext = createContext({} as AuthContextProps);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
@@ -51,7 +49,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
   }, []);
 
-  const userData: UserDataProps = (token, decodedToken) => {
+  const userData = (token: string, decodedToken: DecodedTokenProps) => {
     if (token) {
       setToken(token);
     }
@@ -71,10 +69,10 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         window.localStorage.setItem("authToken", token);
         const decodedToken: DecodedTokenProps = jwtDecode(token);
         userData(token, decodedToken);
-        navigate("/");
+        navigate("/dashboard");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Signup error:", error);
       throw error;
     }
   };
@@ -83,16 +81,16 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     try {
       const response = await DataService.postData("/auth/login", payload);
       if (response.error) {
-        console.error(response.error);
+        console.error("Login error:", response.error);
       } else if (response.data) {
         const token = response.data.session.access_token;
         window.localStorage.setItem("authToken", token);
         const decodedToken: DecodedTokenProps = jwtDecode(token);
         userData(token, decodedToken);
-        navigate("/");
+        navigate("/dashboard");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Login error:", error);
       throw error;
     }
   };
@@ -102,6 +100,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     setToken(null);
     setIsAuthenticated(false);
     window.localStorage.removeItem("authToken");
+    navigate("/");
   };
 
   return (
