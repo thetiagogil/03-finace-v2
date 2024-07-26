@@ -1,4 +1,6 @@
+import { Typography } from "@mui/joy";
 import { useContext, useState } from "react";
+import { useGetUser } from "../api/users-api";
 import {
   useGetMonths,
   useGetYearCategorySummary,
@@ -22,12 +24,8 @@ export const DashboardPage = () => {
   const [selectedMonth, setSelectedMonth] = useState("");
   const { data: years } = useGetYears({ userId });
   const { data: monthsWithValue } = useGetMonths({ userId, year: selectedYear });
+  const { data: user } = useGetUser({ userId });
   const { data: tableData, loading: tableLoading } = useGetYearCategorySummary({
-    userId,
-    year: selectedYear,
-    month: selectedMonth
-  });
-  const { data: chartData, loading: chartLoading } = useGetYearTopTrackedCategories({
     userId,
     year: selectedYear,
     month: selectedMonth
@@ -36,6 +34,11 @@ export const DashboardPage = () => {
     userId,
     year: selectedYear
   });
+  const { data: chartData, loading: chartLoading } = useGetYearTopTrackedCategories({
+    userId,
+    year: selectedYear,
+    month: selectedMonth
+  });
 
   const isMonthDisabled = (shortMonth: string) => {
     return !monthsWithValue?.includes(shortMonth);
@@ -43,12 +46,19 @@ export const DashboardPage = () => {
 
   return (
     <AuthPageContainer>
-      {tableLoading && chartLoading ? (
+      {tableLoading && graphLoading && chartLoading ? (
         <Loading size="md" />
       ) : (
         <>
           {years && years.length > 0 && (
-            <DataCard sx={{ flexDirection: { xs: "column-reverse", sm: "row" }, justifyContent: "space-between" }}>
+            <DataCard
+              sx={{
+                flexDirection: { xs: "column-reverse", sm: "row" },
+                justifyContent: "space-between",
+                alignItems: "center"
+              }}
+            >
+              <Typography level="title-lg">Hello {user.data?.firstname}</Typography>
               <DashboardFilters
                 years={years}
                 selectedYear={selectedYear}
@@ -63,17 +73,10 @@ export const DashboardPage = () => {
             {graphData && graphData.length > 0 && (
               <DashboardGraph graphData={graphData} title="Yearly Totals" selectedMonth={selectedMonth} />
             )}
-            {chartData &&
-              (Object.keys(chartData?.incomes || {}).length > 0 ||
-                Object.keys(chartData?.expenses || {}).length > 0) && (
-                <DashboardCharts doughnutIncomes={chartData.incomes} doughnutExpenses={chartData.expenses} />
-              )}
+            {chartData && Object.keys(chartData || {}).length > 0 && <DashboardCharts data={chartData} />}
           </Flex>
 
-          {tableData &&
-            (Object.keys(tableData.incomes || {}).length > 0 || Object.keys(tableData.expenses || {}).length > 0) && (
-              <DashboardTables dataIncomes={tableData.incomes} dataExpenses={tableData.expenses} />
-            )}
+          {tableData && Object.keys(tableData || {}).length > 0 && <DashboardTables data={tableData} />}
         </>
       )}
     </AuthPageContainer>

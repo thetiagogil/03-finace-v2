@@ -3,18 +3,17 @@ import { DataCard } from "../shared/data-card";
 import { Flex } from "../shared/flex";
 
 type DashboardChartsProps = {
-  doughnutIncomes: any;
-  doughnutExpenses: any;
+  data: { incomes: {}; expenses: {} };
 };
 
-export const DashboardCharts = ({ doughnutIncomes, doughnutExpenses }: DashboardChartsProps) => {
+export const DashboardCharts = ({ data }: DashboardChartsProps) => {
   return (
     <Flex fullwidth sx={{ flexDirection: { xs: "column", md: "row" } }}>
       <DataCard sx={{ width: "100%", alignItems: "center" }}>
-        {doughnutIncomes && <ChartDoughnut data={doughnutIncomes} title="Tracked Incomes" />}
+        {data?.incomes && <ChartDoughnut data={data?.incomes} title="Tracked Incomes" />}
       </DataCard>
       <DataCard sx={{ width: "100%", alignItems: "center" }}>
-        {doughnutExpenses && <ChartDoughnut data={doughnutExpenses} title="Tracked Expenses" />}
+        {data?.expenses && <ChartDoughnut data={data?.expenses} title="Tracked Expenses" />}
       </DataCard>
     </Flex>
   );

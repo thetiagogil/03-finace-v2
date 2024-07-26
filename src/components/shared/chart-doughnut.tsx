@@ -52,32 +52,38 @@ export const ChartDoughnut = ({ data, title }: ChartDoughnutProps) => {
   return (
     <Flex y xc gap2>
       <Typography level="title-sm">{title}</Typography>
-      <Flex x xc yc gap3 fullwidth sx={{ flexDirection: { xs: "row", md: "column" } }}>
-        <Flex x yc sx={{ width: 112 }}>
-          <Doughnut data={chartData} options={chartOptions} />
-        </Flex>
+      {Object.keys(data).length > 0 ? (
+        <Flex x xc yc gap3 fullwidth sx={{ flexDirection: { xs: "row", md: "column" } }}>
+          <Flex x yc sx={{ width: 112 }}>
+            <Doughnut data={chartData} options={chartOptions} />
+          </Flex>
 
-        <Flex y ysb fullheight sx={{ width: 160, height: 136 }}>
-          <Flex y>
-            {Object.entries(data).map(([category, value], index) => (
-              <Flex x xsb key={category}>
-                <Flex x yc gap1>
-                  <Box sx={{ ...styleBox, bgcolor: colors[index] }} />
-                  <Typography level="body-sm">{capFirstLetter(category)}</Typography>
+          <Flex y ysb fullheight sx={{ width: 160, height: 136 }}>
+            <Flex y>
+              {Object.entries(data).map(([category, value], index) => (
+                <Flex x xsb key={category}>
+                  <Flex x yc gap1>
+                    <Box sx={{ ...styleBox, bgcolor: colors[index] }} />
+                    <Typography level="body-sm">{capFirstLetter(category)}</Typography>
+                  </Flex>
+                  <Typography level="body-sm">{formatNumber(value)}</Typography>
                 </Flex>
-                <Typography level="body-sm">{formatNumber(value)}</Typography>
-              </Flex>
-            ))}
-          </Flex>
-          <Flex x xsb sx={{ fontWeight: "bold" }}>
-            <Flex x yc gap1>
-              <Box sx={{ ...styleBox }} />
-              <Typography level="body-sm">Total</Typography>
+              ))}
             </Flex>
-            <Typography level="body-sm">{formatNumber(total)}</Typography>
+            <Flex x xsb sx={{ fontWeight: "bold" }}>
+              <Flex x yc gap1>
+                <Box sx={{ ...styleBox }} />
+                <Typography level="body-sm">Total</Typography>
+              </Flex>
+              <Typography level="body-sm">{formatNumber(total)}</Typography>
+            </Flex>
           </Flex>
         </Flex>
-      </Flex>
+      ) : (
+        <Typography level="body-sm">
+          <i>no data</i>
+        </Typography>
+      )}
     </Flex>
   );
 };

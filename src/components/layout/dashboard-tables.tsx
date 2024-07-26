@@ -9,8 +9,7 @@ type TypesTableProps = {
 };
 
 type DashboardTablesProps = {
-  dataIncomes: object;
-  dataExpenses: object;
+  data: { incomes: {}; expenses: {} };
 };
 
 const TypesTable = ({ type, data }: TypesTableProps) => {
@@ -79,7 +78,7 @@ const TypesTable = ({ type, data }: TypesTableProps) => {
   );
 };
 
-export const DashboardTables = ({ dataIncomes, dataExpenses }: DashboardTablesProps) => {
+export const DashboardTables = ({ data }: DashboardTablesProps) => {
   return (
     <DataCard sx={{ gap: 4 }}>
       <Stack
@@ -91,8 +90,10 @@ export const DashboardTables = ({ dataIncomes, dataExpenses }: DashboardTablesPr
           gap: 4
         }}
       >
-        {dataIncomes && Object.keys(dataIncomes).length > 0 && <TypesTable type="income" data={dataIncomes} />}
-        {dataExpenses && Object.keys(dataExpenses).length > 0 && <TypesTable type="expense" data={dataExpenses} />}
+        {data?.incomes && Object.keys(data?.incomes).length > 0 && <TypesTable type="income" data={data?.incomes} />}
+        {data?.expenses && Object.keys(data?.expenses).length > 0 && (
+          <TypesTable type="expense" data={data?.expenses} />
+        )}
       </Stack>
     </DataCard>
   );

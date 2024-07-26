@@ -12,7 +12,7 @@ type UseUpdateUserWalletProps = {
 };
 
 type DataProps = {
-  user?: UserModel;
+  data?: UserModel;
 };
 
 export const useGetUser = ({ userId }: UserIdProps) => {
