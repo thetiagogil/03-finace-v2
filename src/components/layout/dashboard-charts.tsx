@@ -9,11 +9,11 @@ type DashboardChartsProps = {
 
 export const DashboardCharts = ({ doughnutIncomes, doughnutExpenses }: DashboardChartsProps) => {
   return (
-    <Flex sx={{ flexDirection: { xs: "column", md: "row" } }}>
-      <DataCard sx={{ alignItems: "center" }}>
+    <Flex fullwidth sx={{ flexDirection: { xs: "column", md: "row" } }}>
+      <DataCard sx={{ width: "100%", alignItems: "center" }}>
         {doughnutIncomes && <ChartDoughnut data={doughnutIncomes} title="Tracked Incomes" />}
       </DataCard>
-      <DataCard sx={{ alignItems: "center" }}>
+      <DataCard sx={{ width: "100%", alignItems: "center" }}>
         {doughnutExpenses && <ChartDoughnut data={doughnutExpenses} title="Tracked Expenses" />}
       </DataCard>
     </Flex>

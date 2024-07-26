@@ -50,7 +50,7 @@ export const ChartDoughnut = ({ data, title }: ChartDoughnutProps) => {
   const colors = shades.slice(0, Object.keys(data).length);
 
   return (
-    <Flex y xc gap2 fullwidth>
+    <Flex y xc gap2>
       <Typography level="title-sm">{title}</Typography>
       <Flex x xc yc gap3 fullwidth sx={{ flexDirection: { xs: "row", md: "column" } }}>
         <Flex x yc sx={{ width: 112 }}>

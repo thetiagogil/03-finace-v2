@@ -78,7 +78,7 @@ export const DashboardGraph = ({ graphData, title, selectedMonth }: DashboardGra
     responsive: true,
     plugins: {
       legend: {
-        display: false // Hide the default legend
+        display: false
       }
     },
     scales: {
@@ -111,11 +111,11 @@ export const DashboardGraph = ({ graphData, title, selectedMonth }: DashboardGra
   ];
 
   return (
-    <Flex fullwidth>
-      <DataCard width={"100%"}>
+    <Flex>
+      <DataCard sx={{ width: { xs: "100%", md: "auto" } }}>
         <Flex y xc gap2 fullheight fullwidth>
           <Typography level="title-sm">{title}</Typography>
-          <Flex fullwidth>
+          <Flex sx={{ width: { xs: "100%", md: 520 } }}>
             <Bar data={data} options={options} />
           </Flex>
           <Flex x xc gap1 wrap>

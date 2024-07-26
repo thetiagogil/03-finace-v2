@@ -1,8 +1,7 @@
-import { BsClipboardData, BsClipboardDataFill } from "react-icons/bs";
+import { BiSolidSpreadsheet, BiSpreadsheet } from "react-icons/bi";
 import { IoSettingsOutline, IoSettingsSharp } from "react-icons/io5";
 import { MdOutlineSpaceDashboard, MdSpaceDashboard } from "react-icons/md";
-import { PiSquaresFour, PiSquaresFourFill } from "react-icons/pi";
-import { TbTransform, TbTransformFilled } from "react-icons/tb";
+import { PiCalendarCheck, PiCalendarCheckFill } from "react-icons/pi";
 
 const iconSize = 25;
 
@@ -19,24 +18,16 @@ export const linksArray = [
     title: "Overview",
     path: "/overview",
     icons: {
-      icon: <PiSquaresFour size={iconSize} />,
-      iconSelected: <PiSquaresFourFill size={iconSize} />
+      icon: <PiCalendarCheck size={iconSize} />,
+      iconSelected: <PiCalendarCheckFill size={iconSize} />
     }
   },
   {
     title: "Activity",
     path: "/activity",
     icons: {
-      icon: <TbTransform size={iconSize} />,
-      iconSelected: <TbTransformFilled size={iconSize} />
-    }
-  },
-  {
-    title: "Reports",
-    path: "/reports",
-    icons: {
-      icon: <BsClipboardData size={iconSize} />,
-      iconSelected: <BsClipboardDataFill size={iconSize} />
+      icon: <BiSpreadsheet size={iconSize} />,
+      iconSelected: <BiSolidSpreadsheet size={iconSize} />
     }
   },
   {
