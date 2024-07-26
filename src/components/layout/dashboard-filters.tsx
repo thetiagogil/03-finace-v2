@@ -20,15 +20,15 @@ export const DashboardFilters = ({
   setSelectedMonth,
   isMonthDisabled
 }: DashboardFiltersProps) => {
-  const stylesSelect = { width: { xs: "100%", sm: 200 } };
+  const styleSelect = { width: { xs: "100%", sm: 200 } };
 
   return (
-    <Flex gap2>
+    <Flex gap2 sx={{ width: { xs: "100%", sm: "auto" } }}>
       <Select
         value={selectedYear}
         onChange={(_e: any, newValue: any) => setSelectedYear(newValue)}
         placeholder="Select Year"
-        sx={stylesSelect}
+        sx={styleSelect}
       >
         {years?.map((year, index) => (
           <Option key={index} value={year}>
@@ -40,7 +40,7 @@ export const DashboardFilters = ({
         value={selectedMonth}
         onChange={(_e: any, newValue: any) => setSelectedMonth(newValue)}
         placeholder="Select Month"
-        sx={stylesSelect}
+        sx={styleSelect}
       >
         <Option value="">All Year</Option>
         {shortMonths.map((shortMonth, index) => (

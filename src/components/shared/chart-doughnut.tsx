@@ -1,11 +1,11 @@
 import { Box, Typography } from "@mui/joy";
-import { ArcElement, Chart, Tooltip } from "chart.js";
+import { Chart, registerables } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { formatNumber } from "../../utils/formatNumber";
 import { capFirstLetter } from "../../utils/typo";
 import { Flex } from "./flex";
 
-Chart.register(ArcElement, Tooltip);
+Chart.register(...registerables);
 
 type ChartDoughnutProps = {
   data: { [key: string]: number };
@@ -13,7 +13,7 @@ type ChartDoughnutProps = {
 };
 
 export const ChartDoughnut = ({ data, title }: ChartDoughnutProps) => {
-  const shades = title.includes("Incomes")
+  const shades = title.includes("Income")
     ? ["#14508ccc", "#14508c99", "#14508c66", "#14508c33", "#00000033"]
     : ["#501464cc", "#50146499", "#50146466", "#50146433", "#00000033"];
 
@@ -70,7 +70,7 @@ export const ChartDoughnut = ({ data, title }: ChartDoughnutProps) => {
                 </Flex>
               ))}
             </Flex>
-            <Flex x xsb sx={{ fontWeight: "bold" }}>
+            <Flex x xsb sx={{ fontWeight: "bold", borderTop: "1px solid lightgrey" }}>
               <Flex x yc gap1>
                 <Box sx={{ ...styleBox }} />
                 <Typography level="body-sm">Total</Typography>

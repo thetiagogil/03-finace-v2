@@ -24,18 +24,30 @@ type UseGetYearByStatusProps = {
 
 type UseGetYearCategorySummaryProps = {
   userId: string;
-  year: number | null;
+  year: number;
   month?: string;
 };
 
 type UseGetYearTopCategoriesProps = {
   userId: string;
-  year: number | null;
+  year: number;
   month?: string;
 };
 
 type UseGetYearTotalsProps = {
   userId: string;
+  year: number;
+};
+
+type UseGetYearMonthsTotalsSummaryProps = {
+  userId: string;
+  status: "tracked" | "planned";
+  year: number;
+};
+
+type UseGetYearTopMonthsProps = {
+  userId: string;
+  status: "tracked" | "planned";
   year: number;
 };
 
@@ -261,5 +273,57 @@ export const useGetYearTotals = ({ userId, year }: UseGetYearTotalsProps) => {
   return { data, loading };
 };
 
-// TODO: useGetYearTopMonths
-// TODO: useGetYearMonthTotals
+export const useGetYearMonthsTotalsSummary = ({ userId, status, year }: UseGetYearMonthsTotalsSummaryProps) => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const getMonths = async () => {
+    setLoading(true);
+    try {
+      const response = await DataService.getData(`/api/years/months-totals/${userId}/${status}/${year}`);
+      setData(response);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (userId && status && year) {
+      getMonths();
+    }
+  }, [userId, status, year]);
+
+  return { data, loading };
+};
+
+export const useGetYearTopMonths = ({ userId, status, year }: UseGetYearTopMonthsProps) => {
+  type dataType = {
+    incomes: { [key: string]: number };
+    expenses: { [key: string]: number };
+  };
+
+  const [data, setData] = useState<dataType>({} as dataType);
+  const [loading, setLoading] = useState(false);
+
+  const getMonths = async () => {
+    setLoading(true);
+    try {
+      const response = await DataService.getData(`/api/years/top-months/${userId}/${status}/${year}`);
+      setData(response);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (userId && status && year) {
+      getMonths();
+    }
+  }, [userId, status, year]);
+
+  return { data, loading };
+};

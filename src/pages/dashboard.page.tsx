@@ -53,7 +53,7 @@ export const DashboardPage = () => {
           {years && years.length > 0 && (
             <DataCard
               sx={{
-                flexDirection: { xs: "column-reverse", sm: "row" },
+                flexDirection: { xs: "column", sm: "row" },
                 justifyContent: "space-between",
                 alignItems: "center"
               }}
@@ -71,7 +71,7 @@ export const DashboardPage = () => {
           )}
           <Flex x fullwidth sx={{ flexDirection: { xs: "column-reverse", md: "row" } }}>
             {graphData && graphData.length > 0 && (
-              <DashboardGraph graphData={graphData} title="Yearly Totals" selectedMonth={selectedMonth} />
+              <DashboardGraph graphData={graphData} selectedMonth={selectedMonth} />
             )}
             {chartData && Object.keys(chartData || {}).length > 0 && <DashboardCharts data={chartData} />}
           </Flex>

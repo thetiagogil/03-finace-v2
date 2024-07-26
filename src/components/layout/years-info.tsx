@@ -1,20 +1,14 @@
 import { Grid, Typography } from "@mui/joy";
-import { useContext } from "react";
-import { useGetYearInfo } from "../../api/years-api";
-import { AuthContext } from "../../contexts/auth.context";
 import { formatNumber } from "../../utils/formatNumber";
 import { DataCard } from "../shared/data-card";
 import { Flex } from "../shared/flex";
-import { Loading } from "../shared/loading";
 
 interface YearsInfoProps {
-  status: "tracked" | "planned";
+  data: { totalIncome: number; totalExpense: number };
   year: number;
 }
 
-export const YearsInfo = ({ year, status }: YearsInfoProps) => {
-  const { userId } = useContext(AuthContext);
-  const { data, loading } = useGetYearInfo({ userId, status, year });
+export const YearsInfo = ({ data, year }: YearsInfoProps) => {
   const total = data.totalIncome - data.totalExpense;
   const cardContent = [
     { title: "Total Income", value: Math.round(data?.totalIncome) },
@@ -22,28 +16,24 @@ export const YearsInfo = ({ year, status }: YearsInfoProps) => {
     { title: "Year Total", value: Math.round(total) }
   ];
   return (
-    <>
-      {loading ? (
-        <Loading />
-      ) : (
-        <Flex y xc gap2>
-          <Typography level="h1">{year}</Typography>
-          <Flex x fullwidth>
-            <Grid container sx={{ width: "100%" }}>
-              {cardContent.map((item, index) => (
-                <Grid xs key={index}>
-                  <DataCard bgcolor="neutral.300">
-                    <Flex y gap1>
-                      <Typography level="body-sm">{item.title}</Typography>
-                      <Typography level="h3">{formatNumber(item.value)}</Typography>
-                    </Flex>
-                  </DataCard>
-                </Grid>
-              ))}
-            </Grid>
-          </Flex>
+    <DataCard>
+      <Flex y xc gap2>
+        <Typography level="h1">{year}</Typography>
+        <Flex x fullwidth>
+          <Grid container sx={{ width: "100%" }}>
+            {cardContent.map((item, index) => (
+              <Grid xs key={index}>
+                <DataCard bgcolor="neutral.300">
+                  <Flex y gap1>
+                    <Typography level="body-sm">{item.title}</Typography>
+                    <Typography level="h3">{formatNumber(item.value)}</Typography>
+                  </Flex>
+                </DataCard>
+              </Grid>
+            ))}
+          </Grid>
         </Flex>
-      )}
-    </>
+      </Flex>
+    </DataCard>
   );
 };

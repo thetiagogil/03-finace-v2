@@ -1,11 +1,11 @@
 import { Box, Typography } from "@mui/joy";
-import { BarElement, CategoryScale, Chart, LinearScale, Title, Tooltip } from "chart.js";
+import { Chart, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { capFirstLetter } from "../../utils/typo";
 import { DataCard } from "../shared/data-card";
 import { Flex } from "../shared/flex";
 
-Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
+Chart.register(...registerables);
 
 type DashboardGraphProps = {
   graphData: {
@@ -15,11 +15,10 @@ type DashboardGraphProps = {
     totalIncomesPlanned: number;
     totalExpensesPlanned: number;
   }[];
-  title: string;
   selectedMonth?: string;
 };
 
-export const DashboardGraph = ({ graphData, title, selectedMonth }: DashboardGraphProps) => {
+export const DashboardGraph = ({ graphData, selectedMonth }: DashboardGraphProps) => {
   const getColors = (isSelected: boolean) => {
     return isSelected
       ? {
@@ -111,25 +110,23 @@ export const DashboardGraph = ({ graphData, title, selectedMonth }: DashboardGra
   ];
 
   return (
-    <Flex>
-      <DataCard sx={{ width: { xs: "100%", md: "auto" } }}>
-        <Flex y xc gap2 fullheight fullwidth>
-          <Typography level="title-sm">{title}</Typography>
-          <Flex sx={{ width: { xs: "100%", md: 520 } }}>
-            <Bar data={data} options={options} />
-          </Flex>
-          <Flex x xc gap1 wrap>
-            {legendItems.map(item => (
-              <Flex key={item.label} x yc gap1>
-                <Box sx={{ ...styleBox, bgcolor: item.color }} />
-                <Typography level="body-xs" sx={{ fontWeight: 400 }}>
-                  {item.label}
-                </Typography>
-              </Flex>
-            ))}
-          </Flex>
+    <DataCard>
+      <Flex y xc gap2 fullheight fullwidth>
+        <Typography level="title-sm">Yearly Totals</Typography>
+        <Flex sx={{ width: { xs: "100%", md: 520 } }}>
+          <Bar data={data} options={options} />
         </Flex>
-      </DataCard>
-    </Flex>
+        <Flex x xc gap1 wrap>
+          {legendItems.map(item => (
+            <Flex key={item.label} x yc gap1>
+              <Box sx={{ ...styleBox, bgcolor: item.color }} />
+              <Typography level="body-xs" sx={{ fontWeight: 400 }}>
+                {item.label}
+              </Typography>
+            </Flex>
+          ))}
+        </Flex>
+      </Flex>
+    </DataCard>
   );
 };

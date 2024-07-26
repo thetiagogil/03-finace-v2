@@ -7,7 +7,7 @@ type DataCardProps = {
   onClick?: () => void;
   bgcolor?: string;
   width?: number | string;
-  height?: number;
+  height?: number | string;
   hoverContent?: ReactNode;
   sx?: SxProps;
 };
