@@ -45,7 +45,7 @@ export const ActivityTable = ({ status }: ActivityTableProps) => {
             width: { xs: 900, md: "100%" },
             borderCollapse: "collapse",
             "& th": {
-              width: 96,
+              width: 104,
               height: 16,
               textAlign: "center",
               bgcolor: "neutral.300"
