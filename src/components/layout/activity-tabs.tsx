@@ -1,4 +1,4 @@
-import { Button, Select, Stack } from "@mui/joy";
+import { Button, Select } from "@mui/joy";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/auth.context";
 import { AddTxModal } from "../modals/add-tx-modal";
@@ -28,18 +28,8 @@ export const ActivityTabs = ({ status }: ActivityTabsProps) => {
           <AddTxModal open={addTxModal} onClose={() => setAddTxModal(false)} userId={userId} status={status} />
         </Flex>
       </DataCard>
-      <DataCard>
-        <Stack
-          component="section"
-          sx={{
-            alignItems: { xs: "normal", md: "center" },
-            overflowX: { xs: "auto", md: "visible" },
-            width: "100%"
-          }}
-        >
-          <ActivityTable status={status} />
-        </Stack>
-      </DataCard>
+
+      <ActivityTable status={status} />
     </Flex>
   );
 };
