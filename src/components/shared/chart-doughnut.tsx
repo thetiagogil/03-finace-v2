@@ -70,7 +70,7 @@ export const ChartDoughnut = ({ data, title }: ChartDoughnutProps) => {
                 </Flex>
               ))}
             </Flex>
-            <Flex x xsb sx={{ fontWeight: "bold", borderTop: "1px solid lightgrey" }}>
+            <Flex x xsb sx={{ fontWeight: 700, borderTop: "1px solid lightgrey" }}>
               <Flex x yc gap1>
                 <Box sx={{ ...styleBox }} />
                 <Typography level="body-sm">Total</Typography>

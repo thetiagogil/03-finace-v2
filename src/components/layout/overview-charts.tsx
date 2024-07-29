@@ -6,7 +6,7 @@ type YearsChartsProps = {
   data: { incomes: {}; expenses: {} };
 };
 
-export const YearsCharts = ({ data }: YearsChartsProps) => {
+export const OverviewCharts = ({ data }: YearsChartsProps) => {
   const styleCard = { width: { md: "100%" }, alignItems: "center" };
   return (
     <Flex fullwidth sx={{ flexDirection: { xs: "column", md: "row" } }}>

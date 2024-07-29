@@ -11,11 +11,6 @@ type UseGetMonthsProps = {
   year: number;
 };
 
-type UseGetYearsByUserIdProps = {
-  userId: string;
-  status: "tracked" | "planned";
-};
-
 type UseGetYearByStatusProps = {
   userId: string;
   status: "tracked" | "planned";
@@ -101,31 +96,6 @@ export const useGetMonths = ({ userId, year }: UseGetMonthsProps) => {
   return { data, loading };
 };
 
-export const useGetYearsInfo = ({ userId, status }: UseGetYearsByUserIdProps) => {
-  const [data, setData] = useState<YearModel[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  const getYears = async () => {
-    setLoading(true);
-    try {
-      const response = await DataService.getData(`/api/years/${userId}/${status}`);
-      setData(response);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (userId && status) {
-      getYears();
-    }
-  }, [userId, status]);
-
-  return { data, loading };
-};
-
 export const useGetYearInfo = ({ userId, status, year }: UseGetYearByStatusProps) => {
   const [data, setData] = useState<YearModel>({} as YearModel);
   const [loading, setLoading] = useState(false);
@@ -143,10 +113,10 @@ export const useGetYearInfo = ({ userId, status, year }: UseGetYearByStatusProps
   };
 
   useEffect(() => {
-    if (userId && status) {
+    if (userId && status && year) {
       getYear();
     }
-  }, [userId, status]);
+  }, [userId, status, year]);
 
   return { data, loading };
 };
@@ -173,10 +143,10 @@ export const useGetYearCategoriesByMonths = ({ userId, status, year }: UseGetYea
   };
 
   useEffect(() => {
-    if (userId && status) {
+    if (userId && status && year) {
       getYearCategories();
     }
-  }, [userId, status]);
+  }, [userId, status, year]);
 
   return { data, loading };
 };

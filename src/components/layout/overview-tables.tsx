@@ -13,16 +13,16 @@ type YearsTypesTableProps = {
   data: Record<string, Record<string, number>>;
 };
 
-export const YearsTables = ({ data }: YearsTablesProps) => {
+export const OverviewTables = ({ data }: YearsTablesProps) => {
   return (
     <>
-      <YearsTypesTable title="Incomes" data={data.incomes} />
-      <YearsTypesTable title="Expenses" data={data.expenses} />
+      <OverviewTypesTable title="Incomes" data={data.incomes} />
+      <OverviewTypesTable title="Expenses" data={data.expenses} />
     </>
   );
 };
 
-export const YearsTypesTable = ({ title, data }: YearsTypesTableProps) => {
+export const OverviewTypesTable = ({ title, data }: YearsTypesTableProps) => {
   const categories = Array.from(new Set(Object.keys(data).flatMap(month => Object.keys(data[month]))));
   const totalRow: Record<string, number> = {};
   shortMonths.forEach(month => {

@@ -11,7 +11,7 @@ interface YearsGraphProps {
   data: Array<{ month: string; total: number }>;
 }
 
-export const YearsGraph = ({ data }: YearsGraphProps) => {
+export const OverviewGraph = ({ data }: YearsGraphProps) => {
   const chartData = {
     labels: data.map(item => capFirstLetter(item.month)),
     datasets: [

@@ -39,14 +39,14 @@ export const DashboardPage = () => {
     year: selectedYear,
     month: selectedMonth
   });
-
+  const isLoading = tableLoading || graphLoading || chartLoading;
   const isMonthDisabled = (shortMonth: string) => {
     return !monthsWithValue?.includes(shortMonth);
   };
 
   return (
     <AuthPageContainer>
-      {tableLoading && graphLoading && chartLoading ? (
+      {isLoading ? (
         <Loading size="md" />
       ) : (
         <>
@@ -58,7 +58,7 @@ export const DashboardPage = () => {
                 alignItems: "center"
               }}
             >
-              <Typography level="title-lg">Hello {user.data?.firstname}</Typography>
+              <Typography level="h3">Welcome back, {user.data?.firstname}!</Typography>
               <DashboardFilters
                 years={years}
                 selectedYear={selectedYear}

@@ -1,4 +1,5 @@
-import { Option, Select } from "@mui/joy";
+import { Option, Select, selectClasses } from "@mui/joy";
+import { IoIosArrowDown } from "react-icons/io";
 import { capFirstLetter } from "../../utils/typo";
 import { fullMonths, shortMonths } from "../arrays/months-array";
 import { Flex } from "../shared/flex";
@@ -20,7 +21,15 @@ export const DashboardFilters = ({
   setSelectedMonth,
   isMonthDisabled
 }: DashboardFiltersProps) => {
-  const styleSelect = { width: { xs: "100%", sm: 200 } };
+  const styleSelect = {
+    width: { xs: "100%", sm: 128 },
+    [`& .${selectClasses.indicator}`]: {
+      transition: "0.3s",
+      [`&.${selectClasses.expanded}`]: {
+        transform: "rotate(-180deg)"
+      }
+    }
+  };
 
   return (
     <Flex gap2 sx={{ width: { xs: "100%", sm: "auto" } }}>
@@ -28,6 +37,7 @@ export const DashboardFilters = ({
         value={selectedYear}
         onChange={(_e: any, newValue: any) => setSelectedYear(newValue)}
         placeholder="Select Year"
+        indicator={<IoIosArrowDown />}
         sx={styleSelect}
       >
         {years?.map((year, index) => (
@@ -40,6 +50,7 @@ export const DashboardFilters = ({
         value={selectedMonth}
         onChange={(_e: any, newValue: any) => setSelectedMonth(newValue)}
         placeholder="Select Month"
+        indicator={<IoIosArrowDown />}
         sx={styleSelect}
       >
         <Option value="">All Year</Option>

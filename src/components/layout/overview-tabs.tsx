@@ -1,83 +1,54 @@
-import { CircularProgress, Grid, Link, Typography } from "@mui/joy";
-import { useContext } from "react";
-import { Link as ReactLink } from "react-router-dom";
-import { useGetYearsInfo } from "../../api/years-api";
+import { useContext, useState } from "react";
+import {
+  useGetYearCategoriesByMonths,
+  useGetYearInfo,
+  useGetYearMonthsTotalsSummary,
+  useGetYears,
+  useGetYearTopMonths
+} from "../../api/years-api";
 import { AuthContext } from "../../contexts/auth.context";
-import { YearModel } from "../../models/year.model";
-import { formatNumber } from "../../utils/formatNumber";
-import { DataCard } from "../shared/data-card";
 import { Flex } from "../shared/flex";
 import { Loading } from "../shared/loading";
+import { OverviewCharts } from "./overview-charts";
+import { OverviewGraph } from "./overview-graph";
+import { OverviewInfo } from "./overview-info";
+import { OverviewTables } from "./overview-tables";
 
 type OverviewTabsProps = {
   status: "tracked" | "planned";
 };
-
 export const OverviewTabs = ({ status }: OverviewTabsProps) => {
   const { userId } = useContext(AuthContext);
-  const { data: yearData, loading: yearLoading } = useGetYearsInfo({ userId, status });
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const { data: years, loading: yearsLoading } = useGetYears({ userId });
+  const { data: infoData, loading: infoLoading } = useGetYearInfo({ userId, status, year: selectedYear });
+  const { data: chartData, loading: chartLoading } = useGetYearTopMonths({ userId, status, year: selectedYear });
+  const { data: graphData, loading: graphLoading } = useGetYearMonthsTotalsSummary({
+    userId,
+    status,
+    year: selectedYear
+  });
+  const { data: tableData, loading: tableLoading } = useGetYearCategoriesByMonths({
+    userId,
+    status,
+    year: selectedYear
+  });
+  const isLoading = yearsLoading || infoLoading || graphLoading || tableLoading || chartLoading;
   return (
     <>
-      {yearLoading ? (
-        <Loading />
+      {isLoading ? (
+        <Loading size="md" />
       ) : (
-        <Grid container sx={{ width: "100%" }}>
-          {yearData.map((year: YearModel, index: number) => {
-            type YearKeys = "totalIncome" | "totalExpense";
-            const progress = (type: YearKeys) => {
-              return (year[type] / (year.totalIncome + year.totalExpense)) * 100;
-            };
-            const total = year.totalIncome - year.totalExpense;
-            return (
-              <Grid xs={6} md={3} key={index}>
-                <DataCard
-                  height={100}
-                  sx={{ alignItems: "center", justifyContent: "center" }}
-                  hoverContent={
-                    <Link
-                      component={ReactLink}
-                      to={`/overview/${status}/${year.year}`}
-                      underline="none"
-                      sx={{ width: "100%", justifyContent: "center" }}
-                    >
-                      <Flex y gap={0.5} sx={{ width: "90%" }}>
-                        <Flex x xsb fullwidth>
-                          <Typography level="body-sm">Total income: {year.totalIncome}</Typography>
-                          <CircularProgress
-                            color="success"
-                            thickness={4}
-                            size="sm"
-                            determinate
-                            value={progress("totalIncome")}
-                          />
-                        </Flex>
-                        <Flex x xsb fullwidth>
-                          <Typography level="body-sm">Total expense: {year.totalExpense}</Typography>
-                          <CircularProgress
-                            color="danger"
-                            thickness={4}
-                            size="sm"
-                            determinate
-                            value={progress("totalExpense")}
-                          />
-                        </Flex>
-                        <Typography level="body-sm">Transactions: {year.trackedCount}</Typography>
-                      </Flex>
-                    </Link>
-                  }
-                >
-                  <Flex y xc gap1>
-                    <Typography level="title-lg">{year.year}</Typography>
-                    <Typography level="body-sm" color={total > 0 ? "success" : "danger"}>
-                      {total > 0 ? "+" : "-"}
-                      {formatNumber(Math.abs(total))}
-                    </Typography>
-                  </Flex>
-                </DataCard>
-              </Grid>
-            );
-          })}
-        </Grid>
+        <>
+          <Flex y fullwidth>
+            <OverviewInfo data={infoData} years={years} selectedYear={selectedYear} setSelectedYear={setSelectedYear} />
+            <Flex x fullwidth sx={{ flexDirection: { xs: "column", md: "row" } }}>
+              <OverviewCharts data={chartData} />
+              <OverviewGraph data={graphData} />
+            </Flex>
+          </Flex>
+          <OverviewTables data={tableData} />
+        </>
       )}
     </>
   );

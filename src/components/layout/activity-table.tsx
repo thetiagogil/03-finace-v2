@@ -16,7 +16,7 @@ type ActivityTableProps = {
 
 export const ActivityTable = ({ status }: ActivityTableProps) => {
   const { userId } = useContext(AuthContext);
-  const { data, loading } = useGetTxByStatus({ userId, status });
+  const { data: transactions, loading: transactionsLoading } = useGetTxByStatus({ userId, status });
   const { deleteTxById, loading: deleting } = useDeleteTxById();
   const [editTxModal, setEditTxModal] = useState(false);
   const [currentTx, setCurrentTx] = useState<TxModel | null>(null);
@@ -28,9 +28,9 @@ export const ActivityTable = ({ status }: ActivityTableProps) => {
 
   return (
     <>
-      {loading ? (
+      {transactionsLoading ? (
         <Loading />
-      ) : data.length <= 0 ? (
+      ) : transactions.length <= 0 ? (
         <Flex x xc>
           <Typography level="body-sm">
             <i>No data</i>
@@ -81,7 +81,7 @@ export const ActivityTable = ({ status }: ActivityTableProps) => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((tx: TxModel, index: number) => (
+                {transactions.map((tx: TxModel, index: number) => (
                   <tr key={index} onClick={() => handleEdit(tx)} style={{ cursor: "pointer" }}>
                     <td>{tx.date}</td>
                     <td>{capFirstLetter(tx.type)}</td>

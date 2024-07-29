@@ -16,7 +16,7 @@ export const linksArray = [
   },
   {
     title: "Overview",
-    path: "/overview",
+    path: `/overview`,
     icons: {
       icon: <PiCalendarCheck size={iconSize} />,
       iconSelected: <PiCalendarCheckFill size={iconSize} />
