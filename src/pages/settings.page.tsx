@@ -17,9 +17,9 @@ type ModalStateProps = {
 
 export const SettingsPage = () => {
   const { userId } = useContext(AuthContext);
-  const { data, loading } = useGetUser({ userId });
-  const initialValue = data.user?.wallet_initial_value ?? 0;
-  const currentValue = data.user?.wallet_current_value ?? 0;
+  const { data: user, loading: userLoading } = useGetUser({ userId });
+  const initialValue = user.data?.wallet_initial_value ?? 0;
+  const currentValue = user.data?.wallet_current_value ?? 0;
   const [modalState, setModalState] = useState<ModalStateProps>({
     open: false,
     walletType: "initial",
@@ -41,13 +41,13 @@ export const SettingsPage = () => {
         <DataCard onClick={() => handleOpenModal("initial", initialValue)} sx={style}>
           <Flex y yc xc gap2 fullheight>
             <Typography level="title-md">Initial value</Typography>
-            {loading ? <CircularProgress size="sm" /> : <Typography level="title-lg">{initialValue}</Typography>}
+            {userLoading ? <CircularProgress size="sm" /> : <Typography level="title-lg">{initialValue}</Typography>}
           </Flex>
         </DataCard>
         <DataCard onClick={() => handleOpenModal("current", currentValue)} sx={style}>
           <Flex y yc xc gap2 fullheight>
             <Typography level="title-md">Current value</Typography>
-            {loading ? <CircularProgress size="sm" /> : <Typography level="title-lg">{currentValue}</Typography>}
+            {userLoading ? <CircularProgress size="sm" /> : <Typography level="title-lg">{currentValue}</Typography>}
           </Flex>
         </DataCard>
       </Flex>

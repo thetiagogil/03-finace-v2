@@ -15,14 +15,14 @@ type OverviewTabsProps = {
 
 export const OverviewTabs = ({ status }: OverviewTabsProps) => {
   const { userId } = useContext(AuthContext);
-  const { data, loading } = useGetYearsInfo({ userId, status });
+  const { data: yearData, loading: yearLoading } = useGetYearsInfo({ userId, status });
   return (
     <>
-      {loading ? (
+      {yearLoading ? (
         <Loading />
       ) : (
         <Grid container sx={{ width: "100%" }}>
-          {data.map((year: YearModel, index: number) => {
+          {yearData.map((year: YearModel, index: number) => {
             type YearKeys = "totalIncome" | "totalExpense";
             const progress = (type: YearKeys) => {
               return (year[type] / (year.totalIncome + year.totalExpense)) * 100;
