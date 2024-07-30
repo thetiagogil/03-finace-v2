@@ -113,8 +113,8 @@ export const AddTxModal = ({
               sx={{ width: "100%" }}
             >
               {txCategoriesArray.sort().map((cat, index) => (
-                <Option key={index} value={cat}>
-                  {capFirstLetter(cat)}
+                <Option key={index} value={cat.name}>
+                  {capFirstLetter(cat.name)}
                 </Option>
               ))}
             </Select>

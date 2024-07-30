@@ -4,7 +4,7 @@ import { AuthContext } from "../../contexts/auth.context";
 import { AddTxModal } from "../modals/add-tx-modal";
 import { DataCard } from "../shared/data-card";
 import { Flex } from "../shared/flex";
-import { ActivityTable } from "./activity-table";
+import { ActivityColumn } from "./activity-column";
 
 type ActivityTabsProps = {
   status: "tracked" | "planned";
@@ -29,7 +29,7 @@ export const ActivityTabs = ({ status }: ActivityTabsProps) => {
         </Flex>
       </DataCard>
 
-      <ActivityTable status={status} />
+      <ActivityColumn status={status} />
     </Flex>
   );
 };
