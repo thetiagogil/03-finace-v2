@@ -1,7 +1,6 @@
 import { Divider, Typography } from "@mui/joy";
-import { useContext, useState } from "react";
-import { useDeleteTxById, useGetTxByStatus } from "../../api/tx-api";
-import { AuthContext } from "../../contexts/auth.context";
+import { useState } from "react";
+import { useDeleteTxById } from "../../api/tx-api";
 import { TxModel } from "../../models/tx.model";
 import { AddTxModal } from "../modals/add-tx-modal";
 import { DataCard } from "../shared/data-card";
@@ -10,12 +9,11 @@ import { Loading } from "../shared/loading";
 import { ActivityItemCard } from "./activity-item-card";
 
 type ActivityTableProps = {
-  status: "tracked" | "planned";
+  transactions: TxModel[];
+  transactionsLoading: boolean;
 };
 
-export const ActivityColumn = ({ status }: ActivityTableProps) => {
-  const { userId } = useContext(AuthContext);
-  const { data: transactions, loading: transactionsLoading } = useGetTxByStatus({ userId, status });
+export const ActivityColumn = ({ transactions, transactionsLoading }: ActivityTableProps) => {
   const { deleteTxById, loading: deleting } = useDeleteTxById();
   const [editTxModal, setEditTxModal] = useState(false);
   const [currentTx, setCurrentTx] = useState<TxModel | null>(null);

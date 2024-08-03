@@ -1,6 +1,7 @@
 import { Avatar, Stack, Typography } from "@mui/joy";
 import { capFirstLetter } from "../../utils/typo";
 import { txCategoriesArray } from "../arrays/tx-array";
+import { Flex } from "../shared/flex";
 
 type ActivityItemCardProps = {
   key: number;
@@ -28,16 +29,18 @@ export const ActivityItemCard = ({ key, onClick, tx }: ActivityItemCardProps) =>
         "&:hover": { bgcolor: "neutral.200" }
       }}
     >
-      <Avatar
-        variant="outlined"
-        sx={{
-          color: tx.type === "income" ? "#14508ccc" : "#501464cc",
-          bgcolor: tx.type === "income" ? "#14508c33" : "#50146433"
-        }}
-      >
-        {Icon && <Icon size={20} />}
-      </Avatar>
-      <Typography level="title-md">{capFirstLetter(tx.category)}</Typography>
+      <Flex x yc gap2>
+        <Avatar
+          variant="outlined"
+          sx={{
+            color: tx.type === "income" ? "#14508ccc" : "#501464cc",
+            bgcolor: tx.type === "income" ? "#14508c33" : "#50146433"
+          }}
+        >
+          {Icon && <Icon size={20} />}
+        </Avatar>
+        <Typography level="title-md">{capFirstLetter(tx.category)}</Typography>
+      </Flex>
       <Typography
         level="title-md"
         sx={{ display: "flex", alignItems: "center", color: tx.type === "income" ? "#14508ccc" : "#501464cc" }}

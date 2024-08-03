@@ -1,10 +1,9 @@
-import { Button, Select } from "@mui/joy";
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import { useGetTxByStatus } from "../../api/tx-api";
 import { AuthContext } from "../../contexts/auth.context";
-import { AddTxModal } from "../modals/add-tx-modal";
-import { DataCard } from "../shared/data-card";
 import { Flex } from "../shared/flex";
 import { ActivityColumn } from "./activity-column";
+import { ActivityFilters } from "./activity-filters";
 
 type ActivityTabsProps = {
   status: "tracked" | "planned";
@@ -12,24 +11,12 @@ type ActivityTabsProps = {
 
 export const ActivityTabs = ({ status }: ActivityTabsProps) => {
   const { userId } = useContext(AuthContext);
-  const [addTxModal, setAddTxModal] = useState(false);
-  const stylesSelect = { width: { xs: "100%", sm: 200 } };
+  const { data: transactions, loading: transactionsLoading } = useGetTxByStatus({ userId, status });
+
   return (
     <Flex y>
-      <DataCard sx={{ flexDirection: { xs: "column-reverse", sm: "row" }, justifyContent: "space-between" }}>
-        <Flex gap2>
-          <Select placeholder="Mock Filter" sx={stylesSelect} />
-          <Select placeholder="Mock Filter" sx={stylesSelect} />
-        </Flex>
-        <Flex>
-          <Button onClick={() => setAddTxModal(true)} sx={{ width: { xs: "100%", sm: "auto" } }}>
-            Add activity
-          </Button>
-          <AddTxModal open={addTxModal} onClose={() => setAddTxModal(false)} userId={userId} status={status} />
-        </Flex>
-      </DataCard>
-
-      <ActivityColumn status={status} />
+      <ActivityFilters userId={userId} status={status} />
+      <ActivityColumn transactions={transactions} transactionsLoading={transactionsLoading} />
     </Flex>
   );
 };
