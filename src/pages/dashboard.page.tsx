@@ -24,7 +24,7 @@ export const DashboardPage = () => {
   const [selectedMonth, setSelectedMonth] = useState("");
   const { data: years } = useGetYears({ userId });
   const { data: monthsWithValue } = useGetMonths({ userId, year: selectedYear });
-  const { data: user } = useGetUser({ userId });
+  const { data: userData } = useGetUser({ userId });
   const { data: tableData, loading: tableLoading } = useGetYearCategorySummary({
     userId,
     year: selectedYear,
@@ -58,7 +58,7 @@ export const DashboardPage = () => {
                 alignItems: "center"
               }}
             >
-              <Typography level="h3">Welcome back, {user.data?.firstname}!</Typography>
+              <Typography level="h3">Welcome back, {userData.user?.firstname}!</Typography>
               <DashboardFilters
                 years={years}
                 selectedYear={selectedYear}

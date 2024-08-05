@@ -11,12 +11,12 @@ type UseUpdateUserWalletProps = {
   payload: UserModel;
 };
 
-type DataProps = {
-  data?: UserModel;
+type UserProps = {
+  user?: UserModel;
 };
 
 export const useGetUser = ({ userId }: UserIdProps) => {
-  const [data, setData] = useState<DataProps>({} as DataProps);
+  const [data, setData] = useState<UserProps>({} as UserProps);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
