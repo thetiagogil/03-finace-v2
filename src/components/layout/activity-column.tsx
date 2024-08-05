@@ -56,10 +56,10 @@ export const ActivityColumn = ({ transactions, transactionsLoading }: ActivityTa
                 <Typography level="body-sm">{formatDate(date)}</Typography>
                 <Flex y sx={{ border: "1px solid", borderColor: "neutral.300", borderRadius: 4 }}>
                   {transactionsArray.map((tx: TxModel, index: number) => (
-                    <>
-                      <ActivityItemCard key={index} onClick={() => handleEdit(tx)} tx={tx} />
+                    <Flex key={index}>
+                      <ActivityItemCard onClick={() => handleEdit(tx)} tx={tx} />
                       {index < transactionsArray.length - 1 && <Divider orientation="horizontal" />}
-                    </>
+                    </Flex>
                   ))}
                 </Flex>
               </Flex>

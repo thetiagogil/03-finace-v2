@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { AuthContext } from "../contexts/auth.context";
 import { ActivityPage } from "../pages/activity.page";
 import { DashboardPage } from "../pages/dashboard.page";
@@ -19,7 +19,7 @@ export const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          {/* <Route path="*" element={<Navigate to="/" />} /> */}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       ) : (
         <Routes>
@@ -28,7 +28,7 @@ export const App = () => {
           <Route path="/activity" element={<ActivityPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/settings" element={<SettingsPage />} />
-          {/* <Route path="*" element={<Navigate to="/dashboard" />} /> */}
+          <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       )}
     </>

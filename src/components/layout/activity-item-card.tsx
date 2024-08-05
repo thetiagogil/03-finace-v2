@@ -4,18 +4,16 @@ import { txCategoriesArray } from "../arrays/tx-array";
 import { Flex } from "../shared/flex";
 
 type ActivityItemCardProps = {
-  key: number;
   onClick: () => void;
   tx: { value: number; category: string; type: string };
 };
 
-export const ActivityItemCard = ({ key, onClick, tx }: ActivityItemCardProps) => {
+export const ActivityItemCard = ({ onClick, tx }: ActivityItemCardProps) => {
   const category = txCategoriesArray.find(cat => cat.name === tx.category);
   const Icon = category ? category.icon : null;
 
   return (
     <Stack
-      key={key}
       onClick={onClick}
       sx={{
         flexDirection: "row",
