@@ -20,8 +20,8 @@ export const ActivityItemCard = ({ onClick, tx }: ActivityItemCardProps) => {
         justifyContent: "space-between",
         alignItems: "center",
         borderRadius: 2,
-        px: 4,
-        py: 2,
+        px: 3,
+        py: 1.5,
         cursor: "pointer",
         transition: "0.3s",
         "&:hover": { bgcolor: "neutral.200" }
@@ -30,6 +30,7 @@ export const ActivityItemCard = ({ onClick, tx }: ActivityItemCardProps) => {
       <Flex x yc gap2>
         <Avatar
           variant="outlined"
+          size="sm"
           sx={{
             color: tx.type === "income" ? "#14508ccc" : "#501464cc",
             bgcolor: tx.type === "income" ? "#14508c33" : "#50146433"
@@ -37,10 +38,10 @@ export const ActivityItemCard = ({ onClick, tx }: ActivityItemCardProps) => {
         >
           {Icon && <Icon size={20} />}
         </Avatar>
-        <Typography level="title-md">{capFirstLetter(tx.category)}</Typography>
+        <Typography level="title-sm">{capFirstLetter(tx.category)}</Typography>
       </Flex>
       <Typography
-        level="title-md"
+        level="title-sm"
         sx={{ display: "flex", alignItems: "center", color: tx.type === "income" ? "#14508ccc" : "#501464cc" }}
       >
         {tx.type === "income" ? "+" + tx.value : "-" + tx.value}
