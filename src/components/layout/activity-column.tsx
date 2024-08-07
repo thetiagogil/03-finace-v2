@@ -52,13 +52,13 @@ export const ActivityColumn = ({ transactions, transactionsLoading }: ActivityTa
         <DataCard>
           <Flex y fullwidth gap3>
             {Object.entries(groupedTransactions).map(([date, transactionsArray]) => (
-              <Flex y key={date}>
+              <Flex y gap1 key={date}>
                 <Typography level="body-sm">{formatDate(date)}</Typography>
                 <Flex y sx={{ border: "1px solid", borderColor: "neutral.300", borderRadius: 4 }}>
                   {transactionsArray.map((tx: TxModel, index: number) => (
-                    <Flex key={index}>
+                    <Flex y key={index}>
                       <ActivityItemCard onClick={() => handleEdit(tx)} tx={tx} />
-                      {index < transactionsArray.length - 1 && <Divider orientation="horizontal" />}
+                      {index < transactionsArray.length - 1 && <Divider orientation="horizontal" sx={{ mx: 2 }} />}
                     </Flex>
                   ))}
                 </Flex>
