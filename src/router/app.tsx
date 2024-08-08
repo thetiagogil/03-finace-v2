@@ -7,7 +7,6 @@ import { HomePage } from "../pages/home.page";
 import { LoginPage } from "../pages/login.page";
 import { OverviewPage } from "../pages/overview.page";
 import { ProfilePage } from "../pages/profile.page";
-import { SettingsPage } from "../pages/settings.page";
 import { SignupPage } from "../pages/signup.page";
 
 export const App = () => {
@@ -27,7 +26,6 @@ export const App = () => {
           <Route path="/overview" element={<OverviewPage />} />
           <Route path="/activity" element={<ActivityPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       )}

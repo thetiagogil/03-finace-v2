@@ -1,5 +1,4 @@
 import { BiSolidSpreadsheet, BiSpreadsheet } from "react-icons/bi";
-import { IoSettingsOutline, IoSettingsSharp } from "react-icons/io5";
 import { MdOutlineSpaceDashboard, MdSpaceDashboard } from "react-icons/md";
 import { PiCalendarCheck, PiCalendarCheckFill } from "react-icons/pi";
 
@@ -28,14 +27,6 @@ export const linksArray = [
     icons: {
       icon: <BiSpreadsheet size={iconSize} />,
       iconSelected: <BiSolidSpreadsheet size={iconSize} />
-    }
-  },
-  {
-    title: "Settings",
-    path: "/settings",
-    icons: {
-      icon: <IoSettingsOutline size={iconSize} />,
-      iconSelected: <IoSettingsSharp size={iconSize} />
     }
   },
   {
