@@ -28,9 +28,5 @@ export const linksArray = [
       icon: <BiSpreadsheet size={iconSize} />,
       iconSelected: <BiSolidSpreadsheet size={iconSize} />
     }
-  },
-  {
-    title: "Profile",
-    path: "/profile"
   }
 ];
