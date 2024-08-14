@@ -1,6 +1,6 @@
 import { CircularProgress, Drawer, IconButton, ModalClose, Typography } from "@mui/joy";
 import { useContext, useState } from "react";
-import { CiEdit } from "react-icons/ci";
+import { MdOutlineEdit } from "react-icons/md";
 import { useGetUser } from "../../api/users-api";
 import { AuthContext } from "../../contexts/auth.context";
 import { EditWalletModal } from "../modals/edit-wallet-modal";
@@ -77,8 +77,12 @@ export const ProfileDrawer = ({ open, onClose }: ProfileDrawerProps) => {
                   ) : (
                     <Typography level="title-md">{item.value}</Typography>
                   )}
-                  <IconButton onClick={() => handleOpenModal(item.type, item.value)}>
-                    <CiEdit />
+                  <IconButton
+                    size="sm"
+                    onClick={() => handleOpenModal(item.type, item.value)}
+                    sx={{ p: 0, "--IconButton-size": "26px" }}
+                  >
+                    <MdOutlineEdit />
                   </IconButton>
                 </Flex>
               </Flex>
