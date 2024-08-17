@@ -1,4 +1,4 @@
-import { CircularProgress, Drawer, IconButton, ModalClose, Typography } from "@mui/joy";
+import { Button, CircularProgress, Drawer, IconButton, ModalClose, Typography } from "@mui/joy";
 import { useContext, useState } from "react";
 import { MdOutlineEdit } from "react-icons/md";
 import { useGetUser } from "../../api/users-api";
@@ -56,7 +56,7 @@ export const ProfileDrawer = ({ open, onClose }: ProfileDrawerProps) => {
           Profile
         </Typography>
         <ModalClose />
-        <Flex>
+        <Flex y gap={4}>
           <Flex y gap2 fullwidth>
             <Flex y yc fullheight>
               <Typography level="body-md">Name</Typography>
@@ -87,6 +87,9 @@ export const ProfileDrawer = ({ open, onClose }: ProfileDrawerProps) => {
                 </Flex>
               </Flex>
             ))}
+          </Flex>
+          <Flex>
+            <Button color="danger">Delete Account</Button>
           </Flex>
         </Flex>
       </Flex>
