@@ -58,7 +58,7 @@ export const DashboardPage = () => {
                 alignItems: "center"
               }}
             >
-              <Typography level="h3">Welcome back, {userData.user?.firstname}!</Typography>
+              <Typography level="h3">Welcome back, {userData.data?.firstname}!</Typography>
               <DashboardFilters
                 years={years}
                 selectedYear={selectedYear}

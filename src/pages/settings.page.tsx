@@ -18,8 +18,8 @@ type ModalStateProps = {
 export const SettingsPage = () => {
   const { userId } = useContext(AuthContext);
   const { data: userData, loading: userLoading } = useGetUser({ userId });
-  const initialValue = userData.user?.wallet_initial_value ?? 0;
-  const currentValue = userData.user?.wallet_current_value ?? 0;
+  const initialValue = userData.data?.wallet_initial_value ?? 0;
+  const currentValue = userData.data?.wallet_current_value ?? 0;
   const [modalState, setModalState] = useState<ModalStateProps>({
     open: false,
     walletType: "initial",

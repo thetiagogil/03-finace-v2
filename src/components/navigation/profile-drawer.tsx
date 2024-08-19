@@ -28,8 +28,8 @@ type WalletItem = {
 export const ProfileDrawer = ({ open, onClose }: ProfileDrawerProps) => {
   const { userId } = useContext(AuthContext);
   const { data: userData, loading: userLoading } = useGetUser({ userId });
-  const initialValue = userData.user?.wallet_initial_value ?? 0;
-  const currentValue = userData.user?.wallet_current_value ?? 0;
+  const initialValue = userData.data?.wallet_initial_value ?? 0;
+  const currentValue = userData.data?.wallet_current_value ?? 0;
   const [modalState, setModalState] = useState<ModalStateProps>({
     open: false,
     walletType: "initial",
@@ -64,7 +64,7 @@ export const ProfileDrawer = ({ open, onClose }: ProfileDrawerProps) => {
                 <CircularProgress size="sm" />
               ) : (
                 <Typography level="title-md">
-                  {userData.user?.firstname} {userData.user?.lastname}
+                  {userData.data?.firstname} {userData.data?.lastname}
                 </Typography>
               )}
             </Flex>
