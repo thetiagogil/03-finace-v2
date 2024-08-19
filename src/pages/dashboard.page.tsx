@@ -24,7 +24,7 @@ export const DashboardPage = () => {
   const [selectedMonth, setSelectedMonth] = useState("");
   const { data: years } = useGetYears({ userId });
   const { data: monthsWithValue } = useGetMonths({ userId, year: selectedYear });
-  const { data: userData } = useGetUser({ userId });
+  const { data: userData, loading: userLoading } = useGetUser({ userId });
   const { data: tableData, loading: tableLoading } = useGetYearCategorySummary({
     userId,
     year: selectedYear,
@@ -39,7 +39,7 @@ export const DashboardPage = () => {
     year: selectedYear,
     month: selectedMonth
   });
-  const isLoading = tableLoading || graphLoading || chartLoading;
+  const isLoading = userLoading || tableLoading || graphLoading || chartLoading;
   const isMonthDisabled = (shortMonth: string) => {
     return !monthsWithValue?.includes(shortMonth);
   };
