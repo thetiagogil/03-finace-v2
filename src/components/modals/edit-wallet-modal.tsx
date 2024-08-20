@@ -35,10 +35,10 @@ export const EditWalletModal = ({ open, onClose, userId, walletType, walletValue
       <ModalDialog sx={{ width: 500 }}>
         <ModalClose />
         <Flex x>
-          <Typography>Edit {walletType} value</Typography>
+          <Typography>Edit {walletType} value.</Typography>
         </Flex>
         <Flex x gap1>
-          <Input type="number" value={value || ""} onChange={e => setValue(Number(e.target.value))} />
+          <Input type="number" value={value || ""} onChange={e => setValue(Number(e.target.value))} fullWidth />
           <Button onClick={handleSaveChanges} loading={loading}>
             Save
           </Button>

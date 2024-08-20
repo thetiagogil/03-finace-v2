@@ -13,7 +13,7 @@ type EditWalletModalProps = {
 export const DeleteUserModal = ({ open, onClose, userId }: EditWalletModalProps) => {
   const [confirmation, setConfirmation] = useState("");
   const { handleLogout } = useContext(AuthContext);
-  const { deleteUser, loading: deleteLoading } = useDeleteUser({
+  const { deleteUser, loading: deleting } = useDeleteUser({
     userId
   });
 
@@ -36,9 +36,14 @@ export const DeleteUserModal = ({ open, onClose, userId }: EditWalletModalProps)
           </Typography>
         </Flex>
         <Flex x gap1>
-          <Input type="text" value={confirmation} onChange={e => setConfirmation(e.target.value)} />
-          <Button color="danger" onClick={handleSaveChanges} loading={deleteLoading}>
-            Delete
+          <Input type="text" value={confirmation} onChange={e => setConfirmation(e.target.value)} fullWidth />
+          <Button
+            color="danger"
+            onClick={handleSaveChanges}
+            disabled={confirmation === "I want to delete my account" ? false : true}
+            loading={deleting}
+          >
+            Confirm
           </Button>
         </Flex>
       </ModalDialog>

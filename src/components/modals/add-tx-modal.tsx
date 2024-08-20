@@ -155,7 +155,7 @@ export const AddTxModal = ({
             </Button>
           )}
           <Button onClick={handleSubmit} loading={creating || editing} disabled={!isFormValid}>
-            Save
+            {editMode ? "Edit activity" : "Add activity"}
           </Button>
         </Flex>
       </ModalDialog>
