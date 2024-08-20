@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { MdOutlineEdit } from "react-icons/md";
 import { useGetUser } from "../../api/users-api";
 import { AuthContext } from "../../contexts/auth.context";
+import { DeleteUserModal } from "../modals/delete-user-modal";
 import { EditWalletModal } from "../modals/edit-wallet-modal";
 import { Flex } from "../shared/flex";
 
@@ -30,18 +31,19 @@ export const ProfileDrawer = ({ open, onClose }: ProfileDrawerProps) => {
   const { data: userData, loading: userLoading } = useGetUser({ userId });
   const initialValue = userData.data?.wallet_initial_value ?? 0;
   const currentValue = userData.data?.wallet_current_value ?? 0;
-  const [modalState, setModalState] = useState<ModalStateProps>({
+  const [editModalState, setEditModalState] = useState<ModalStateProps>({
     open: false,
     walletType: "initial",
     walletValue: 0
   });
+  const [deleteModalState, setDeleteModalState] = useState(false);
 
-  const handleOpenModal = (walletType: WalletType, walletValue: number) => {
-    setModalState({ open: true, walletType, walletValue });
+  const handleEditOpenModal = (walletType: WalletType, walletValue: number) => {
+    setEditModalState({ open: true, walletType, walletValue });
   };
 
-  const handleCloseModal = () => {
-    setModalState({ open: false, walletType: "", walletValue: 0 });
+  const handleEditCloseModal = () => {
+    setEditModalState({ open: false, walletType: "", walletValue: 0 });
   };
 
   const wallet: WalletItem[] = [
@@ -79,7 +81,7 @@ export const ProfileDrawer = ({ open, onClose }: ProfileDrawerProps) => {
                   )}
                   <IconButton
                     size="sm"
-                    onClick={() => handleOpenModal(item.type, item.value)}
+                    onClick={() => handleEditOpenModal(item.type, item.value)}
                     sx={{ p: 0, "--IconButton-size": "26px" }}
                   >
                     <MdOutlineEdit />
@@ -89,17 +91,20 @@ export const ProfileDrawer = ({ open, onClose }: ProfileDrawerProps) => {
             ))}
           </Flex>
           <Flex>
-            <Button color="danger">Delete Account</Button>
+            <Button color="danger" onClick={() => setDeleteModalState(true)}>
+              Delete Account
+            </Button>
           </Flex>
         </Flex>
       </Flex>
       <EditWalletModal
-        open={modalState.open}
-        onClose={handleCloseModal}
+        open={editModalState.open}
+        onClose={handleEditCloseModal}
         userId={userId}
-        walletType={modalState.walletType}
-        walletValue={modalState.walletValue}
+        walletType={editModalState.walletType}
+        walletValue={editModalState.walletValue}
       />
+      <DeleteUserModal open={deleteModalState} onClose={() => setDeleteModalState(false)} userId={userId} />
     </Drawer>
   );
 };
