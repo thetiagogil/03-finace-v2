@@ -12,7 +12,7 @@ type ProfileDrawerProps = {
   onClose: () => void;
 };
 
-type WalletType = "initial" | "current" | "";
+type WalletType = "initial" | "current" | "currency" | "";
 
 type ModalStateProps = {
   open: boolean;
@@ -22,7 +22,7 @@ type ModalStateProps = {
 
 type WalletItem = {
   type: WalletType;
-  value: number;
+  value: number | string | null;
   label: string;
 };
 
@@ -31,6 +31,7 @@ export const ProfileDrawer = ({ open, onClose }: ProfileDrawerProps) => {
   const { data: userData, loading: userLoading } = useGetUser({ userId });
   const initialValue = userData.data?.wallet_initial_value ?? 0;
   const currentValue = userData.data?.wallet_current_value ?? 0;
+  const currency = userData.data?.currency ?? null;
   const [editModalState, setEditModalState] = useState<ModalStateProps>({
     open: false,
     walletType: "initial",
@@ -48,7 +49,8 @@ export const ProfileDrawer = ({ open, onClose }: ProfileDrawerProps) => {
 
   const wallet: WalletItem[] = [
     { type: "initial", value: initialValue, label: "Initial value" },
-    { type: "current", value: currentValue, label: "Current value" }
+    { type: "current", value: currentValue, label: "Current value" },
+    { type: "currency", value: currency, label: "Currency" }
   ];
 
   return (
@@ -81,7 +83,10 @@ export const ProfileDrawer = ({ open, onClose }: ProfileDrawerProps) => {
                   )}
                   <IconButton
                     size="sm"
-                    onClick={() => handleEditOpenModal(item.type, item.value)}
+                    onClick={() => {
+                      const value = item.value !== null && typeof item.value === "number" ? item.value : 0; // MAKE THIS MORE READABLE
+                      handleEditOpenModal(item.type, value);
+                    }}
                     sx={{ p: 0, "--IconButton-size": "26px" }}
                   >
                     <MdOutlineEdit />

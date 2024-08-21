@@ -3,4 +3,5 @@ export interface UserModel {
   lastname?: string;
   wallet_current_value?: number | null;
   wallet_initial_value?: number | null;
+  currency?: "€" | "$" | null;
 }

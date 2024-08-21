@@ -7,7 +7,7 @@ type EditWalletModalProps = {
   open: boolean;
   onClose: () => void;
   userId?: string;
-  walletType: "initial" | "current" | "";
+  walletType: "initial" | "current" | "currency" | "";
   walletValue: number;
 };
 
