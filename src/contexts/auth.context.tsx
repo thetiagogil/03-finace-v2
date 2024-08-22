@@ -81,7 +81,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     try {
       const response = await DataService.postData("/auth/login", payload);
       if (response.error) {
-        console.error("Login error:", response.error);
+        throw new Error(response.error);
       } else if (response.data) {
         const token = response.data.session.access_token;
         window.localStorage.setItem("authToken", token);

@@ -1,6 +1,6 @@
 import { Box, Button, IconButton, Input, Link, Typography } from "@mui/joy";
 import { useEffect, useState } from "react";
-import { MdKeyboardArrowLeft } from "react-icons/md";
+import { MdInfoOutline, MdKeyboardArrowLeft } from "react-icons/md";
 import { Link as ReactLink } from "react-router-dom";
 import { Flex } from "./flex";
 
@@ -23,9 +23,10 @@ type FormAuthProps = {
   form: Form;
   handleSubmit: (e: React.FormEvent) => void;
   loadingSubmit: boolean;
+  loginError?: string;
 };
 
-export const FormAuth = ({ signup, login, form, handleSubmit, loadingSubmit }: FormAuthProps) => {
+export const FormAuth = ({ signup, login, form, handleSubmit, loadingSubmit, loginError }: FormAuthProps) => {
   const {
     firstname,
     lastname,
@@ -49,6 +50,8 @@ export const FormAuth = ({ signup, login, form, handleSubmit, loadingSubmit }: F
 
     setIsFormValid(!!isValid);
   }, [signup, firstname, lastname, email, password, passwordConfirmation]);
+
+  const inputErrorStyles = loginError ? { borderColor: "red" } : {};
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ width: { xs: "90%", sm: 400 } }}>
@@ -78,8 +81,14 @@ export const FormAuth = ({ signup, login, form, handleSubmit, loadingSubmit }: F
           </Flex>
         )}
         <Flex y gap2>
-          <Input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-          <Input placeholder="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+          <Input placeholder="Email" sx={inputErrorStyles} value={email} onChange={e => setEmail(e.target.value)} />
+          <Input
+            placeholder="Password"
+            type="password"
+            sx={inputErrorStyles}
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
           {signup && (
             <Input
               placeholder="Password Confirmation"
@@ -87,6 +96,11 @@ export const FormAuth = ({ signup, login, form, handleSubmit, loadingSubmit }: F
               value={passwordConfirmation}
               onChange={e => setPasswordConfirmation?.(e.target.value)}
             />
+          )}
+          {loginError && (
+            <Typography color="danger" level="body-sm" startDecorator={<MdInfoOutline size={15} />}>
+              {loginError}
+            </Typography>
           )}
         </Flex>
         <Button type="submit" disabled={!isFormValid} loading={loadingSubmit}>
