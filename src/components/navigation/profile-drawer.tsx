@@ -3,8 +3,10 @@ import { useContext, useState } from "react";
 import { MdOutlineEdit } from "react-icons/md";
 import { useGetUser } from "../../api/users-api";
 import { AuthContext } from "../../contexts/auth.context";
+import { currencies } from "../arrays/currency-array";
 import { DeleteUserModal } from "../modals/delete-user-modal";
-import { EditWalletModal } from "../modals/edit-wallet-modal";
+import { EditWalletBalanceModal } from "../modals/edit-wallet-balance-modal";
+import { EditWalletCurrencyModal } from "../modals/edit-wallet-currency-modal";
 import { Flex } from "../shared/flex";
 
 type ProfileDrawerProps = {
@@ -12,45 +14,52 @@ type ProfileDrawerProps = {
   onClose: () => void;
 };
 
-type WalletType = "initial" | "current" | "currency" | "";
+type WalletType = "initial" | "current" | "currency";
 
 type ModalStateProps = {
   open: boolean;
-  walletType: WalletType;
-  walletValue: number;
+  type: WalletType;
+  value: number | string;
 };
 
 type WalletItem = {
   type: WalletType;
-  value: number | string | null;
+  value: number | string;
   label: string;
 };
 
 export const ProfileDrawer = ({ open, onClose }: ProfileDrawerProps) => {
   const { userId } = useContext(AuthContext);
   const { data: userData, loading: userLoading } = useGetUser({ userId });
-  const initialValue = userData.data?.wallet_initial_value ?? 0;
-  const currentValue = userData.data?.wallet_current_value ?? 0;
-  const currency = userData.data?.currency ?? null;
-  const [editModalState, setEditModalState] = useState<ModalStateProps>({
+  const initialBalance = userData.data?.wallet_initial_balance ?? 0;
+  const currentBalance = userData.data?.wallet_current_balance ?? 0;
+  const currencyCode = userData.data?.wallet_currency ?? "EUR";
+  const currencySymbol = currencies.find(c => c.code === currencyCode)?.symbol || currencyCode;
+
+  const [editWalletBalanceModalState, setEditWalletBalanceModalState] = useState<ModalStateProps>({
     open: false,
-    walletType: "initial",
-    walletValue: 0
+    type: "initial",
+    value: 0
   });
-  const [deleteModalState, setDeleteModalState] = useState(false);
+  const [editWalletCurrencyModalState, setEditWalletCurrencyModalState] = useState<ModalStateProps>({
+    open: false,
+    type: "currency",
+    value: currencyCode
+  });
+  const [deleteUserModalState, setDeleteUserModalState] = useState(false);
 
-  const handleEditOpenModal = (walletType: WalletType, walletValue: number) => {
-    setEditModalState({ open: true, walletType, walletValue });
-  };
-
-  const handleEditCloseModal = () => {
-    setEditModalState({ open: false, walletType: "", walletValue: 0 });
+  const handleEditModal = ({ open = false, type, value }: ModalStateProps) => {
+    if (type === "currency") {
+      setEditWalletCurrencyModalState({ open: open === true, type, value: value as string });
+    } else {
+      setEditWalletBalanceModalState({ open: open === true, type, value: value as number });
+    }
   };
 
   const wallet: WalletItem[] = [
-    { type: "initial", value: initialValue, label: "Initial value" },
-    { type: "current", value: currentValue, label: "Current value" },
-    { type: "currency", value: currency, label: "Currency" }
+    { type: "initial", value: initialBalance, label: "Initial balance" },
+    { type: "current", value: currentBalance, label: "Current balance" },
+    { type: "currency", value: `${currencyCode} (${currencySymbol})`, label: "Currency" }
   ];
 
   return (
@@ -83,10 +92,7 @@ export const ProfileDrawer = ({ open, onClose }: ProfileDrawerProps) => {
                   )}
                   <IconButton
                     size="sm"
-                    onClick={() => {
-                      const value = item.value !== null && typeof item.value === "number" ? item.value : 0; // MAKE THIS MORE READABLE
-                      handleEditOpenModal(item.type, value);
-                    }}
+                    onClick={() => handleEditModal({ open: true, type: item.type, value: item.value ?? "" })}
                     sx={{ p: 0, "--IconButton-size": "26px" }}
                   >
                     <MdOutlineEdit />
@@ -96,20 +102,26 @@ export const ProfileDrawer = ({ open, onClose }: ProfileDrawerProps) => {
             ))}
           </Flex>
           <Flex>
-            <Button color="danger" onClick={() => setDeleteModalState(true)}>
+            <Button color="danger" onClick={() => setDeleteUserModalState(true)}>
               Delete Account
             </Button>
           </Flex>
         </Flex>
       </Flex>
-      <EditWalletModal
-        open={editModalState.open}
-        onClose={handleEditCloseModal}
+      <EditWalletBalanceModal
+        open={editWalletBalanceModalState.open}
+        onClose={() => handleEditModal({ open: false, type: editWalletBalanceModalState.type, value: 0 })}
         userId={userId}
-        walletType={editModalState.walletType}
-        walletValue={editModalState.walletValue}
+        walletType={editWalletBalanceModalState.type as "initial" | "current"}
+        walletValue={editWalletBalanceModalState.value as number}
       />
-      <DeleteUserModal open={deleteModalState} onClose={() => setDeleteModalState(false)} userId={userId} />
+      <EditWalletCurrencyModal
+        open={editWalletCurrencyModalState.open}
+        onClose={() => handleEditModal({ open: false, type: "currency", value: "" })}
+        userId={userId}
+        walletValue={editWalletCurrencyModalState.value as string}
+      />
+      <DeleteUserModal open={deleteUserModalState} onClose={() => setDeleteUserModalState(false)} userId={userId} />
     </Drawer>
   );
 };

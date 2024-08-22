@@ -7,15 +7,15 @@ type EditWalletModalProps = {
   open: boolean;
   onClose: () => void;
   userId?: string;
-  walletType: "initial" | "current" | "currency" | "";
+  walletType: "initial" | "current" | "currency";
   walletValue: number;
 };
 
-export const EditWalletModal = ({ open, onClose, userId, walletType, walletValue }: EditWalletModalProps) => {
+export const EditWalletBalanceModal = ({ open, onClose, userId, walletType, walletValue }: EditWalletModalProps) => {
   const [value, setValue] = useState<number>(walletValue);
-  const { updateUserWallet, loading } = useUpdateUserWallet({
+  const { updateUserWallet, loading: updating } = useUpdateUserWallet({
     userId,
-    payload: walletType === "initial" ? { wallet_initial_value: value } : { wallet_current_value: value }
+    payload: walletType === "initial" ? { wallet_initial_balance: value } : { wallet_current_balance: value }
   });
 
   useEffect(() => {
@@ -38,8 +38,14 @@ export const EditWalletModal = ({ open, onClose, userId, walletType, walletValue
           <Typography>Edit {walletType} value.</Typography>
         </Flex>
         <Flex x gap1>
-          <Input type="number" value={value || ""} onChange={e => setValue(Number(e.target.value))} fullWidth />
-          <Button onClick={handleSaveChanges} loading={loading}>
+          <Input
+            type="number"
+            placeholder={String(walletValue)}
+            value={value || ""}
+            onChange={e => setValue(Number(e.target.value))}
+            fullWidth
+          />
+          <Button onClick={handleSaveChanges} loading={updating}>
             Save
           </Button>
         </Flex>

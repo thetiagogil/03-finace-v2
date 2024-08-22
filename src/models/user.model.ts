@@ -1,7 +1,7 @@
 export interface UserModel {
   firstname?: string;
   lastname?: string;
-  wallet_current_value?: number | null;
-  wallet_initial_value?: number | null;
-  currency?: "€" | "$" | null;
+  wallet_current_balance?: number | null;
+  wallet_initial_balance?: number | null;
+  wallet_currency?: string | null;
 }

@@ -52,7 +52,7 @@ export const OverviewInfo = ({ data, years, selectedYear, setSelectedYear }: Yea
                 <Flex>
                   <Select
                     value={selectedYear}
-                    onChange={(_e: any, newValue: any) => setSelectedYear(newValue)}
+                    onChange={(_e, newValue) => setSelectedYear(newValue as number)}
                     indicator={<IoIosArrowDown />}
                     sx={styleSelect}
                   >
