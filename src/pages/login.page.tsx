@@ -7,14 +7,18 @@ export const LoginPage = () => {
   const { handleLogin } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setLoadingSubmit(true);
     const payload = { email, password };
     try {
       await handleLogin(payload);
     } catch (error) {
       throw error;
+    } finally {
+      setLoadingSubmit(false);
     }
   };
 
@@ -27,7 +31,7 @@ export const LoginPage = () => {
 
   return (
     <FormPageContainer>
-      <FormAuth login form={form} handleSubmit={handleSubmit} />
+      <FormAuth login form={form} handleSubmit={handleSubmit} loadingSubmit={loadingSubmit} />
     </FormPageContainer>
   );
 };

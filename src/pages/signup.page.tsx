@@ -10,14 +10,18 @@ export const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setLoadingSubmit(true);
     const payload = { firstname, lastname, email, password };
     try {
       await handleSignup(payload);
     } catch (error) {
       throw error;
+    } finally {
+      setLoadingSubmit(false);
     }
   };
 
@@ -36,7 +40,7 @@ export const SignupPage = () => {
 
   return (
     <FormPageContainer>
-      <FormAuth signup form={form} handleSubmit={handleSubmit} />
+      <FormAuth signup form={form} handleSubmit={handleSubmit} loadingSubmit={loadingSubmit} />
     </FormPageContainer>
   );
 };

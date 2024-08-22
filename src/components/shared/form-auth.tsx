@@ -22,9 +22,10 @@ type FormAuthProps = {
   login?: boolean;
   form: Form;
   handleSubmit: (e: React.FormEvent) => void;
+  loadingSubmit: boolean;
 };
 
-export const FormAuth = ({ signup, login, form, handleSubmit }: FormAuthProps) => {
+export const FormAuth = ({ signup, login, form, handleSubmit, loadingSubmit }: FormAuthProps) => {
   const {
     firstname,
     lastname,
@@ -88,7 +89,7 @@ export const FormAuth = ({ signup, login, form, handleSubmit }: FormAuthProps) =
             />
           )}
         </Flex>
-        <Button type="submit" disabled={!isFormValid}>
+        <Button type="submit" disabled={!isFormValid} loading={loadingSubmit}>
           {signup && "Sign Up"}
           {login && "Log In"}
         </Button>
