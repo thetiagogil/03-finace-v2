@@ -12,7 +12,35 @@ type DashboardTablesProps = {
   data: { incomes: {}; expenses: {} };
 };
 
-const TypesTable = ({ type, data }: TypesTableProps) => {
+export const DashboardTables = ({ data }: DashboardTablesProps) => {
+  const hasData =
+    (data?.incomes && Object.keys(data?.incomes).length > 0) ||
+    (data?.expenses && Object.keys(data?.expenses).length > 0);
+  const hasIncomes = data?.incomes && Object.keys(data?.incomes).length > 0;
+  const hasExpenses = data?.expenses && Object.keys(data?.expenses).length > 0;
+  return (
+    <>
+      {hasData && (
+        <DataCard sx={{ gap: 4 }}>
+          <Stack
+            component="section"
+            sx={{
+              alignItems: { xs: "normal", md: "center" },
+              overflowX: { xs: "auto", md: "visible" },
+              width: "100%",
+              gap: 4
+            }}
+          >
+            {hasIncomes && <DashboardTypesTable type="income" data={data?.incomes} />}
+            {hasExpenses && <DashboardTypesTable type="expense" data={data?.expenses} />}
+          </Stack>
+        </DataCard>
+      )}
+    </>
+  );
+};
+
+const DashboardTypesTable = ({ type, data }: TypesTableProps) => {
   const notzero = (value: number) => {
     return value > 0 ? true : false;
   };
@@ -75,26 +103,5 @@ const TypesTable = ({ type, data }: TypesTableProps) => {
         })}
       </tbody>
     </Table>
-  );
-};
-
-export const DashboardTables = ({ data }: DashboardTablesProps) => {
-  return (
-    <DataCard sx={{ gap: 4 }}>
-      <Stack
-        component="section"
-        sx={{
-          alignItems: { xs: "normal", md: "center" },
-          overflowX: { xs: "auto", md: "visible" },
-          width: "100%",
-          gap: 4
-        }}
-      >
-        {data?.incomes && Object.keys(data?.incomes).length > 0 && <TypesTable type="income" data={data?.incomes} />}
-        {data?.expenses && Object.keys(data?.expenses).length > 0 && (
-          <TypesTable type="expense" data={data?.expenses} />
-        )}
-      </Stack>
-    </DataCard>
   );
 };

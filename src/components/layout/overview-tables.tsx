@@ -14,10 +14,19 @@ type YearsTypesTableProps = {
 };
 
 export const OverviewTables = ({ data }: YearsTablesProps) => {
+  const hasData =
+    (data?.incomes && Object.keys(data?.incomes).length > 0) ||
+    (data?.expenses && Object.keys(data?.expenses).length > 0);
+  const hasIncomes = data?.incomes && Object.keys(data?.incomes).length > 0;
+  const hasExpenses = data?.expenses && Object.keys(data?.expenses).length > 0;
   return (
     <>
-      <OverviewTypesTable title="Incomes" data={data.incomes} />
-      <OverviewTypesTable title="Expenses" data={data.expenses} />
+      {hasData && (
+        <>
+          {hasIncomes && <OverviewTypesTable title="Incomes" data={data?.incomes} />}
+          {hasExpenses && <OverviewTypesTable title="Expenses" data={data?.expenses} />}
+        </>
+      )}
     </>
   );
 };

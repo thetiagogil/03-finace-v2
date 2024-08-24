@@ -19,6 +19,13 @@ type DashboardGraphProps = {
 };
 
 export const DashboardGraph = ({ graphData, selectedMonth }: DashboardGraphProps) => {
+  const hasData = graphData.some(
+    item =>
+      item.totalIncomesTracked > 0 ||
+      item.totalExpensesTracked > 0 ||
+      item.totalIncomesPlanned > 0 ||
+      item.totalExpensesPlanned > 0
+  );
   const getColors = (isSelected: boolean) => {
     return isSelected
       ? {
@@ -34,9 +41,7 @@ export const DashboardGraph = ({ graphData, selectedMonth }: DashboardGraphProps
           expensesPlanned: "#50146433"
         };
   };
-
   const isMonthSelected = (month: string) => selectedMonth === month;
-
   const getBackgroundColor = (
     dataType: "incomesTracked" | "incomesPlanned" | "expensesTracked" | "expensesPlanned"
   ) => {
@@ -45,7 +50,6 @@ export const DashboardGraph = ({ graphData, selectedMonth }: DashboardGraphProps
       return colors[dataType];
     });
   };
-
   const data = {
     labels: graphData.map(item => capFirstLetter(item.month)),
     datasets: [
@@ -71,7 +75,6 @@ export const DashboardGraph = ({ graphData, selectedMonth }: DashboardGraphProps
       }
     ]
   };
-
   const options = {
     maintainAspectRatio: true,
     responsive: true,
@@ -99,34 +102,35 @@ export const DashboardGraph = ({ graphData, selectedMonth }: DashboardGraphProps
       }
     }
   };
-
   const styleBox = { height: 12, width: 12, borderRadius: 4 };
-
   const legendItems = [
     { label: "Incomes Tracked", color: getColors(true).incomesTracked },
     { label: "Incomes Planned", color: getColors(true).incomesPlanned },
     { label: "Expenses Tracked", color: getColors(true).expensesTracked },
     { label: "Expenses Planned", color: getColors(true).expensesPlanned }
   ];
-
   return (
-    <DataCard>
-      <Flex y xc gap2 fullheight fullwidth>
-        <Typography level="title-sm">Yearly Totals</Typography>
-        <Flex sx={{ width: { xs: "100%", md: 520 } }}>
-          <Bar data={data} options={options} />
-        </Flex>
-        <Flex x xc gap1 wrap>
-          {legendItems.map(item => (
-            <Flex key={item.label} x yc gap1>
-              <Box sx={{ ...styleBox, bgcolor: item.color }} />
-              <Typography level="body-xs" sx={{ fontWeight: 400 }}>
-                {item.label}
-              </Typography>
+    <>
+      {hasData && (
+        <DataCard>
+          <Flex y xc gap2 fullheight fullwidth>
+            <Typography level="title-sm">Yearly Totals</Typography>
+            <Flex sx={{ width: { xs: "100%", md: 520 } }}>
+              <Bar data={data} options={options} />
             </Flex>
-          ))}
-        </Flex>
-      </Flex>
-    </DataCard>
+            <Flex x xc gap1 wrap>
+              {legendItems.map(item => (
+                <Flex key={item.label} x yc gap1>
+                  <Box sx={{ ...styleBox, bgcolor: item.color }} />
+                  <Typography level="body-xs" sx={{ fontWeight: 400 }}>
+                    {item.label}
+                  </Typography>
+                </Flex>
+              ))}
+            </Flex>
+          </Flex>
+        </DataCard>
+      )}
+    </>
   );
 };

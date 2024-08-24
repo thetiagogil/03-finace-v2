@@ -43,7 +43,6 @@ export const DashboardPage = () => {
   const isMonthDisabled = (shortMonth: string) => {
     return !monthsWithValue?.includes(shortMonth);
   };
-
   return (
     <AuthPageContainer>
       {isLoading ? (
@@ -58,25 +57,20 @@ export const DashboardPage = () => {
             }}
           >
             <Typography level="h3">Welcome back, {userData.data?.firstname}!</Typography>
-            {years && years.length > 0 && (
-              <DashboardFilters
-                years={years}
-                selectedYear={selectedYear}
-                setSelectedYear={setSelectedYear}
-                selectedMonth={selectedMonth}
-                setSelectedMonth={setSelectedMonth}
-                isMonthDisabled={isMonthDisabled}
-              />
-            )}
+            <DashboardFilters
+              years={years}
+              selectedYear={selectedYear}
+              setSelectedYear={setSelectedYear}
+              selectedMonth={selectedMonth}
+              setSelectedMonth={setSelectedMonth}
+              isMonthDisabled={isMonthDisabled}
+            />
           </DataCard>
           <Flex x fullwidth sx={{ flexDirection: { xs: "column-reverse", md: "row" } }}>
-            {graphData && graphData.length > 0 && (
-              <DashboardGraph graphData={graphData} selectedMonth={selectedMonth} />
-            )}
-            {chartData && Object.keys(chartData || {}).length > 0 && <DashboardCharts data={chartData} />}
+            <DashboardGraph graphData={graphData} selectedMonth={selectedMonth} />
+            <DashboardCharts data={chartData} />
           </Flex>
-
-          {tableData && Object.keys(tableData || {}).length > 0 && <DashboardTables data={tableData} />}
+          <DashboardTables data={tableData} />
         </>
       )}
     </AuthPageContainer>

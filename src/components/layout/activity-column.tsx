@@ -5,15 +5,14 @@ import { TxModel } from "../../models/tx.model";
 import { AddTxModal } from "../modals/add-tx-modal";
 import { DataCard } from "../shared/data-card";
 import { Flex } from "../shared/flex";
-import { Loading } from "../shared/loading";
 import { ActivityItemCard } from "./activity-item-card";
 
 type ActivityTableProps = {
   transactions: TxModel[];
-  transactionsLoading: boolean;
 };
 
-export const ActivityColumn = ({ transactions, transactionsLoading }: ActivityTableProps) => {
+export const ActivityColumn = ({ transactions }: ActivityTableProps) => {
+  const hasData = transactions && transactions.length > 0;
   const { deleteTxById, loading: deleting } = useDeleteTxById();
   const [editTxModal, setEditTxModal] = useState(false);
   const [currentTx, setCurrentTx] = useState<TxModel | null>(null);
@@ -40,15 +39,7 @@ export const ActivityColumn = ({ transactions, transactionsLoading }: ActivityTa
 
   return (
     <>
-      {transactionsLoading ? (
-        <Loading />
-      ) : Object.keys(groupedTransactions).length === 0 ? (
-        <Flex x xc>
-          <Typography level="body-sm">
-            <i>No data</i>
-          </Typography>
-        </Flex>
-      ) : (
+      {hasData && (
         <DataCard>
           <Flex y fullwidth gap3>
             {Object.entries(groupedTransactions).map(([date, transactionsArray]) => (

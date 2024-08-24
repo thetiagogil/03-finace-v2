@@ -12,6 +12,7 @@ interface YearsGraphProps {
 }
 
 export const OverviewGraph = ({ data }: YearsGraphProps) => {
+  const hasData = data.some(item => item.total > 0);
   const chartData = {
     labels: data.map(item => capFirstLetter(item.month)),
     datasets: [
@@ -52,13 +53,17 @@ export const OverviewGraph = ({ data }: YearsGraphProps) => {
   };
 
   return (
-    <DataCard>
-      <Flex y xc gap2 fullheight fullwidth>
-        <Typography level="title-sm">Months Totals</Typography>
-        <Flex sx={{ width: { xs: "100%", md: 520 } }}>
-          <Line data={chartData} options={options} />
-        </Flex>
-      </Flex>
-    </DataCard>
+    <>
+      {hasData && (
+        <DataCard>
+          <Flex y xc gap2 fullheight fullwidth>
+            <Typography level="title-sm">Months Totals</Typography>
+            <Flex sx={{ width: { xs: "100%", md: 520 } }}>
+              <Line data={chartData} options={options} />
+            </Flex>
+          </Flex>
+        </DataCard>
+      )}
+    </>
   );
 };

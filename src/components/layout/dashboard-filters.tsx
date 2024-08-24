@@ -21,6 +21,7 @@ export const DashboardFilters = ({
   setSelectedMonth,
   isMonthDisabled
 }: DashboardFiltersProps) => {
+  const hasData = years && years.length > 0;
   const styleSelect = {
     width: { xs: "100%", sm: 128 },
     [`& .${selectClasses.indicator}`]: {
@@ -32,34 +33,38 @@ export const DashboardFilters = ({
   };
 
   return (
-    <Flex gap2 sx={{ width: { xs: "100%", sm: "auto" } }}>
-      <Select
-        value={selectedYear}
-        onChange={(_e: any, newValue: any) => setSelectedYear(newValue)}
-        placeholder="Select Year"
-        indicator={<IoIosArrowDown />}
-        sx={styleSelect}
-      >
-        {years?.map((year, index) => (
-          <Option key={index} value={year}>
-            {year}
-          </Option>
-        ))}
-      </Select>
-      <Select
-        value={selectedMonth}
-        onChange={(_e: any, newValue: any) => setSelectedMonth(newValue)}
-        placeholder="Select Month"
-        indicator={<IoIosArrowDown />}
-        sx={styleSelect}
-      >
-        <Option value="">All Year</Option>
-        {shortMonths.map((shortMonth, index) => (
-          <Option key={index} value={shortMonth} disabled={isMonthDisabled(shortMonth)}>
-            {capFirstLetter(fullMonths[index])}
-          </Option>
-        ))}
-      </Select>
-    </Flex>
+    <>
+      {hasData && (
+        <Flex gap2 sx={{ width: { xs: "100%", sm: "auto" } }}>
+          <Select
+            value={selectedYear}
+            onChange={(_e: any, newValue: any) => setSelectedYear(newValue)}
+            placeholder="Select Year"
+            indicator={<IoIosArrowDown />}
+            sx={styleSelect}
+          >
+            {years?.map((year, index) => (
+              <Option key={index} value={year}>
+                {year}
+              </Option>
+            ))}
+          </Select>
+          <Select
+            value={selectedMonth}
+            onChange={(_e: any, newValue: any) => setSelectedMonth(newValue)}
+            placeholder="Select Month"
+            indicator={<IoIosArrowDown />}
+            sx={styleSelect}
+          >
+            <Option value="">All Year</Option>
+            {shortMonths.map((shortMonth, index) => (
+              <Option key={index} value={shortMonth} disabled={isMonthDisabled(shortMonth)}>
+                {capFirstLetter(fullMonths[index])}
+              </Option>
+            ))}
+          </Select>
+        </Flex>
+      )}
+    </>
   );
 };

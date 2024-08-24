@@ -7,15 +7,21 @@ type DashboardChartsProps = {
 };
 
 export const DashboardCharts = ({ data }: DashboardChartsProps) => {
+  const hasIncomes = data?.incomes && Object.keys(data?.incomes).length > 0;
+  const hasExpenses = data?.expenses && Object.keys(data?.expenses).length > 0;
   const styleCard = { width: { md: "100%" }, alignItems: "center" };
   return (
     <Flex fullwidth sx={{ flexDirection: { xs: "column", md: "row" } }}>
-      <DataCard sx={styleCard}>
-        {data?.incomes && <ChartDoughnut data={data?.incomes} title="Tracked Incomes" />}
-      </DataCard>
-      <DataCard sx={styleCard}>
-        {data?.expenses && <ChartDoughnut data={data?.expenses} title="Tracked Expenses" />}
-      </DataCard>
+      {hasIncomes && (
+        <DataCard sx={styleCard}>
+          <ChartDoughnut data={data?.incomes} title="Tracked Incomes" />
+        </DataCard>
+      )}
+      {hasExpenses && (
+        <DataCard sx={styleCard}>
+          <ChartDoughnut data={data?.expenses} title="Tracked Expenses" />
+        </DataCard>
+      )}
     </Flex>
   );
 };
