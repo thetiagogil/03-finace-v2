@@ -24,6 +24,7 @@ export const SidebarContent = ({ textColor }: Props) => {
               <ListItem key={index}>
                 <Link
                   component={ReactLink}
+                  color="neutral"
                   underline="none"
                   to={link.path}
                   startDecorator={link.icons && (selected ? link.icons?.iconSelected : link.icons?.icon)}
