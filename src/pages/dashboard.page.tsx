@@ -1,4 +1,3 @@
-import { Typography } from "@mui/joy";
 import { useContext, useState } from "react";
 import { useGetUser } from "../api/users-api";
 import {
@@ -13,7 +12,6 @@ import { DashboardFilters } from "../components/layout/dashboard-filters";
 import { DashboardGraph } from "../components/layout/dashboard-graph";
 import { DashboardTables } from "../components/layout/dashboard-tables";
 import { AuthPageContainer } from "../components/shared/containers";
-import { DataCard } from "../components/shared/data-card";
 import { Flex } from "../components/shared/flex";
 import { Loading } from "../components/shared/loading";
 import { AuthContext } from "../contexts/auth.context";
@@ -49,23 +47,15 @@ export const DashboardPage = () => {
         <Loading size="md" />
       ) : (
         <>
-          <DataCard
-            sx={{
-              flexDirection: { xs: "column", sm: "row" },
-              justifyContent: "space-between",
-              alignItems: "center"
-            }}
-          >
-            <Typography level="h3">Welcome back, {userData.data?.firstname}!</Typography>
-            <DashboardFilters
-              years={years}
-              selectedYear={selectedYear}
-              setSelectedYear={setSelectedYear}
-              selectedMonth={selectedMonth}
-              setSelectedMonth={setSelectedMonth}
-              isMonthDisabled={isMonthDisabled}
-            />
-          </DataCard>
+          <DashboardFilters
+            userData={userData}
+            years={years}
+            selectedYear={selectedYear}
+            setSelectedYear={setSelectedYear}
+            selectedMonth={selectedMonth}
+            setSelectedMonth={setSelectedMonth}
+            isMonthDisabled={isMonthDisabled}
+          />
           <Flex x fullwidth sx={{ flexDirection: { xs: "column-reverse", md: "row" } }}>
             <DashboardGraph graphData={graphData} selectedMonth={selectedMonth} />
             <DashboardCharts data={chartData} />
