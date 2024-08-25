@@ -9,7 +9,7 @@ import { OverviewPage } from "../pages/overview.page";
 import { SignupPage } from "../pages/signup.page";
 
 export const App = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, hasData } = useContext(AuthContext);
   return (
     <>
       {!isAuthenticated ? (
@@ -19,12 +19,17 @@ export const App = () => {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-      ) : (
+      ) : hasData ? (
         <Routes>
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/overview" element={<OverviewPage />} />
           <Route path="/activity" element={<ActivityPage />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
+        </Routes>
+      ) : (
+        <Routes>
+          <Route path="/activity" element={<ActivityPage />} />
+          <Route path="*" element={<Navigate to="/activity" />} />
         </Routes>
       )}
     </>

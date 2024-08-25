@@ -7,6 +7,32 @@ type UseGetTxByStatusProps = {
   status: "tracked" | "planned";
 };
 
+export const useHasTx = (userId: string) => {
+  const [hasData, setHasData] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const hasTx = async () => {
+    setLoading(true);
+    try {
+      const response = await DataService.getData(`/api/tx/has-data/${userId}`);
+      setHasData(response);
+    } catch (error) {
+      console.error(error);
+      setHasData(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (userId) {
+      hasTx();
+    }
+  }, [userId]);
+
+  return { hasData, loading };
+};
+
 export const useCreateTx = () => {
   const [loading, setLoading] = useState(false);
 
