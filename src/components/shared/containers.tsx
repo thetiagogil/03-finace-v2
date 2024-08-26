@@ -1,14 +1,11 @@
-import { SxProps } from "@mui/joy/styles/types";
 import { ReactNode } from "react";
-import { MAIN_WIDTH } from "../../utils/constants";
+import { MAIN_WIDTH, SIDEBAR_WIDTH } from "../../utils/constants";
 import { Navbar } from "../navigation/navbar";
 import { SidebarDesktop } from "../navigation/sidebar-desktop";
 import { Flex } from "../shared/flex";
 
 type Props = {
   children?: ReactNode;
-  sx?: SxProps;
-  hasTabs?: boolean;
 };
 
 export const HomePageContainer = ({ children }: Props) => {
@@ -29,11 +26,22 @@ export const FormPageContainer = ({ children }: Props) => {
 
 export const AuthPageContainer = ({ children }: Props) => {
   return (
-    <Flex x xc fullwidth sx={{ minHeight: "100vh" }}>
+    <Flex x xc fullwidth fullheight sx={{ minHeight: "100vh" }}>
       <SidebarDesktop />
-      <Flex y xc fullwidth sx={{ bgcolor: "neutral.100" }}>
+      <Flex
+        y
+        xc
+        fullwidth
+        fullheight
+        sx={{
+          flex: 1,
+          bgcolor: "neutral.100",
+          minHeight: "100vh",
+          pl: { lg: `${SIDEBAR_WIDTH}px` }
+        }}
+      >
         <Navbar />
-        <Flex y sx={{ height: "100%", width: { xs: "100%", lg: MAIN_WIDTH }, p: 1 }}>
+        <Flex y sx={{ flex: 1, width: { xs: "100%", lg: MAIN_WIDTH } }}>
           {children}
         </Flex>
       </Flex>

@@ -2,7 +2,7 @@ import { BiSolidSpreadsheet, BiSpreadsheet } from "react-icons/bi";
 import { MdOutlineSpaceDashboard, MdSpaceDashboard } from "react-icons/md";
 import { PiCalendarCheck, PiCalendarCheckFill } from "react-icons/pi";
 
-const iconSize = 25;
+const iconSize = 20;
 
 export const linksArray = [
   {

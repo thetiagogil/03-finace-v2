@@ -40,6 +40,7 @@ export const DashboardFilters = ({
     <>
       {hasData && (
         <DataCard
+          width={"100%"}
           sx={{
             flexDirection: { xs: "column", sm: "row" },
             justifyContent: "space-between",

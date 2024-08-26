@@ -47,16 +47,18 @@ export const DashboardPage = () => {
         <Loading size="md" />
       ) : (
         <>
-          <DashboardFilters
-            userData={userData}
-            years={years}
-            selectedYear={selectedYear}
-            setSelectedYear={setSelectedYear}
-            selectedMonth={selectedMonth}
-            setSelectedMonth={setSelectedMonth}
-            isMonthDisabled={isMonthDisabled}
-          />
-          <Flex x fullwidth sx={{ flexDirection: { xs: "column-reverse", md: "row" } }}>
+          <Flex fullwidth>
+            <DashboardFilters
+              userData={userData}
+              years={years}
+              selectedYear={selectedYear}
+              setSelectedYear={setSelectedYear}
+              selectedMonth={selectedMonth}
+              setSelectedMonth={setSelectedMonth}
+              isMonthDisabled={isMonthDisabled}
+            />
+          </Flex>
+          <Flex fullwidth sx={{ flexDirection: { xs: "column-reverse", md: "row" } }}>
             <DashboardGraph graphData={graphData} selectedMonth={selectedMonth} />
             <DashboardCharts data={chartData} />
           </Flex>

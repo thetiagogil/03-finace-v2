@@ -1,4 +1,4 @@
-import { Box } from "@mui/joy";
+import { Box, Divider } from "@mui/joy";
 import { SIDEBAR_WIDTH } from "../../utils/constants";
 import { SidebarContent } from "../layout/sidebar-content";
 
@@ -7,12 +7,17 @@ export const SidebarDesktop = () => {
     <Box
       component="nav"
       sx={{
-        display: { xs: "none", lg: "block" },
-        bgcolor: "primary.800",
-        width: SIDEBAR_WIDTH
+        display: { xs: "none", lg: "flex" },
+        minWidth: SIDEBAR_WIDTH,
+        position: "fixed",
+        height: "100vh",
+        overflowY: "auto",
+        top: 0,
+        left: 0
       }}
     >
-      <SidebarContent textColor="neutral.50" />
+      <SidebarContent />
+      <Divider orientation="vertical" />
     </Box>
   );
 };
