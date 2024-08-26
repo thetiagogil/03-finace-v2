@@ -12,7 +12,7 @@ export const SidebarMobile = () => {
         <IoIosMenu size={30} />
       </IconButton>
       <Drawer open={open} onClose={() => setOpen(false)}>
-        <SidebarContent textColor="primary.800" />
+        <SidebarContent />
       </Drawer>
     </Flex>
   );
