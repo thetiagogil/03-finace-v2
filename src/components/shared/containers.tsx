@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { MAIN_WIDTH, SIDEBAR_WIDTH } from "../../utils/constants";
+import { MAIN_WIDTH, NAVBAR_HEIGHT } from "../../utils/constants";
 import { Navbar } from "../navigation/navbar";
 import { SidebarDesktop } from "../navigation/sidebar-desktop";
 import { Flex } from "../shared/flex";
@@ -26,23 +26,23 @@ export const FormPageContainer = ({ children }: Props) => {
 
 export const AuthPageContainer = ({ children }: Props) => {
   return (
-    <Flex x xc fullwidth fullheight sx={{ minHeight: "100vh" }}>
-      <SidebarDesktop />
-      <Flex
-        y
-        xc
-        fullwidth
-        fullheight
-        sx={{
-          flex: 1,
-          bgcolor: "neutral.100",
-          minHeight: "100vh",
-          pl: { lg: `${SIDEBAR_WIDTH}px` }
-        }}
-      >
-        <Navbar />
-        <Flex y sx={{ flex: 1, width: { xs: "100%", lg: MAIN_WIDTH } }}>
-          {children}
+    <Flex y fullwidth fullheight sx={{ bgcolor: "neutral.100", minHeight: "100vh", overflow: "hidden" }}>
+      <Navbar />
+      <Flex x fullwidth sx={{ height: `calc(100vh - ${NAVBAR_HEIGHT}px)`, overflowX: "hidden" }}>
+        <SidebarDesktop />
+        <Flex
+          x
+          xc
+          component="main"
+          sx={{
+            flex: 1,
+            overflowY: "auto",
+            height: "100%"
+          }}
+        >
+          <Flex y sx={{ height: "100%", width: { xs: "100%", lg: MAIN_WIDTH }, p: 1 }}>
+            {children}
+          </Flex>
         </Flex>
       </Flex>
     </Flex>

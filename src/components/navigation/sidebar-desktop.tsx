@@ -8,12 +8,7 @@ export const SidebarDesktop = () => {
       component="nav"
       sx={{
         display: { xs: "none", lg: "flex" },
-        minWidth: SIDEBAR_WIDTH,
-        position: "fixed",
-        height: "100vh",
-        overflowY: "auto",
-        top: 0,
-        left: 0
+        minWidth: SIDEBAR_WIDTH
       }}
     >
       <SidebarContent />

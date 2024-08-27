@@ -23,10 +23,10 @@ export const NavbarDropdown = () => {
   return (
     <>
       <Dropdown open={open} onOpenChange={(_event, isOpen) => handleOpenChange({ isOpen })}>
-        <MenuButton variant="plain" sx={{ py: 0, px: 1 }}>
+        <MenuButton variant="plain" sx={{ py: 0, px: 1, transition: "0.3s", "&:hover": { bgcolor: "primary.900" } }}>
           <Flex x xc yc>
-            <IoPersonCircle size={30} />
-            {!open ? <IoIosArrowDown /> : <IoIosArrowUp />}
+            <IoPersonCircle size={30} color="white" />
+            {!open ? <IoIosArrowDown color="white" /> : <IoIosArrowUp color="white" />}
           </Flex>
         </MenuButton>
         <Menu placement="bottom-end">
