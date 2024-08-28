@@ -1,6 +1,4 @@
-import { BiSolidSpreadsheet, BiSpreadsheet } from "react-icons/bi";
-import { MdOutlineSpaceDashboard, MdSpaceDashboard } from "react-icons/md";
-import { PiCalendarCheck, PiCalendarCheckFill } from "react-icons/pi";
+import { PiArrowsLeftRightThin, PiChartLineThin, PiLayoutThin } from "react-icons/pi";
 
 const iconSize = 20;
 
@@ -9,24 +7,24 @@ export const linksArray = [
     title: "Dashboard",
     path: "/dashboard",
     icons: {
-      icon: <MdOutlineSpaceDashboard size={iconSize} />,
-      iconSelected: <MdSpaceDashboard size={iconSize} />
+      icon: <PiLayoutThin size={iconSize} />,
+      iconSelected: <PiLayoutThin size={iconSize} />
     }
   },
   {
     title: "Overview",
     path: `/overview`,
     icons: {
-      icon: <PiCalendarCheck size={iconSize} />,
-      iconSelected: <PiCalendarCheckFill size={iconSize} />
+      icon: <PiChartLineThin size={iconSize} />,
+      iconSelected: <PiChartLineThin size={iconSize} />
     }
   },
   {
     title: "Activity",
     path: "/activity",
     icons: {
-      icon: <BiSpreadsheet size={iconSize} />,
-      iconSelected: <BiSolidSpreadsheet size={iconSize} />
+      icon: <PiArrowsLeftRightThin size={iconSize} />,
+      iconSelected: <PiArrowsLeftRightThin size={iconSize} />
     }
   }
 ];

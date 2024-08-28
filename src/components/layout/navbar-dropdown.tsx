@@ -1,8 +1,8 @@
 import { Dropdown, Menu, MenuButton, MenuItem, Typography } from "@mui/joy";
 import { useCallback, useContext, useState } from "react";
-import { FaSignOutAlt } from "react-icons/fa";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { IoPersonCircle, IoPersonSharp } from "react-icons/io5";
+import { IoPersonCircle } from "react-icons/io5";
+import { PiSignOutThin, PiUserThin } from "react-icons/pi";
 import { AuthContext } from "../../contexts/auth.context";
 import { ProfileDrawer } from "../navigation/profile-drawer";
 import { Flex } from "../shared/flex";
@@ -31,10 +31,10 @@ export const NavbarDropdown = () => {
         </MenuButton>
         <Menu placement="bottom-end">
           <MenuItem onClick={() => setOpenProfile(true)}>
-            <Typography startDecorator={<IoPersonSharp />}>Profile</Typography>
+            <Typography startDecorator={<PiUserThin />}>Profile</Typography>
           </MenuItem>
           <MenuItem onClick={handleLogout}>
-            <Typography color="danger" startDecorator={<FaSignOutAlt />}>
+            <Typography color="danger" startDecorator={<PiSignOutThin />}>
               Log Out
             </Typography>
           </MenuItem>
