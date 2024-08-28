@@ -23,6 +23,7 @@ export const SidebarContent = () => {
                   py: 1.5,
                   px: 4,
                   bgcolor: selected ? "neutral.300" : "transparent",
+                  transition: "0.3s",
                   "&:hover": { bgcolor: "neutral.200" }
                 }}
               >
