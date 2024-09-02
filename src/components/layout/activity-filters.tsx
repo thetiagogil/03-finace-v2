@@ -1,4 +1,4 @@
-import { Button, Select } from "@mui/joy";
+import { Button } from "@mui/joy";
 import { useState } from "react";
 import { AddTxModal } from "../modals/add-tx-modal";
 import { DataCard } from "../shared/data-card";
@@ -11,13 +11,12 @@ type ActivityFiltersProps = {
 
 export const ActivityFilters = ({ userId, status }: ActivityFiltersProps) => {
   const [addTxModal, setAddTxModal] = useState(false);
-  const stylesSelect = { width: { xs: "100%", sm: 200 } };
   return (
     <DataCard sx={{ flexDirection: { xs: "column-reverse", sm: "row" }, justifyContent: "space-between" }}>
-      <Flex gap2>
-        <Select placeholder="Mock Filter" sx={stylesSelect} />
-        <Select placeholder="Mock Filter" sx={stylesSelect} />
-      </Flex>
+      {/* <Flex gap2>
+        <Select placeholder="Mock Filter" />
+        <Select placeholder="Mock Filter" />
+      </Flex> */}
       <Flex>
         <Button onClick={() => setAddTxModal(true)} sx={{ width: { xs: "100%", sm: "auto" } }}>
           Add activity
